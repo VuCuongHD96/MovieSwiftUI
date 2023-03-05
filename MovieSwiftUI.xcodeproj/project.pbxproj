@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		965D2BC329B471F400791B3E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965D2BC229B471F400791B3E /* Category.swift */; };
-		965D2BC629B472BC00791B3E /* WalkThoughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965D2BC529B472BC00791B3E /* WalkThoughtView.swift */; };
-		965D2BC929B475E700791B3E /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965D2BC829B475E700791B3E /* Screen.swift */; };
-		965D2BCB29B4883F00791B3E /* ListWalkThoughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965D2BCA29B4883F00791B3E /* ListWalkThoughtView.swift */; };
-		96AE909729AA06AA009B0D9A /* HomeNowArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AE909629AA06AA009B0D9A /* HomeNowArrayView.swift */; };
+		96155B9E29B4E593003CDEFA /* WalkThoughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B9C29B4E593003CDEFA /* WalkThoughtView.swift */; };
+		96155B9F29B4E593003CDEFA /* ListWalkThoughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155B9D29B4E593003CDEFA /* ListWalkThoughtView.swift */; };
+		96155BA229B4E59D003CDEFA /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BA129B4E59D003CDEFA /* Screen.swift */; };
+		96155BA529B4E5AA003CDEFA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BA429B4E5AA003CDEFA /* Category.swift */; };
+		96155BA729B61496003CDEFA /* WalkThoughtNextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BA629B61496003CDEFA /* WalkThoughtNextButtonView.swift */; };
+		96155BA929B62AC1003CDEFA /* WalkThoughListDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BA829B62AC1003CDEFA /* WalkThoughListDotView.swift */; };
+		96155BAB29B62E0C003CDEFA /* WalkThough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BAA29B62E0C003CDEFA /* WalkThough.swift */; };
+		96155BAD29B633FE003CDEFA /* WalkThoughOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BAC29B633FE003CDEFA /* WalkThoughOverlayView.swift */; };
+		96155BAF29B63668003CDEFA /* WalkThoughtNextGetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BAE29B63668003CDEFA /* WalkThoughtNextGetStartedView.swift */; };
+		96155BB229B63A5A003CDEFA /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BB129B63A5A003CDEFA /* Color+.swift */; };
 		A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */; };
 		A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152928BE73EA000437F4 /* ContentView.swift */; };
 		A43A152C28BE73ED000437F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A43A152B28BE73ED000437F4 /* Assets.xcassets */; };
@@ -19,11 +24,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		965D2BC229B471F400791B3E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		965D2BC529B472BC00791B3E /* WalkThoughtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThoughtView.swift; sourceTree = "<group>"; };
-		965D2BC829B475E700791B3E /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		965D2BCA29B4883F00791B3E /* ListWalkThoughtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWalkThoughtView.swift; sourceTree = "<group>"; };
-		96AE909629AA06AA009B0D9A /* HomeNowArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNowArrayView.swift; sourceTree = "<group>"; };
+		96155B9C29B4E593003CDEFA /* WalkThoughtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkThoughtView.swift; sourceTree = "<group>"; };
+		96155B9D29B4E593003CDEFA /* ListWalkThoughtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWalkThoughtView.swift; sourceTree = "<group>"; };
+		96155BA129B4E59D003CDEFA /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		96155BA429B4E5AA003CDEFA /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		96155BA629B61496003CDEFA /* WalkThoughtNextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThoughtNextButtonView.swift; sourceTree = "<group>"; };
+		96155BA829B62AC1003CDEFA /* WalkThoughListDotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThoughListDotView.swift; sourceTree = "<group>"; };
+		96155BAA29B62E0C003CDEFA /* WalkThough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThough.swift; sourceTree = "<group>"; };
+		96155BAC29B633FE003CDEFA /* WalkThoughOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThoughOverlayView.swift; sourceTree = "<group>"; };
+		96155BAE29B63668003CDEFA /* WalkThoughtNextGetStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThoughtNextGetStartedView.swift; sourceTree = "<group>"; };
+		96155BB129B63A5A003CDEFA /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		A43A152428BE73EA000437F4 /* MovieSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSwiftUIApp.swift; sourceTree = "<group>"; };
 		A43A152928BE73EA000437F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,6 +52,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96155B9B29B4E593003CDEFA /* WalkThought */ = {
+			isa = PBXGroup;
+			children = (
+				96155B9C29B4E593003CDEFA /* WalkThoughtView.swift */,
+				96155B9D29B4E593003CDEFA /* ListWalkThoughtView.swift */,
+				96155BA829B62AC1003CDEFA /* WalkThoughListDotView.swift */,
+				96155BA629B61496003CDEFA /* WalkThoughtNextButtonView.swift */,
+				96155BAE29B63668003CDEFA /* WalkThoughtNextGetStartedView.swift */,
+				96155BAC29B633FE003CDEFA /* WalkThoughOverlayView.swift */,
+			);
+			path = WalkThought;
+			sourceTree = "<group>";
+		};
+		96155BA029B4E59D003CDEFA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				96155BA129B4E59D003CDEFA /* Screen.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		96155BA329B4E5AA003CDEFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				96155BA429B4E5AA003CDEFA /* Category.swift */,
+				96155BAA29B62E0C003CDEFA /* WalkThough.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		96155BB029B63A48003CDEFA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				96155BB129B63A5A003CDEFA /* Color+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		965D2BC029B4714800791B3E /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -49,29 +97,11 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		965D2BC129B4715300791B3E /* Model */ = {
+		96D8867229BA16EC00534530 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				965D2BC229B471F400791B3E /* Category.swift */,
 			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		965D2BC429B4729A00791B3E /* WalkThought */ = {
-			isa = PBXGroup;
-			children = (
-				965D2BC529B472BC00791B3E /* WalkThoughtView.swift */,
-				965D2BCA29B4883F00791B3E /* ListWalkThoughtView.swift */,
-			);
-			path = WalkThought;
-			sourceTree = "<group>";
-		};
-		965D2BC729B475DA00791B3E /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				965D2BC829B475E700791B3E /* Screen.swift */,
-			);
-			path = Util;
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		A43A151B28BE73EA000437F4 = {
@@ -79,6 +109,7 @@
 			children = (
 				A43A152628BE73EA000437F4 /* MovieSwiftUI */,
 				A43A152528BE73EA000437F4 /* Products */,
+				96D8867229BA16EC00534530 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,9 +124,10 @@
 		A43A152628BE73EA000437F4 /* MovieSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				965D2BC729B475DA00791B3E /* Util */,
-				965D2BC429B4729A00791B3E /* WalkThought */,
-				965D2BC129B4715300791B3E /* Model */,
+				96155BB029B63A48003CDEFA /* Extension */,
+				96155BA329B4E5AA003CDEFA /* Model */,
+				96155BA029B4E59D003CDEFA /* Util */,
+				96155B9B29B4E593003CDEFA /* WalkThought */,
 				965D2BC029B4714800791B3E /* Category */,
 				A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */,
 				A43A152928BE73EA000437F4 /* ContentView.swift */,
@@ -111,26 +143,6 @@
 				A43A152E28BE73ED000437F4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		A43A153528BE75DA000437F4 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				A43A153628BE75ED000437F4 /* HomeView.swift */,
-				A43A153828BE75F8000437F4 /* Cell */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		A43A153828BE75F8000437F4 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				A43A153928BE7662000437F4 /* HomeNowView.swift */,
-				A43A153B28BF6A04000437F4 /* HomeTopRateView.swift */,
-				A43A153D28BF70F3000437F4 /* TopRateScoreView.swift */,
-				96AE909629AA06AA009B0D9A /* HomeNowArrayView.swift */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,17 +215,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A43A153A28BE7662000437F4 /* HomeNowView.swift in Sources */,
-				A43A153C28BF6A04000437F4 /* HomeTopRateView.swift in Sources */,
-				A43A153728BE75ED000437F4 /* HomeView.swift in Sources */,
-				A43A153E28BF70F3000437F4 /* TopRateScoreView.swift in Sources */,
-				96AE909729AA06AA009B0D9A /* HomeNowArrayView.swift in Sources */,
-				965D2BC929B475E700791B3E /* Screen.swift in Sources */,
+				96155B9E29B4E593003CDEFA /* WalkThoughtView.swift in Sources */,
+				96155BA929B62AC1003CDEFA /* WalkThoughListDotView.swift in Sources */,
+				96155BB229B63A5A003CDEFA /* Color+.swift in Sources */,
+				96155BAF29B63668003CDEFA /* WalkThoughtNextGetStartedView.swift in Sources */,
+				96155B9F29B4E593003CDEFA /* ListWalkThoughtView.swift in Sources */,
+				96155BA229B4E59D003CDEFA /* Screen.swift in Sources */,
+				96155BAB29B62E0C003CDEFA /* WalkThough.swift in Sources */,
 				A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */,
 				A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */,
-				965D2BC629B472BC00791B3E /* WalkThoughtView.swift in Sources */,
-				965D2BC329B471F400791B3E /* Category.swift in Sources */,
-				965D2BCB29B4883F00791B3E /* ListWalkThoughtView.swift in Sources */,
+				96155BA729B61496003CDEFA /* WalkThoughtNextButtonView.swift in Sources */,
+				96155BAD29B633FE003CDEFA /* WalkThoughOverlayView.swift in Sources */,
+				96155BA529B4E5AA003CDEFA /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +283,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -324,7 +337,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
