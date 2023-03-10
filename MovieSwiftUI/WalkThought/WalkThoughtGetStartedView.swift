@@ -1,5 +1,5 @@
 //
-//  WalkThoughtNextGetStartedView.swift
+//  WalkThoughtGetStartedView.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 06/03/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WalkThoughtNextGetStartedView: View {
+struct WalkThoughtGetStartedView: View {
     
     struct Constant {
         static let cornerRadius: CGFloat = 27
@@ -36,7 +36,7 @@ struct WalkThoughtNextGetStartedView: View {
 struct WalkThoughtNextGetStatedView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            WalkThoughtNextGetStartedView()
+            WalkThoughtGetStartedView()
                 .preferredColorScheme(.dark)
                 .previewLayout(.sizeThatFits)
         }

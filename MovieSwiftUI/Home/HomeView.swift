@@ -15,7 +15,8 @@ struct HomeView: View {
             HomeNowArrayView()
                 .background(Color.red)
             Spacer()
-        }.padding()
+        }
+        .padding()
     }
 }
 
