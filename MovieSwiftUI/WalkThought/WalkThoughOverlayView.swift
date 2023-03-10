@@ -19,8 +19,8 @@ struct WalkThoughOverlayView: View {
                                   selectedIndex: selectedIndex)
             .padding(.bottom, 56)
             if walkthroughArrayCount - 1 == selectedIndex {
-                NavigationLink(destination: Text("Home Screen")) {
-                    WalkThoughtNextGetStartedView()
+                NavigationLink(destination: TabbarView()) {
+                    WalkThoughtGetStartedView()
                         .padding(.bottom, 100)
                 }
             } else {
