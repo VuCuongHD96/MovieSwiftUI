@@ -11,4 +11,5 @@ struct Screen {
     static let bounds = UIScreen.main.bounds
     static let height = bounds.height
     static let width = bounds.width
+    static let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
 }

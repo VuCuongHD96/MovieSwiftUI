@@ -10,12 +10,24 @@ import SwiftUI
 struct CategoryView: View {
     
     var body: some View {
-        ScrollView {
-            ForEach(Genre.array, id: \.id) { item in
-                CategoryCellView(categoryName: item.name)
+        VStack {
+            MovieNavigationView {
+                Text("CATEGORY")
+                    .font(.custom("Helvetica Neue", size: 20))
+                    .foregroundColor(Color.white)
+                    .padding(8)
+                Spacer()
+                Image("SearchWhite")
+                    .padding(.trailing, 8)
             }
+            ScrollView {
+                ForEach(Genre.array, id: \.id) { item in
+                    CategoryCellView(categoryName: item.name)
+                }
+            }
+            .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
         }
-        .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+        .ignoresSafeArea()
     }
 }
 
