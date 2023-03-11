@@ -19,7 +19,7 @@ struct WalkThoughtGetStartedView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundColor(.white)
             .frame(width: 192, height: 54)
-            .background(createLinearGradient())
+            .background(MovieLinearGradient(cornerRadius: Constant.cornerRadius))
             .overlay(
                 RoundedRectangle(cornerRadius: Constant.cornerRadius)
                     .stroke(.white, lineWidth: 2)

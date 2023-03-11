@@ -19,6 +19,8 @@
 		96155BB229B63A5A003CDEFA /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96155BB129B63A5A003CDEFA /* Color+.swift */; };
 		9671351429BC1D280023CCD2 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9671351329BC1D280023CCD2 /* CategoryView.swift */; };
 		9671351729BC1D4D0023CCD2 /* CategoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9671351629BC1D4D0023CCD2 /* CategoryCellView.swift */; };
+		9671351929BC342D0023CCD2 /* MovieNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9671351829BC342D0023CCD2 /* MovieNavigationView.swift */; };
+		9671351C29BC34E50023CCD2 /* MovieLinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9671351B29BC34E50023CCD2 /* MovieLinearGradient.swift */; };
 		96D8867829BA3C3000534530 /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8867729BA3C3000534530 /* TabbarView.swift */; };
 		A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */; };
 		A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152928BE73EA000437F4 /* ContentView.swift */; };
@@ -39,6 +41,8 @@
 		96155BB129B63A5A003CDEFA /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		9671351329BC1D280023CCD2 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		9671351629BC1D4D0023CCD2 /* CategoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCellView.swift; sourceTree = "<group>"; };
+		9671351829BC342D0023CCD2 /* MovieNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNavigationView.swift; sourceTree = "<group>"; };
+		9671351B29BC34E50023CCD2 /* MovieLinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieLinearGradient.swift; sourceTree = "<group>"; };
 		96D8867729BA3C3000534530 /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		A43A152428BE73EA000437F4 /* MovieSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSwiftUIApp.swift; sourceTree = "<group>"; };
@@ -105,11 +109,20 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
-		9671351229BC1D0B0023CCD2 /* New Group */ = {
+		9671351229BC1D0B0023CCD2 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				9671351829BC342D0023CCD2 /* MovieNavigationView.swift */,
 			);
-			path = "New Group";
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		9671351A29BC34CE0023CCD2 /* LinearGradient */ = {
+			isa = PBXGroup;
+			children = (
+				9671351B29BC34E50023CCD2 /* MovieLinearGradient.swift */,
+			);
+			path = LinearGradient;
 			sourceTree = "<group>";
 		};
 		96D8867229BA16EC00534530 /* Recovered References */ = {
@@ -147,7 +160,8 @@
 		A43A152628BE73EA000437F4 /* MovieSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				9671351229BC1D0B0023CCD2 /* New Group */,
+				9671351A29BC34CE0023CCD2 /* LinearGradient */,
+				9671351229BC1D0B0023CCD2 /* Navigation */,
 				96D8867629BA3B3F00534530 /* Tabbar */,
 				96155BB029B63A48003CDEFA /* Extension */,
 				96155BA329B4E5AA003CDEFA /* Model */,
@@ -241,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96155B9E29B4E593003CDEFA /* WalkThoughtView.swift in Sources */,
+				9671351929BC342D0023CCD2 /* MovieNavigationView.swift in Sources */,
 				96155BA929B62AC1003CDEFA /* WalkThoughListDotView.swift in Sources */,
 				96155BB229B63A5A003CDEFA /* Color+.swift in Sources */,
 				96155BAF29B63668003CDEFA /* WalkThoughtGetStartedView.swift in Sources */,
@@ -256,6 +271,7 @@
 				96155BA529B4E5AA003CDEFA /* Genre.swift in Sources */,
 				A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */,
 				96D8867829BA3C3000534530 /* TabbarView.swift in Sources */,
+				9671351C29BC34E50023CCD2 /* MovieLinearGradient.swift in Sources */,
 				A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
