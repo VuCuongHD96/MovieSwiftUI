@@ -8,27 +8,35 @@
 import SwiftUI
 
 struct TabbarView: View {
-    @State private var selection = 0
+    
+   private enum TabItemTag: String {
+        case MOVIE
+        case CATEGORY
+        case FAVORITE
+    }
+    
+    @State private var selection = TabItemTag.MOVIE
+
     var body: some View {
         TabView(selection: $selection) {
-            Text("Apples 🍏🍏")
+            LazyView(HomeView())
                 .tabItem {
-                    Image(selection == 0 ? "MovieSelected" : "Movie")
+                    Image(selection == .MOVIE ? "MovieSelected" : "Movie")
                     Text("MOVIE")
                 }
-                .tag(0)
-            CategoryView()
+                .tag(TabItemTag.MOVIE)
+            LazyView(CategoryView())
                 .tabItem {
-                    Image(selection == 1 ? "CategorySelected" : "Category")
+                    Image(selection == .CATEGORY ? "CategorySelected" : "Category")
                     Text("CATEGORY")
                 }
-                .tag(1)
+                .tag(TabItemTag.CATEGORY)
             Text("Peaches 🍑🍑")
                 .tabItem {
-                    Image(selection == 2 ? "FavoriteSelected" : "Favorite")
+                    Image(selection == .FAVORITE ? "FavoriteSelected" : "Favorite")
                     Text("FAVORITE")
                 }
-                .tag(2)
+                .tag(TabItemTag.FAVORITE)
         }
         .accentColor(Color.pink)
         .navigationBarBackButtonHidden()

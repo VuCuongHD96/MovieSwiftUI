@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 
 struct CategoryView: View {
     
-    @StateObject var categoryViewModel = CategoryViewModel()
+    private var categoryViewModel = CategoryViewModel()
+    @ObservedObject private var output: CategoryViewModel.Output
+    var cancelBag = CancelBag()
+    
+    init() {
+        let input = CategoryViewModel.Input(loadTrigger: Driver.just(Void()))
+        output = categoryViewModel.transform(input, cancelBag: cancelBag)
+    }
     
     var body: some View {
         VStack {
@@ -22,19 +30,19 @@ struct CategoryView: View {
                 Image("SearchWhite")
                     .padding(.trailing, 8)
             }
-            List(categoryViewModel.genreArray, id: \.id) { item in
-                CategoryCellView(categoryName: item.name)
+            .opacity(output.isLoading ? 0 : 1)
+            ScrollView {
+                ForEach(output.genreArray, id: \.id) { item in
+                    CategoryCellView(categoryName: item.name)
+                }
             }
             .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
         }
         .ignoresSafeArea()
-        .onAppear {
-            categoryViewModel.bindViewModel()
-        }
-        .alert(isPresented: .constant(categoryViewModel.alertMessage.isShowing)) {
+        .alert(isPresented: .constant(output.alertMessage.isShowing)) {
             let alert = Alert(
-                title: Text(categoryViewModel.alertMessage.title),
-                message: Text(categoryViewModel.alertMessage.message)
+                title: Text(output.alertMessage.title),
+                message: Text(output.alertMessage.message)
             )
             return alert
         }

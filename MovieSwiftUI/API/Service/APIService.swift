@@ -20,7 +20,7 @@ struct APIService {
         session = URLSession(configuration: configuration)
     }
     
-    func request<T: Decodable>(input: ServiceBaseRequest) -> AnyPublisher<T, Error> {
+    func request<T: Decodable>(input: ServiceBaseRequest) -> Observable<T> {
         guard let url = input.url else {
             return Fail(error: BaseError.redirectionError).eraseToAnyPublisher()
         }
