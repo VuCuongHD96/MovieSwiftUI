@@ -36,6 +36,8 @@
 		96E2057629C20F0D00DE9F73 /* ErrorTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2057529C20F0D00DE9F73 /* ErrorTracker.swift */; };
 		96E2057829C20F2400DE9F73 /* ActivityTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2057729C20F2400DE9F73 /* ActivityTracker.swift */; };
 		96E2057A29C20F4000DE9F73 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2057929C20F4000DE9F73 /* ViewModel.swift */; };
+		96E2057C29C213C900DE9F73 /* CategoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2057B29C213C900DE9F73 /* CategoryUseCase.swift */; };
+		96E2057E29C2208D00DE9F73 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2057D29C2208D00DE9F73 /* Observable.swift */; };
 		A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */; };
 		A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43A152928BE73EA000437F4 /* ContentView.swift */; };
 		A43A152C28BE73ED000437F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A43A152B28BE73ED000437F4 /* Assets.xcassets */; };
@@ -72,6 +74,8 @@
 		96E2057529C20F0D00DE9F73 /* ErrorTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTracker.swift; sourceTree = "<group>"; };
 		96E2057729C20F2400DE9F73 /* ActivityTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTracker.swift; sourceTree = "<group>"; };
 		96E2057929C20F4000DE9F73 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		96E2057B29C213C900DE9F73 /* CategoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryUseCase.swift; sourceTree = "<group>"; };
+		96E2057D29C2208D00DE9F73 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		A43A152428BE73EA000437F4 /* MovieSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43A152728BE73EA000437F4 /* MovieSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSwiftUIApp.swift; sourceTree = "<group>"; };
 		A43A152928BE73EA000437F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 			children = (
 				9671351329BC1D280023CCD2 /* CategoryView.swift */,
 				966CF57E29BE240A00FDA266 /* CategoryViewModel.swift */,
+				96E2057B29C213C900DE9F73 /* CategoryUseCase.swift */,
 				9671351629BC1D4D0023CCD2 /* CategoryCellView.swift */,
 			);
 			path = Category;
@@ -244,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				96E2057329C20EB800DE9F73 /* Driver.swift */,
+				96E2057D29C2208D00DE9F73 /* Observable.swift */,
 				96E2057529C20F0D00DE9F73 /* ErrorTracker.swift */,
 				96E2057929C20F4000DE9F73 /* ViewModel.swift */,
 				96E2057729C20F2400DE9F73 /* ActivityTracker.swift */,
@@ -377,6 +383,7 @@
 				9671351429BC1D280023CCD2 /* CategoryView.swift in Sources */,
 				96155BAB29B62E0C003CDEFA /* WalkThough.swift in Sources */,
 				96E2057429C20EB800DE9F73 /* Driver.swift in Sources */,
+				96E2057C29C213C900DE9F73 /* CategoryUseCase.swift in Sources */,
 				A43A152A28BE73EA000437F4 /* ContentView.swift in Sources */,
 				9671351729BC1D4D0023CCD2 /* CategoryCellView.swift in Sources */,
 				A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */,
@@ -390,6 +397,7 @@
 				96D8867829BA3C3000534530 /* TabbarView.swift in Sources */,
 				9693552929BD75C8006D4DE5 /* HTTPMethod.swift in Sources */,
 				9671351C29BC34E50023CCD2 /* MovieLinearGradient.swift in Sources */,
+				96E2057E29C2208D00DE9F73 /* Observable.swift in Sources */,
 				9693552C29BD7839006D4DE5 /* API.swift in Sources */,
 				A43A152828BE73EA000437F4 /* MovieSwiftUIApp.swift in Sources */,
 				9693552E29BD7910006D4DE5 /* GenreRequest.swift in Sources */,

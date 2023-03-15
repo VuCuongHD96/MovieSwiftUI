@@ -12,13 +12,14 @@ protocol GenreRepositoryType {
     func getGenreList() -> Publishers.Map<AnyPublisher<GenreResponse, Error>, [Genre]>
 }
 
-class GenreRepository: ServiceBaseRepository, GenreRepositoryType {
+class GenreRepository: ServiceBaseRepository {//}, GenreRepositoryType {
     
-    func getGenreList() -> Publishers.Map<AnyPublisher<GenreResponse, Error>, [Genre]> {
+    func getGenreList() -> Observable<[Genre]> {
         let input = GenreRequest()
         return api.request(input: input)
             .map { (data: GenreResponse) -> [Genre] in
                 data.genres
             }
+            .eraseToAnyPublisher()
     }
 }

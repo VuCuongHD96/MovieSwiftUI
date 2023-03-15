@@ -20,7 +20,7 @@ struct APIService {
         session = URLSession(configuration: configuration)
     }
     
-    func request<T: Decodable>(input: ServiceBaseRequest) -> AnyPublisher<T, Error> {
+    func request<T: Decodable>(input: ServiceBaseRequest) -> Observable<T> {
         print("\n------------REQUEST INPUT")
         print("Link: %@", input.urlString)
         print("Body: %@", input.body)

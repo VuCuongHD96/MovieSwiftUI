@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryView: View {
     
-    @StateObject var categoryViewModel = CategoryViewModel()
+//    @StateObject var categoryViewModel = CategoryViewModel()
     
     var body: some View {
         VStack {
@@ -22,15 +22,15 @@ struct CategoryView: View {
                 Image("SearchWhite")
                     .padding(.trailing, 8)
             }
-            List(categoryViewModel.genreArray, id: \.id) { item in
-                CategoryCellView(categoryName: item.name)
-            }
+//            List(categoryViewModel.genreArray, id: \.id) { item in
+//                CategoryCellView(categoryName: item.name)
+//            }
             
             .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
         }
         .ignoresSafeArea()
         .onAppear {
-            categoryViewModel.bindViewModel()
+//            categoryViewModel.bindViewModel()
         }
     }
 }
