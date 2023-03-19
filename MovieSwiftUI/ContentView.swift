@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            WalkThoughtListView()
+//            WalkThoughtListView()
+            TabbarView()
                 .ignoresSafeArea()
                 .background(Color.white)
         }
