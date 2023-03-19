@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Genre {
-    let id: Int
-    let name: String
+struct Genre: Codable, Identifiable {
+    var id: Int
+    var name: String
     
     static let firstItem = Genre(id: 0, name: "Action")
     static let secondItem = Genre(id: 1, name: "Adventure")

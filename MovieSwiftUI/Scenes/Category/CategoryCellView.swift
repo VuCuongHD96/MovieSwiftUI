@@ -13,7 +13,7 @@ struct CategoryCellView: View {
         ZStack(alignment: .bottomLeading) {
             Image(categoryName)
                 .resizable()
-                .frame(height: 220)
+                .frame(height: 200)
             Text(categoryName)
                 .foregroundColor(Color.white)
                 .fontWeight(.bold)
@@ -28,7 +28,10 @@ struct CategoryCellView: View {
 
 struct CategoryCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryCellView(categoryName: "Action")
-            .previewLayout(.sizeThatFits)
+        Group {
+            CategoryCellView(categoryName: "Action")
+            CategoryCellView(categoryName: "Animation")
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
