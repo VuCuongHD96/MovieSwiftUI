@@ -36,7 +36,7 @@ struct MovieNavigationView<Content: View>: View {
                 }
             }
         }
-        .frame(height: Screen.statusBarHeight + 40)
+        .frame(height: Screen.statusBarHeight)
     }
 }
 

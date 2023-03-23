@@ -1,5 +1,5 @@
 //
-//  CategoryCellView.swift
+//  GenreCellView.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 11/03/2023.
@@ -7,8 +7,15 @@
 
 import SwiftUI
 
-struct CategoryCellView: View {
+struct GenreCellView: View {
+    
     let categoryName: String
+    
+    init(categoryName: String) {
+        self.categoryName = categoryName
+        print("---- debug ------ categoryName = ", categoryName)
+    }
+    
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             Image(categoryName)
@@ -29,8 +36,8 @@ struct CategoryCellView: View {
 struct CategoryCellView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CategoryCellView(categoryName: "Action")
-            CategoryCellView(categoryName: "Animation")
+            GenreCellView(categoryName: "Action")
+            GenreCellView(categoryName: "Animation")
         }
         .previewLayout(.sizeThatFits)
     }

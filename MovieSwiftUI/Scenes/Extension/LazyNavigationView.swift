@@ -13,9 +13,7 @@ struct LazyNavigationView<Content: View>: View {
         self.content = content
     }
     
-    var body: some View {
-        NavigationView {        
-            content()
-        }
+    var body: Content {
+        content()
     }
 }
