@@ -27,7 +27,7 @@ struct WalkThoughtListView: View {
     }
 }
 
-struct ListWalkThoughtView_Previews: PreviewProvider {
+struct WalkThoughtListView_Previews: PreviewProvider {
     static var previews: some View {
         WalkThoughtListView()
             .previewLayout(.sizeThatFits)
