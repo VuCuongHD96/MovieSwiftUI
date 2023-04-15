@@ -8,29 +8,43 @@
 import Combine
 import Foundation
 
-final class CategoryViewModel: ObservableObject {
+struct CategoryViewModel: ViewModel {
+
+    struct Input {
+        var loadTrigger: Driver<Void>
+    }
     
-    @Published private(set) var genreArray = [Genre]()
-    @Published private(set) var alertMessage = AlertMessage()
+    class Output: ObservableObject {
+        @Published var genreArray = [Genre]()
+        @Published var alertMessage = AlertMessage()
+        @Published var isLoading = false
+    }
     
-    var anyCancellable = Set<AnyCancellable>()
+    let useCase: CategoryUseCaseType = CategoryUseCase()
     
-    func bindViewModel() {
+     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
-        GenreRepository(api: .share)
-            .getGenreList()
-            .trackActivity(activityTracker)
-            .trackError(errorTracker)
-            .asDriver()
-            .assign(to: \.genreArray, on: self)
-            .store(in: &anyCancellable)
-        
+        let output = Output()
+        input.loadTrigger
+            .flatMap {
+                self.useCase.getGenreList()
+                    .trackActivity(activityTracker)
+                    .trackError(errorTracker)
+                    .asDriver()
+            }
+            .assign(to: \.genreArray, on: output)
+            .store(in: cancelBag)
         errorTracker
             .map {
                 AlertMessage(error: $0)
             }
-            .assign(to: \.alertMessage, on: self)
-            .store(in: &anyCancellable)
+            .assign(to: \.alertMessage, on: output)
+            .store(in: cancelBag)
+         activityTracker
+             .assign(to: \.isLoading, on: output)
+             .store(in: cancelBag)
+        
+        return output
     }
 }

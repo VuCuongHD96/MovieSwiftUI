@@ -9,12 +9,12 @@ import Foundation
 import Combine
 
 protocol GenreRepositoryType {
-    func getGenreList() -> AnyPublisher<[Genre], Error>
+    func getGenreList() -> Observable<[Genre]>
 }
 
 class GenreRepository: ServiceBaseRepository, GenreRepositoryType {
     
-    func getGenreList() -> AnyPublisher<[Genre], Error> {
+    func getGenreList() -> Observable<[Genre]> {
         let input = GenreRequest()
         return api.request(input: input)
             .map { (data: GenreResponse) -> [Genre] in
