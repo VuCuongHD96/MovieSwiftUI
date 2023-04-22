@@ -19,13 +19,13 @@ struct TabbarView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            LazyView(HomeView())
+            LazyNavigationView(HomeView())
                 .tabItem {
                     Image(selection == .MOVIE ? "MovieSelected" : "Movie")
                     Text("MOVIE")
                 }
                 .tag(TabItemTag.MOVIE)
-            LazyView(CategoryView())
+            LazyNavigationView(CategoryView())
                 .tabItem {
                     Image(selection == .CATEGORY ? "CategorySelected" : "Category")
                     Text("CATEGORY")
