@@ -9,27 +9,40 @@ import SwiftUI
 
 struct WalkThoughtListView: View {
     
-    @State private var selectedIndex = 0
-    let walkthroughArray = WalkThough.walkThoughArray
+    @ObservedObject private var input: WalkThoughtListViewModel.Input
+    @ObservedObject private var output: WalkThoughtListViewModel.Output
+    private let cancelBag = CancelBag()
+    
+    init(viewModel: WalkThoughtListViewModel) {
+        let input = WalkThoughtListViewModel.Input(loadTrigger: .just(Void()))
+        output = viewModel.transform(input, cancelBag: cancelBag)
+        self.input = input
+    }
     
     var body: some View {
-        TabView(selection: $selectedIndex) {
-            ForEach(0..<walkthroughArray.count, id: \.self) { index in
-                let item = walkthroughArray[index]
+        TabView(selection: $input.selectedIndex) {
+            ForEach(0..<output.walkthroughArray.count, id: \.self) { index in
+                let item = output.walkthroughArray[index]
                 WalkThoughtView(walkThough: item)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .overlay {
-            WalkThoughOverlayView(walkthroughArrayCount: walkthroughArray.count,
-                                  selectedIndex: $selectedIndex)
+            WalkThoughOverlayView()
         }
+        .environmentObject(input)
+        .environmentObject(output)
+        .ignoresSafeArea()
+        .background(Color.white)
     }
 }
 
 struct ListWalkThoughtView_Previews: PreviewProvider {
     static var previews: some View {
-        WalkThoughtListView()
+        let navigationController = UINavigationController()
+        let navigator = WalkThoughtListNavigator(navigationController: navigationController)
+        let viewModel = WalkThoughtListViewModel(navigator: navigator)
+        return WalkThoughtListView(viewModel: viewModel)
             .previewLayout(.sizeThatFits)
             .background(Color.blue)
     }

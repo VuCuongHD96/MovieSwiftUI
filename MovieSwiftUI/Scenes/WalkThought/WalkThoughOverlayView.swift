@@ -9,35 +9,32 @@ import SwiftUI
 
 struct WalkThoughOverlayView: View {
     
-    let walkthroughArrayCount: Int
-    @Binding var selectedIndex: Int
+    @EnvironmentObject private var input: WalkThoughtListViewModel.Input
+    @EnvironmentObject private var output: WalkThoughtListViewModel.Output
     
     var body: some View {
         VStack {
             Spacer()
-            WalkThoughListDotView(walkthroughArrayCount: walkthroughArrayCount,
-                                  selectedIndex: selectedIndex)
-            .padding(.bottom, 56)
-            if walkthroughArrayCount - 1 == selectedIndex {
-                NavigationLink(destination: TabbarView()) {
-                    WalkThoughtGetStartedView()
-                        .padding(.bottom, 100)
-                }
+            WalkThoughListDotView()
+                .padding(.bottom, 56)
+            if $output.walkthroughArray.count - 1 == input.selectedIndex {
+                WalkThoughtGetStartedView()
+                    .padding(.bottom, 100)
+                    .onTapGesture {
+                        input.getStatedButtonDidTap.send()
+                    }
             } else {
-                WalkThoughtNextButtonView(selectedIndex: $selectedIndex)
+                WalkThoughtNextButtonView()
                     .padding(.bottom, 100)
             }
         }
+        .environmentObject(input)
+        .environmentObject(output)
     }
 }
 
 struct WalkThoughOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            WalkThoughOverlayView(walkthroughArrayCount: 3, selectedIndex: Binding<Int>.constant(0))
-            WalkThoughOverlayView(walkthroughArrayCount: 3, selectedIndex: Binding<Int>.constant(1))
-            WalkThoughOverlayView(walkthroughArrayCount: 3, selectedIndex: Binding<Int>.constant(2))
-        }
-        .preferredColorScheme(.dark)
+        WalkThoughOverlayView()
     }
 }

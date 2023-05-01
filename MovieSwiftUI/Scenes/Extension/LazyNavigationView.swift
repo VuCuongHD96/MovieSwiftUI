@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct LazyView<Content: View>: View {
-    let content: () -> Content
+struct LazyNavigationView<Content: View>: View {
+    var content: () -> Content
     init(_ content: @autoclosure @escaping () -> Content) {
         self.content = content
     }
     
-    var body: Content {
-        content()
+    var body: some View {
+        NavigationView {        
+            content()
+        }
     }
 }
