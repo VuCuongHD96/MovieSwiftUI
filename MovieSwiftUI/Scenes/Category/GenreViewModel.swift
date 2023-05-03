@@ -1,5 +1,5 @@
 //
-//  CategoryViewModel.swift
+//  GenreViewModel.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 12/03/2023.
@@ -8,10 +8,12 @@
 import Combine
 import Foundation
 
-struct CategoryViewModel: ViewModel {
+struct GenreViewModel: ViewModel {
 
     struct Input {
         var loadTrigger: Driver<Void>
+        var searchButtonTapped = PassthroughSubject<Void, Never>()
+        var genreItemTapped = PassthroughSubject<Void, Never>()
     }
     
     class Output: ObservableObject {
@@ -20,9 +22,10 @@ struct CategoryViewModel: ViewModel {
         @Published var isLoading = false
     }
     
-    let useCase: CategoryUseCaseType = CategoryUseCase()
+    let navigator: CategoryNavigatorType
+    let useCase: CategoryUseCaseType
     
-     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
+    func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
         let output = Output()
@@ -41,10 +44,19 @@ struct CategoryViewModel: ViewModel {
             }
             .assign(to: \.alertMessage, on: output)
             .store(in: cancelBag)
-         activityTracker
-             .assign(to: \.isLoading, on: output)
-             .store(in: cancelBag)
-        
+        activityTracker
+            .assign(to: \.isLoading, on: output)
+            .store(in: cancelBag)
+        input.searchButtonTapped
+            .sink {
+                navigator.toSearchScreen()
+            }
+            .store(in: cancelBag)
+        input.genreItemTapped
+            .sink {
+                navigator.toMovieByGenreScreen()
+            }
+            .store(in: cancelBag)
         return output
     }
 }
