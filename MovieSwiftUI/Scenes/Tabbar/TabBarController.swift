@@ -24,14 +24,13 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         setupView()
     }
-    
+
     // MARK: - View
     private func setupView() {
         tabBar.tintColor = UIColor.systemPink
         guard let navigationController = navigationController else {
             return
         }
-        navigationController.isNavigationBarHidden = true
         let navigator = TabbarNavigator(navigationController: navigationController)
         viewModel = TabbarViewModel(navigator: navigator)
         viewModel.showData()

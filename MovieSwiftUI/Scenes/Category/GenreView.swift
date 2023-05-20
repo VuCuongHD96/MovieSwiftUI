@@ -34,7 +34,6 @@ struct GenreView: View {
                 }
             }
             .opacity(output.isLoading ? 0 : 1)
-            .background(Color.red)
             Spacer()
             ScrollView {
                 ForEach(output.genreArray, id: \.id) { item in
