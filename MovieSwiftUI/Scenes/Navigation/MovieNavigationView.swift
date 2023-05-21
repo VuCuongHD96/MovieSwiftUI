@@ -2,51 +2,53 @@
 //  MovieNavigationView.swift
 //  MovieSwiftUI
 //
-//  Created by Work on 11/03/2023.
+//  Created by Work on 20/05/2023.
 //
 
 import SwiftUI
 
-struct MovieNavigationView<Content: View>: View {
+struct MovieNavigationView<HeaderContent: View, BodyContent: View>: View {
     
     // MARK: - Define
-    typealias ContentHandler = () -> Content
+    typealias HeaderContentHandler = () -> HeaderContent
+    typealias BodyContentHandler = () -> BodyContent
     
     // MARK: - Property
-    let content: Content
+    let headerContent: HeaderContent
+    let bodyContent: BodyContent
     
     // MARK: - Init
-    init(@ViewBuilder content: ContentHandler) {
-        self.content = content()
+    init(@ViewBuilder headerContent: HeaderContentHandler, @ViewBuilder bodyContent: BodyContentHandler) {
+        self.headerContent = headerContent()
+        self.bodyContent = bodyContent()
     }
     
-    // MARK: - View
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 0)
-                .fill(LinearGradient(
-                    gradient: Gradient(colors: [Color(hex: "F99F00"), Color(hex: "DB3069")]),
-                    startPoint: .leading,
-                    endPoint: .trailing))
-                .ignoresSafeArea()
-            VStack {
-                Spacer()
-                HStack {
-                    content
-                }
+        VStack(spacing: 0) {
+            MovieNavigationHeaderView {
+                headerContent
             }
+            bodyContent
+            Spacer()
         }
-        .frame(height: Screen.statusBarHeight)
     }
 }
 
 struct MovieNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieNavigationView {
-            Text("Left button")
-            Spacer()
-            Text("Right button")
-        }
-        .previewLayout(.sizeThatFits)
+        MovieNavigationView(headerContent: {
+            HStack {
+                Text("HOME")
+                    .font(.custom("Helvetica Neue", size: 20))
+                    .foregroundColor(Color.white)
+                    .padding(8)
+                Spacer()
+                Image("SearchWhite")
+                    .padding(.trailing, 8)
+            }
+        }, bodyContent: {
+            Text("This is body")
+                .background(Color.gray)
+        })
     }
 }

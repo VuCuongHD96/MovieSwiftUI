@@ -21,7 +21,7 @@
 		967761A329C768FA00DA942E /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677618C29C768FA00DA942E /* GenreView.swift */; };
 		967761A429C768FA00DA942E /* GenreCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677618D29C768FA00DA942E /* GenreCellView.swift */; };
 		967761A629C768FA00DA942E /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619129C768FA00DA942E /* AlertMessage.swift */; };
-		967761A729C768FA00DA942E /* MovieNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619329C768FA00DA942E /* MovieNavigationView.swift */; };
+		967761A729C768FA00DA942E /* MovieNavigationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619329C768FA00DA942E /* MovieNavigationHeaderView.swift */; };
 		967761A929C768FA00DA942E /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619729C768FA00DA942E /* Genre.swift */; };
 		967761AA29C768FA00DA942E /* WalkThough.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619829C768FA00DA942E /* WalkThough.swift */; };
 		967761AB29C768FA00DA942E /* WalkThoughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677619A29C768FA00DA942E /* WalkThoughtView.swift */; };
@@ -41,6 +41,7 @@
 		9693553029BD7933006D4DE5 /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693552F29BD7933006D4DE5 /* URLs.swift */; };
 		9693553229BD7AD1006D4DE5 /* ServiceBaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693553129BD7AD1006D4DE5 /* ServiceBaseRepository.swift */; };
 		9693553529BD7B36006D4DE5 /* GenreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693553429BD7B36006D4DE5 /* GenreRepository.swift */; };
+		96A0EE492A18CF61004CEABB /* MovieNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A0EE482A18CF61004CEABB /* MovieNavigationView.swift */; };
 		96AF5E502A00170F00F5F5AA /* CategoryNavigatorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF5E4F2A00170F00F5F5AA /* CategoryNavigatorType.swift */; };
 		96B94B8829D0025E0014B62F /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B94B8629D0025E0014B62F /* ViewModel.swift */; };
 		96B94B8929D0025E0014B62F /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B94B8729D0025E0014B62F /* Observable.swift */; };
@@ -84,7 +85,7 @@
 		9677618C29C768FA00DA942E /* GenreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
 		9677618D29C768FA00DA942E /* GenreCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenreCellView.swift; sourceTree = "<group>"; };
 		9677619129C768FA00DA942E /* AlertMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
-		9677619329C768FA00DA942E /* MovieNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieNavigationView.swift; sourceTree = "<group>"; };
+		9677619329C768FA00DA942E /* MovieNavigationHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieNavigationHeaderView.swift; sourceTree = "<group>"; };
 		9677619729C768FA00DA942E /* Genre.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		9677619829C768FA00DA942E /* WalkThough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkThough.swift; sourceTree = "<group>"; };
 		9677619A29C768FA00DA942E /* WalkThoughtView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkThoughtView.swift; sourceTree = "<group>"; };
@@ -104,6 +105,7 @@
 		9693552F29BD7933006D4DE5 /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		9693553129BD7AD1006D4DE5 /* ServiceBaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBaseRepository.swift; sourceTree = "<group>"; };
 		9693553429BD7B36006D4DE5 /* GenreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreRepository.swift; sourceTree = "<group>"; };
+		96A0EE482A18CF61004CEABB /* MovieNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieNavigationView.swift; sourceTree = "<group>"; };
 		96AF5E4F2A00170F00F5F5AA /* CategoryNavigatorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNavigatorType.swift; sourceTree = "<group>"; };
 		96B94B8629D0025E0014B62F /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		96B94B8729D0025E0014B62F /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -265,7 +267,8 @@
 		9677619229C768FA00DA942E /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				9677619329C768FA00DA942E /* MovieNavigationView.swift */,
+				9677619329C768FA00DA942E /* MovieNavigationHeaderView.swift */,
+				96A0EE482A18CF61004CEABB /* MovieNavigationView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -546,12 +549,13 @@
 				967761A329C768FA00DA942E /* GenreView.swift in Sources */,
 				9612448B2A026076006A23A5 /* MovieByGenreScreen.swift in Sources */,
 				96EB4D4E29F3E83E006EB86D /* WalkThoughtListNavigator.swift in Sources */,
-				967761A729C768FA00DA942E /* MovieNavigationView.swift in Sources */,
+				967761A729C768FA00DA942E /* MovieNavigationHeaderView.swift in Sources */,
 				9628E42929EA66B20069EC6E /* AppDelegate.swift in Sources */,
 				96BA16472A02C13C009076C2 /* TabbarViewModel.swift in Sources */,
 				967761B029C768FA00DA942E /* WalkThoughListDotView.swift in Sources */,
 				967761AE29C768FA00DA942E /* ListWalkThoughtView.swift in Sources */,
 				967761B129C768FA00DA942E /* MovieLinearGradient.swift in Sources */,
+				96A0EE492A18CF61004CEABB /* MovieNavigationView.swift in Sources */,
 				9693552729BD74BD006D4DE5 /* ServiceBaseRequest.swift in Sources */,
 				9693553029BD7933006D4DE5 /* URLs.swift in Sources */,
 				96B94B8929D0025E0014B62F /* Observable.swift in Sources */,
