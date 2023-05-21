@@ -8,7 +8,7 @@
 import SwiftUI
 
 protocol TabbarNavigatorType {
-    func createMovieScreen() -> UIViewController
+    func createHomeScreen() -> UIViewController
     func createGenreScreen() -> UIViewController
 }
 
@@ -23,8 +23,12 @@ struct TabbarNavigator: TabbarNavigatorType {
         return tabbarItem
     }
     
-    func createMovieScreen() -> UIViewController {
-        let homeViewController = UIHostingController(rootView: HomeView())
+    func createHomeScreen() -> UIViewController {
+        let navigator = HomeNavigator(navigationController: navigationController)
+        let useCase = HomeUseCase()
+        let homeViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
+        let homeView = HomeView(homeViewModel: homeViewModel)
+        let homeViewController = UIHostingController(rootView: homeView)
         homeViewController.tabBarItem = createHomeTabbarItem()
         return homeViewController
     }

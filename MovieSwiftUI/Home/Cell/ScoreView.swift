@@ -14,6 +14,8 @@ struct ScoreView: View {
         static let cornerRadius = edge / 2
     }
     
+    let movie: Movie
+    
     var body: some View {
         ZStack {
             Circle()
@@ -21,11 +23,10 @@ struct ScoreView: View {
                 .background(MovieLinearGradient())
                 .frame(width: Constant.edge, height: Constant.edge)
                 .cornerRadius(Constant.cornerRadius)
-                .padding(8)
             HStack(alignment: .top, spacing: 0) {
-                Text("9")
+                Text(movie.voteAverageSplit.naturalPart)
                     .font(.title2)
-                Text(".9")
+                Text(".\(movie.voteAverageSplit.decimalPart)")
             }
             .foregroundColor(.white)
         }
@@ -34,7 +35,7 @@ struct ScoreView: View {
 
 struct ScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        ScoreView()
+        ScoreView(movie: .defaultValue)
             .previewLayout(.sizeThatFits)
     }
 }

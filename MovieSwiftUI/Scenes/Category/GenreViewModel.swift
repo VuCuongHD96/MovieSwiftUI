@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 struct GenreViewModel: ViewModel {
-
+    
     struct Input {
         var loadTrigger: Driver<Void>
         var searchButtonTapped = PassthroughSubject<Void, Never>()
@@ -23,7 +23,7 @@ struct GenreViewModel: ViewModel {
     }
     
     let navigator: CategoryNavigatorType
-    let useCase: CategoryUseCaseType
+    let useCase: GenreUseCaseType
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         let errorTracker = ErrorTracker()

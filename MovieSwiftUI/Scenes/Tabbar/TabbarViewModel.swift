@@ -36,7 +36,7 @@ final class TabbarViewModel: TabbarViewModelType {
 extension TabbarViewModel {
     
     func showData() {
-        let movieScreen = navigator.createMovieScreen()
+        let movieScreen = navigator.createHomeScreen()
         let genreScreen = navigator.createGenreScreen()
         viewControllers = [movieScreen, genreScreen]
     }

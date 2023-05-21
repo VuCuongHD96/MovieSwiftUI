@@ -8,19 +8,31 @@
 import SwiftUI
 
 struct HomeNowView: View {
+    
+    let movie: Movie
+    
     var body: some View {
-        VStack {
-            Image("PosterImage")
-                .resizable()
-            Text("Sonic the hedgehog")
+        VStack(spacing: 5) {
+            AsyncImage(url: movie.posterPathURL) { image in
+                image.resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(5)
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(height: 200)
+            Text(movie.title)
+                .font(.subheadline)
                 .font(Font.body.bold())
+                .frame(height: 45, alignment: .top)
+                .lineLimit(2)
         }
-        .frame(width: 130, height: 238, alignment: .center)
+        .frame(width: 130)
     }
 }
 
 struct HomeNowView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeNowView()
+        HomeNowView(movie: .defaultValue)
     }
 }

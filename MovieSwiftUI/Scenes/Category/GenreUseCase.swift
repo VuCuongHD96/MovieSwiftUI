@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol CategoryUseCaseType {
+protocol GenreUseCaseType {
     func getGenreList() -> Observable<[Genre]>
 }
 
-struct GenreUseCase: CategoryUseCaseType {
+struct GenreUseCase: GenreUseCaseType {
     
     func getGenreList() -> Observable<[Genre]> {
         GenreRepository(api: .share)
