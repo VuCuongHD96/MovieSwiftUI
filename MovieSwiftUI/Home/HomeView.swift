@@ -9,18 +9,17 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            MovieNavigationView {
-                HStack {
-                    Text("HOME")
-                        .font(.custom("Helvetica Neue", size: 20))
-                        .foregroundColor(Color.white)
-                        .padding(8)
-                    Spacer()
-                    Image("SearchWhite")
-                        .padding(.trailing, 8)
-                }
+        MovieNavigationView {
+            HStack {
+                Text("HOME")
+                    .font(.custom("Helvetica Neue", size: 20))
+                    .foregroundColor(Color.white)
+                    .padding(8)
+                Spacer()
+                Image("SearchWhite")
+                    .padding(.trailing, 8)
             }
+        } bodyContent: {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
                     HomeNowArrayView()
