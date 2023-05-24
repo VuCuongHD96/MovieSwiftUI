@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeTopRateView: View {
     
     let movie: Movie
+    @EnvironmentObject private var input: HomeViewModel.Input
     
     var body: some View {
         ZStack {
@@ -38,6 +39,9 @@ struct HomeTopRateView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(width: 155, height: 238, alignment: .bottom)
+        .onTapGesture {
+            input.movieAction.send(movie)
+        }
     }
 }
 

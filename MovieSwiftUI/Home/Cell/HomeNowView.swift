@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeNowView: View {
     
     let movie: Movie
+    @EnvironmentObject private var input: HomeViewModel.Input
     
     var body: some View {
         VStack(spacing: 5) {
@@ -28,6 +29,9 @@ struct HomeNowView: View {
                 .lineLimit(2)
         }
         .frame(width: 130)
+        .onTapGesture {
+            input.movieAction.send(movie)
+        }
     }
 }
 
