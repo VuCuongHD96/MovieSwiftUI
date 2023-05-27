@@ -8,19 +8,29 @@
 import SwiftUI
 
 struct HomeTopRateView: View {
+    
+    let movie: Movie
+    
     var body: some View {
         ZStack {
-            Image("PosterImage")
-                .resizable()
+            AsyncImage(url: movie.posterPathURL) { image in
+                image.resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(5)
+            } placeholder: {
+                ProgressView()
+            }
             VStack(alignment: .trailing) {
-                ScoreView()
+                ScoreView(movie: movie)
+                    .padding(8)
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("2019")
+                    Text(movie.releaseYear.toString())
                         .foregroundColor(Color.white)
-                    Text("Sonic")
+                    Text(movie.title)
                         .foregroundColor(Color.white)
                         .bold()
+                        .lineLimit(2)
                 }
                 .frame(maxWidth: .infinity, alignment: .bottomLeading)
                 .padding([.leading, .bottom], 5)
@@ -33,6 +43,7 @@ struct HomeTopRateView: View {
 
 struct HomeTopRateView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTopRateView()
+        HomeTopRateView(movie: .defaultValue)
+            .previewLayout(.sizeThatFits)
     }
 }

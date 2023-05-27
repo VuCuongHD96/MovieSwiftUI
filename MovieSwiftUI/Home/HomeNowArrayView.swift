@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct HomeNowArrayView: View {
+    
+    @EnvironmentObject private var output: HomeViewModel.Output
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(1...5, id: \.self) { _ in
-                    HomeNowView()
+                ForEach(output.firstMovieArray, id: \.self) { movie in
+                    HomeNowView(movie: movie)
                 }
             }
         }
@@ -21,7 +24,11 @@ struct HomeNowArrayView: View {
 
 struct HomeNowArrayView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeNowArrayView()
+        let output = HomeViewModel.Output()
+        output.firstMovieArray = Array(repeating: Movie.defaultValue, count: 5)
+        return HomeNowArrayView()
+            .previewLayout(.sizeThatFits)
+            .environmentObject(output)
             .previewLayout(.sizeThatFits)
     }
 }
