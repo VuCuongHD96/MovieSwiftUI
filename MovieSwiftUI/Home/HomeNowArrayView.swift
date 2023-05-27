@@ -13,7 +13,7 @@ struct HomeNowArrayView: View {
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 15) {
                 ForEach(output.firstMovieArray, id: \.self) { movie in
                     HomeNowView(movie: movie)
                 }

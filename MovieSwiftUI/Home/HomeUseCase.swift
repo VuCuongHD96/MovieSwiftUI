@@ -1,5 +1,5 @@
 //
-//  HomeUseCaseType.swift
+//  HomeUseCase.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 21/05/2023.
