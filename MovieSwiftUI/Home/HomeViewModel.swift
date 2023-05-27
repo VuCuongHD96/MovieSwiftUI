@@ -5,11 +5,17 @@
 //  Created by Work on 21/05/2023.
 //
 
-import Foundation
+import Combine
 
 struct HomeViewModel: ViewModel {
-    struct Input {
+    class Input: ObservableObject {
         var loadTrigger: Driver<Void>
+        var searchAction = PassthroughSubject<Void, Never>()
+        var movieAction = PassthroughSubject<Movie, Never>()
+        
+        init(loadTrigger: Driver<Void>) {
+            self.loadTrigger = loadTrigger
+        }
     }
     
     class Output: ObservableObject {
@@ -41,6 +47,16 @@ struct HomeViewModel: ViewModel {
                     .asDriver()
             }
             .assign(to: \.secondMovieArray, on: output)
+            .store(in: cancelBag)
+        input.searchAction
+            .sink {
+                navigator.toSearchScreen()
+            }
+            .store(in: cancelBag)
+        input.movieAction
+            .sink { movie in
+                navigator.toMovieDetailScreen(movie: movie)
+            }
             .store(in: cancelBag)
         return output
     }

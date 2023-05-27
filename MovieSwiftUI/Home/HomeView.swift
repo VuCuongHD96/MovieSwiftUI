@@ -9,12 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     
-    private var input = HomeViewModel.Input(loadTrigger: Driver.just(Void()))
+    @ObservedObject private var input: HomeViewModel.Input
     @ObservedObject private var output: HomeViewModel.Output
     var cancelBag = CancelBag()
     
     init(homeViewModel: HomeViewModel) {
+        let input = HomeViewModel.Input(loadTrigger: .just(Void()))
         output = homeViewModel.transform(input, cancelBag: cancelBag)
+        self.input = input
     }
     
     var body: some View {
@@ -27,6 +29,9 @@ struct HomeView: View {
                 Spacer()
                 Image("SearchWhite")
                     .padding(.trailing, 8)
+                    .onTapGesture {
+                        input.searchAction.send()
+                    }
             }
         } bodyContent: {
             ScrollView(showsIndicators: false) {
@@ -41,6 +46,7 @@ struct HomeView: View {
             }
         }
         .environmentObject(output)
+        .environmentObject(input)
         .background(Color.gray.opacity(0.1))
     }
 }
