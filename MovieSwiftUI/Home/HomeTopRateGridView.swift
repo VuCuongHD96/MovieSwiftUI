@@ -18,9 +18,10 @@ struct HomeTopRateGridView: View {
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHGrid(rows: gridRows, spacing: 10) {
-                    ForEach(output.secondMovieArray, id: \.self) { movie in
+                LazyHGrid(rows: gridRows, spacing: 15) {
+                    ForEach(output.secondMovieArray) { movie in
                         HomeTopRateView(movie: movie)
+                            .frame(width: 155, alignment: .bottom)
                     }
                 }
             }
@@ -31,7 +32,7 @@ struct HomeTopRateGridView: View {
 struct HomeTopRateGridView_Previews: PreviewProvider {
     static var previews: some View {
         let output = HomeViewModel.Output()
-        output.secondMovieArray = Array(repeating: Movie.defaultValue, count: 5)
+        output.secondMovieArray = Array(repeating: Movie.defaultValue, count: 1)
         return HomeTopRateGridView()
             .previewLayout(.sizeThatFits)
             .environmentObject(output)

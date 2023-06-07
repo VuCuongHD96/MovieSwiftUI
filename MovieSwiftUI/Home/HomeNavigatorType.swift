@@ -18,7 +18,11 @@ struct HomeNavigator: HomeNavigatorType {
     unowned let navigationController: UINavigationController
     
     func toSearchScreen() {
-        let viewController = UIHostingController(rootView: SearchView())
+        let navigator = SearchNavigator(navigationController: navigationController)
+        let useCase = SearchUseCase()
+        let viewModel = SearchViewModel(navigator: navigator, useCase: useCase)
+        let searchView = SearchView(viewModel: viewModel)
+        let viewController = UIHostingController(rootView: searchView)
         navigationController.pushViewController(viewController, animated: true)
     }
     

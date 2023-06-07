@@ -10,7 +10,7 @@ import Foundation
 struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     let adult: Bool
-    let backdropPath: String
+    let backdropPath: String?
     let genreIDS: [Int]
     let originalLanguage: String
     let originalTitle: String
@@ -23,7 +23,7 @@ struct Movie: Codable, Identifiable, Hashable {
     let voteAverage: Double
     let voteCount: Int
     var backdropPathURL: URL? {
-        let backdropURL = URLs.APIImagesOriginalPath + backdropPath
+        let backdropURL = URLs.APIImagesOriginalPath + (backdropPath ?? "")
         return URL(string: backdropURL)
     }
     var posterPathURL: URL? {
@@ -39,11 +39,14 @@ struct Movie: Codable, Identifiable, Hashable {
         }
     }
     var voteAverageSplit: (naturalPart: String, decimalPart: String) {
-        let voteAverageString = String(voteAverage)
+        let voteAverageString = String(voteAverageRounded)
         let parts = voteAverageString.split(separator: ".")
         let naturalPart = String(parts[0])
         let decimalPart = String(parts[1])
         return(naturalPart, decimalPart)
+    }
+    var voteAverageRounded: Double {
+        return round(voteAverage * 10) / 10
     }
     
     enum CodingKeys: String, CodingKey {
