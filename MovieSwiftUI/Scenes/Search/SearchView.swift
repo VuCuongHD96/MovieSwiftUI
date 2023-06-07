@@ -9,31 +9,39 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @ObservedObject private var input: SearchViewModel.Input
-    @ObservedObject private var output: SearchViewModel.Output
+    @ObservedObject private var searchViewModelInput: SearchViewModel.Input
+    @ObservedObject private var searchViewModelOutput: SearchViewModel.Output
+    
     var cancelBag = CancelBag()
     
     init(viewModel: SearchViewModel) {
-        let input = SearchViewModel.Input()
-        output = viewModel.transform(input, cancelBag: cancelBag)
-        self.input = input
+        let searchViewModelInput = SearchViewModel.Input()
+        searchViewModelOutput = viewModel.transform(searchViewModelInput, cancelBag: cancelBag)
+        self.searchViewModelInput = searchViewModelInput
     }
     
     var body: some View {
         MovieNavigationView {
             VStack(spacing: 0) {
                 SearchHeaderView()
-                    .padding([.leading, .trailing], 8)
+                    .padding([.leading, .trailing, .bottom], 8)
                 CategoryHeaderView()
-                    .padding(8)
+                    .frame(height: searchViewModelOutput.genreArray.isEmpty ? 0 : CategoryHeaderView.Constant.cellHeight)
+                    .padding(searchViewModelOutput.genreArray.isEmpty ? 0 : 8)
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 1), value: UUID())
             }
         } bodyContent: {
-            Text("This is content")
+            SearchResultView()
+                .padding()
+        }
+        .onAppear {
+            searchViewModelInput.loadTrigger.send()
         }
         .ignoresSafeArea(edges: .bottom)
         .background(Color.gray.opacity(0.1))
-        .environmentObject(input)
-        .environmentObject(output)
+        .environmentObject(searchViewModelInput)
+        .environmentObject(searchViewModelOutput)
     }
 }
 

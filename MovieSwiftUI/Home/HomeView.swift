@@ -14,7 +14,7 @@ struct HomeView: View {
     var cancelBag = CancelBag()
     
     init(homeViewModel: HomeViewModel) {
-        let input = HomeViewModel.Input(loadTrigger: .just(Void()))
+        let input = HomeViewModel.Input()
         output = homeViewModel.transform(input, cancelBag: cancelBag)
         self.input = input
     }
@@ -44,6 +44,9 @@ struct HomeView: View {
                 }
                 .padding([.top, .leading, .trailing], 16)
             }
+        }
+        .onAppear {
+            input.loadTrigger.send()
         }
         .environmentObject(output)
         .environmentObject(input)

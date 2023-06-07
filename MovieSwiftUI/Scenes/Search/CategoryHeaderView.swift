@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CategoryHeaderView: View {
     
+    @EnvironmentObject private var searchViewModelOutput: SearchViewModel.Output
+    
     let rows = [
         GridItem(.flexible())
     ]
-    
-    private var icons = ["pencil", "trash", "printer.fill", "folder", "tray", "hare", "headphones", "ant", "mic", "plus.bubble", "video", "leaf"]
     
     struct Constant {
         static let cellHeight: CGFloat = 40
@@ -22,8 +22,8 @@ struct CategoryHeaderView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows) {
-                ForEach(icons, id: \.self) {
-                    Text($0)
+                ForEach(searchViewModelOutput.genreArray, id: \.self) { genre in
+                    Text(genre.name)
                         .fontWeight(.medium)
                         .font(.title3)
                         .padding()
@@ -40,6 +40,8 @@ struct CategoryHeaderView: View {
 
 struct CategoryHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryHeaderView()
+        let searchViewModelOutput = SearchViewModel.Output()
+        return CategoryHeaderView()
+            .environmentObject(searchViewModelOutput)
     }
 }
