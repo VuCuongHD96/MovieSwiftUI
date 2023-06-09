@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol SearchNavigatorType {
     func popToPrevious()
+    func toMovieDetailScreen(movie: Movie)
 }
 
 struct SearchNavigator: SearchNavigatorType {
@@ -17,5 +19,10 @@ struct SearchNavigator: SearchNavigatorType {
     
     func popToPrevious() {
         navigationController.popViewController(animated: true)
+    }
+    
+    func toMovieDetailScreen(movie: Movie) {
+        let viewController = UIHostingController(rootView: MovieDetailView())
+        navigationController.pushViewController(viewController, animated: true)
     }
 }

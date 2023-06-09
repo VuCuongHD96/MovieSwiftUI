@@ -14,17 +14,17 @@ struct SearchResultView: View {
         GridItem(.flexible())
     ]
     
-    @EnvironmentObject private var output: SearchViewModel.Output
-    @EnvironmentObject private var input: HomeViewModel.Input
+    @EnvironmentObject private var searchViewModelInput: SearchViewModel.Input
+    @EnvironmentObject private var searchViewModelOutput: SearchViewModel.Output
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns) {
-                ForEach(output.movieArray, id: \.id) { movie in
+                ForEach(searchViewModelOutput.filterMovieArray, id: \.id) { movie in
                     HomeTopRateView(movie: movie)
                         .frame(width: 155, height: 238, alignment: .bottom)
                         .onTapGesture {
-                            input.movieAction.send(movie)
+                            searchViewModelInput.movieAction.send(movie)
                         }
                 }
             }
@@ -34,11 +34,11 @@ struct SearchResultView: View {
 
 struct SearchResultView_Previews: PreviewProvider {
     static var previews: some View {
-        let homeViewModelInput = HomeViewModel.Input()
+        let searchViewModelInput = SearchViewModel.Input()
         let searchViewModelOutput = SearchViewModel.Output()
-        searchViewModelOutput.movieArray = Array(repeating: Movie.defaultValue, count: 1)
+        searchViewModelOutput.filterMovieArray = Array(repeating: Movie.defaultValue, count: 1)
         return SearchResultView()
-            .environmentObject(homeViewModelInput)
+            .environmentObject(searchViewModelInput)
             .environmentObject(searchViewModelOutput)
     }
 }

@@ -541,6 +541,8 @@
 			dependencies = (
 			);
 			name = MovieSwiftUI;
+			packageProductDependencies = (
+			);
 			productName = MovieSwiftUI;
 			productReference = A43A152428BE73EA000437F4 /* MovieSwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -569,6 +571,8 @@
 				Base,
 			);
 			mainGroup = A43A151B28BE73EA000437F4;
+			packageReferences = (
+			);
 			productRefGroup = A43A152528BE73EA000437F4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

@@ -13,8 +13,9 @@ protocol HomeUseCaseType {
 
 struct HomeUseCase: HomeUseCaseType {
     
+    let movieRepository = MovieRepository(api: .share)
+    
     func getMovieList(page: Int, movieType: MovieType) -> Observable<[Movie]> {
-        MovieRepository(api: .share)
-            .getMovieList(page: page, movieType: movieType)
+        movieRepository.getMovieList(page: page, movieType: movieType)
     }
 }

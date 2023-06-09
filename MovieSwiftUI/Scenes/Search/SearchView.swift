@@ -29,7 +29,7 @@ struct SearchView: View {
                     .frame(height: searchViewModelOutput.genreArray.isEmpty ? 0 : CategoryHeaderView.Constant.cellHeight)
                     .padding(searchViewModelOutput.genreArray.isEmpty ? 0 : 8)
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 1), value: UUID())
+                    .animation(.easeInOut(duration: 0.5), value: UUID())
             }
         } bodyContent: {
             SearchResultView()
