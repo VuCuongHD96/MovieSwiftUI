@@ -9,13 +9,9 @@ import Combine
 
 struct HomeViewModel: ViewModel {
     class Input: ObservableObject {
-        var loadTrigger: Driver<Void>
+        var loadTrigger = PassthroughSubject<Void, Never>()
         var searchAction = PassthroughSubject<Void, Never>()
         var movieAction = PassthroughSubject<Movie, Never>()
-        
-        init(loadTrigger: Driver<Void>) {
-            self.loadTrigger = loadTrigger
-        }
     }
     
     class Output: ObservableObject {

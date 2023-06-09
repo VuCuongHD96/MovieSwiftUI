@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeTopRateGridView: View {
     
     @EnvironmentObject private var output: HomeViewModel.Output
+    @EnvironmentObject private var input: HomeViewModel.Input
     
     private let gridRows = [
         GridItem(.fixed(238), spacing: 20),
@@ -21,7 +22,10 @@ struct HomeTopRateGridView: View {
                 LazyHGrid(rows: gridRows, spacing: 15) {
                     ForEach(output.secondMovieArray) { movie in
                         HomeTopRateView(movie: movie)
-                            .frame(width: 155, alignment: .bottom)
+                            .onTapGesture {
+                                input.movieAction.send(movie)
+                            }
+                            .frame(width: 155)
                     }
                 }
             }
@@ -31,10 +35,12 @@ struct HomeTopRateGridView: View {
 
 struct HomeTopRateGridView_Previews: PreviewProvider {
     static var previews: some View {
-        let output = HomeViewModel.Output()
-        output.secondMovieArray = Array(repeating: Movie.defaultValue, count: 1)
+        let homeViewModelInput = HomeViewModel.Input()
+        let homeViewModelOutput = HomeViewModel.Output()
+        homeViewModelOutput.secondMovieArray = Array(repeating: Movie.defaultValue, count: 1)
         return HomeTopRateGridView()
             .previewLayout(.sizeThatFits)
-            .environmentObject(output)
+            .environmentObject(homeViewModelInput)
+            .environmentObject(homeViewModelOutput)
     }
 }
