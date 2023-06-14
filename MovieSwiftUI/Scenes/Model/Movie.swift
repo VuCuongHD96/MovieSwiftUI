@@ -16,7 +16,7 @@ struct Movie: Codable, Identifiable, Hashable {
     let originalTitle: String
     let overview: String
     let popularity: Double
-    let posterPath: String
+    let posterPath: String?
     let releaseDate: String
     let title: String
     let video: Bool
@@ -27,7 +27,7 @@ struct Movie: Codable, Identifiable, Hashable {
         return URL(string: backdropURL)
     }
     var posterPathURL: URL? {
-        let posterPathURL = URLs.APIImagesOriginalPath + posterPath
+        let posterPathURL = URLs.APIImagesOriginalPath + (posterPath ?? "")
         return URL(string: posterPathURL)
     }
     var releaseYear: Int {

@@ -9,19 +9,19 @@ import SwiftUI
 
 struct SearchHeaderView: View {
 
-    @EnvironmentObject private var input: SearchViewModel.Input
+    @EnvironmentObject private var searchViewModelInput: SearchViewModel.Input
     @State private var searchData = ""
 
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                input.backTrigger.send()
+                searchViewModelInput.backTrigger.send()
             } label: {
                 Image("back")
             }
             TextField("Search movie name", text: $searchData)
                 .onChange(of: searchData, perform: { newValue in
-                    input.searchTrigger.send(newValue)
+                    searchViewModelInput.searchTrigger.send(newValue)
                 })
                 .accentColor(.white)
                 .frame(height: 40)
@@ -34,7 +34,7 @@ struct SearchHeaderView: View {
                 )
                 .foregroundColor(.white)
             Button {
-                print("button cancel click")
+                searchData = String()
             } label: {
                 Text("Cancel")
                     .foregroundColor(.white)

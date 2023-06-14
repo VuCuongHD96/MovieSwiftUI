@@ -14,11 +14,16 @@ struct SearchViewModel: ViewModel {
         var backTrigger = PassthroughSubject<Void, Never>()
         var searchTrigger = PassthroughSubject<String, Never>()
         var loadTrigger = PassthroughSubject<Void, Never>()
+        var movieAction = PassthroughSubject<Movie, Never>()
+        var genreSelectedTrigger = PassthroughSubject<Genre, Never>()
     }
     
     class Output: ObservableObject {
-        @Published var movieArray = [Movie]()
+        var originMovieArray = [Movie]()
+        @Published var filterMovieArray = [Movie]()
         @Published var genreArray = [Genre]()
+        @Published var genreIDSelectedArray = 0
+        var genreSelectedIDSet = Set<Int>()
     }
     
     let navigator: SearchNavigatorType
@@ -29,36 +34,7 @@ struct SearchViewModel: ViewModel {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
         
-        input.backTrigger
-            .sink {
-                navigator.popToPrevious()
-            }
-            .store(in: cancelBag)
-        
-        input.searchTrigger
-            .filter {
-                $0.isEmpty
-            }
-            .map { _ in
-                return [Movie]()
-            }
-            .assign(to: \.movieArray, on: output)
-            .store(in: cancelBag)
-        
-        input.searchTrigger
-            .debounce(for: 0.5, scheduler: DispatchQueue.main)
-            .filter {
-                !$0.isEmpty
-            }
-            .flatMap {
-                self.useCase.searchMovie(query: $0)
-                    .trackActivity(activityTracker)
-                    .trackError(errorTracker)
-                    .asDriver()
-            }
-            .assign(to: \.movieArray, on: output)
-            .store(in: cancelBag)
-        
+        // MARK: - LoadTrigger
         input.loadTrigger
             .flatMap {
                 self.useCase.getGenreList()
@@ -67,6 +43,87 @@ struct SearchViewModel: ViewModel {
                     .asDriver()
             }
             .assign(to: \.genreArray, on: output)
+            .store(in: cancelBag)
+        
+        // MARK: - Back Trigger
+        input.backTrigger
+            .sink {
+                navigator.popToPrevious()
+            }
+            .store(in: cancelBag)
+        
+        // MARK: - Search Trigger
+        let searchTriggerCancellable = input.searchTrigger
+            .filter {
+                !$0.isEmpty
+            }
+            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .flatMap {
+                self.useCase.searchMovie(query: $0)
+                    .trackActivity(activityTracker)
+                    .trackError(errorTracker)
+                    .asDriver()
+            }
+            .share()
+        
+        searchTriggerCancellable
+            .assign(to: \.originMovieArray, on: output)
+            .store(in: cancelBag)
+        
+        searchTriggerCancellable
+            .map { movieArray in
+                movieArray.filter { movie in
+                    output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                }
+            }
+            .assign(to: \.filterMovieArray, on: output)
+            .store(in: cancelBag)
+        
+        // MARK: - Movie Action
+        input.movieAction
+            .sink { movie in
+                navigator.toMovieDetailScreen(movie: movie)
+            }
+            .store(in: cancelBag)
+        
+        // MARK: - Genre Trigger
+        input.genreSelectedTrigger
+            .compactMap { genre -> Int? in
+                output.genreArray.firstIndex(of: genre)
+            }.map { genreIndex in
+                var selectedGenre = output.genreArray[genreIndex]
+                selectedGenre.selected.toggle()
+                output.genreArray[genreIndex] = selectedGenre
+                return output.genreArray
+            }
+            .assign(to: \.genreArray, on: output)
+            .store(in: cancelBag)
+        
+        let genreSelectedIDSetPublisher = input.genreSelectedTrigger
+            .map {
+                $0.id
+            }
+            .map { genreID in
+                if output.genreSelectedIDSet.contains(genreID) {
+                    output.genreSelectedIDSet.remove(genreID)
+                } else {
+                    output.genreSelectedIDSet.insert(genreID)
+                }
+                return output.genreSelectedIDSet
+            }
+            .share()
+        
+        genreSelectedIDSetPublisher
+            .assign(to: \.genreSelectedIDSet, on: output)
+            .store(in: cancelBag)
+        
+        genreSelectedIDSetPublisher
+            .map { genreSelectedIDSet in
+                output.originMovieArray.filter { movie in
+                    genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                }
+            }
+            .assign(to: \.filterMovieArray, on: output)
             .store(in: cancelBag)
         
         return output
