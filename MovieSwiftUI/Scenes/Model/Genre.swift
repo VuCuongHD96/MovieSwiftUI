@@ -30,11 +30,17 @@ struct Genre: Codable, Equatable, Hashable {
         self.name = name
         self.selected = false
     }
+    
+    init(id: Int, name: String, selected: Bool) {
+        self.id = id
+        self.name = name
+        self.selected = selected
+    }
 }
 
 extension Genre {
     static let action = Genre(id: 28, name: "Action")
-    static let adventure = Genre(id: 12, name: "Adventure")
+    static let adventure = Genre(id: 12, name: "Adventure", selected: true)
     static let animation = Genre(id: 16, name: "Animation")
     static let comedy = Genre(id: 35, name: "Comedy")
     static let crime = Genre(id: 80, name: "Crime")
