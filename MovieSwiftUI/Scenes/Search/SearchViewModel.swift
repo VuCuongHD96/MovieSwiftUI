@@ -16,14 +16,23 @@ struct SearchViewModel: ViewModel {
         var loadTrigger = PassthroughSubject<Void, Never>()
         var movieAction = PassthroughSubject<Movie, Never>()
         var genreSelectedTrigger = PassthroughSubject<Genre, Never>()
+        var cancelTrigger = PassthroughSubject<Void, Never>()
     }
     
     class Output: ObservableObject {
-        var originMovieArray = [Movie]()
         @Published var filterMovieArray = [Movie]()
-        @Published var genreArray = [Genre]()
-        @Published var genreIDSelectedArray = 0
+        @Published var filterGenreArray = [Genre]() {
+            didSet {
+                let selectedGenreArray = filterGenreArray.filter { genre in
+                    genre.selected
+                }.map { genre in
+                    genre.id
+                }
+                genreSelectedIDSet = Set(selectedGenreArray)
+            }
+        }
         var genreSelectedIDSet = Set<Int>()
+        @Published var searchData = ""
     }
     
     let navigator: SearchNavigatorType
@@ -34,29 +43,17 @@ struct SearchViewModel: ViewModel {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
         
-        // MARK: - LoadTrigger
-        input.loadTrigger
+        // MARK: - Get data
+        let genreArrayPublisher = input.loadTrigger
             .flatMap {
                 self.useCase.getGenreList()
                     .trackActivity(activityTracker)
                     .trackError(errorTracker)
                     .asDriver()
             }
-            .assign(to: \.genreArray, on: output)
-            .store(in: cancelBag)
+            .share()
         
-        // MARK: - Back Trigger
-        input.backTrigger
-            .sink {
-                navigator.popToPrevious()
-            }
-            .store(in: cancelBag)
-        
-        // MARK: - Search Trigger
-        let searchTriggerCancellable = input.searchTrigger
-            .filter {
-                !$0.isEmpty
-            }
+        let searchTriggerPublisher = input.searchTrigger
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .flatMap {
                 self.useCase.searchMovie(query: $0)
@@ -66,11 +63,35 @@ struct SearchViewModel: ViewModel {
             }
             .share()
         
-        searchTriggerCancellable
-            .assign(to: \.originMovieArray, on: output)
+        let filterGenreArrayPublisher = input.genreSelectedTrigger
+            .compactMap { genre -> Int? in
+                output.filterGenreArray.firstIndex(of: genre)
+            }.map { genreIndex in
+                var selectedGenre = output.filterGenreArray[genreIndex]
+                selectedGenre.selected.toggle()
+                output.filterGenreArray[genreIndex] = selectedGenre
+                return output.filterGenreArray
+            }
+        
+        // MARK: - Use data
+        genreArrayPublisher
+            .assign(to: \.filterGenreArray, on: output)
             .store(in: cancelBag)
         
-        searchTriggerCancellable
+        filterGenreArrayPublisher
+            .assign(to: \.filterGenreArray, on: output)
+            .store(in: cancelBag)
+                
+        input.genreSelectedTrigger.combineLatest(searchTriggerPublisher)
+            .map { _, originMovieArray in
+                originMovieArray.filter { movie in
+                    output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                }
+            }
+            .assign(to: \.filterMovieArray, on: output)
+            .store(in: cancelBag)
+        
+        searchTriggerPublisher
             .map { movieArray in
                 movieArray.filter { movie in
                     output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
@@ -79,49 +100,36 @@ struct SearchViewModel: ViewModel {
             .assign(to: \.filterMovieArray, on: output)
             .store(in: cancelBag)
         
-        // MARK: - Movie Action
+        // MARK: - Setup Action
+        input.backTrigger
+            .sink {
+                navigator.popToPrevious()
+            }
+            .store(in: cancelBag)
+        
         input.movieAction
             .sink { movie in
                 navigator.toMovieDetailScreen(movie: movie)
             }
             .store(in: cancelBag)
         
-        // MARK: - Genre Trigger
-        input.genreSelectedTrigger
-            .compactMap { genre -> Int? in
-                output.genreArray.firstIndex(of: genre)
-            }.map { genreIndex in
-                var selectedGenre = output.genreArray[genreIndex]
-                selectedGenre.selected.toggle()
-                output.genreArray[genreIndex] = selectedGenre
-                return output.genreArray
+        input.cancelTrigger.combineLatest(genreArrayPublisher)
+            .map { _, originGenreArray in
+                return originGenreArray
             }
-            .assign(to: \.genreArray, on: output)
+            .assign(to: \.filterGenreArray, on: output)
             .store(in: cancelBag)
         
-        let genreSelectedIDSetPublisher = input.genreSelectedTrigger
+        input.cancelTrigger
             .map {
-                $0.id
+                return String()
             }
-            .map { genreID in
-                if output.genreSelectedIDSet.contains(genreID) {
-                    output.genreSelectedIDSet.remove(genreID)
-                } else {
-                    output.genreSelectedIDSet.insert(genreID)
-                }
-                return output.genreSelectedIDSet
-            }
-            .share()
-        
-        genreSelectedIDSetPublisher
-            .assign(to: \.genreSelectedIDSet, on: output)
+            .assign(to: \.searchData, on: output)
             .store(in: cancelBag)
         
-        genreSelectedIDSetPublisher
-            .map { genreSelectedIDSet in
-                output.originMovieArray.filter { movie in
-                    genreSelectedIDSet.isSubset(of: movie.genreIDS)
-                }
+        input.cancelTrigger
+            .map { _ in
+                return [Movie]()
             }
             .assign(to: \.filterMovieArray, on: output)
             .store(in: cancelBag)

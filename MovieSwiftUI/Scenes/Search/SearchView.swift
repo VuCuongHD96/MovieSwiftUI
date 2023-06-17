@@ -26,14 +26,19 @@ struct SearchView: View {
                 SearchHeaderView()
                     .padding([.leading, .trailing, .bottom], 8)
                 CategoryHeaderView()
-                    .frame(height: searchViewModelOutput.genreArray.isEmpty ? 0 : CategoryHeaderView.Constant.cellHeight)
-                    .padding(searchViewModelOutput.genreArray.isEmpty ? 0 : 8)
+                    .frame(height: searchViewModelOutput.filterGenreArray.isEmpty ? 0 : CategoryHeaderView.Constant.cellHeight)
+                    .padding(searchViewModelOutput.filterGenreArray.isEmpty ? 0 : 8)
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.5), value: UUID())
+                    .animation(.easeInOut(duration: 0.2), value: UUID())
             }
         } bodyContent: {
-            SearchResultView()
-                .padding()
+            if searchViewModelOutput.filterMovieArray.isEmpty {
+                Text("No  movie")
+                    .background(Color.gray)
+            } else {            
+                SearchResultView()
+                    .padding()
+            }
         }
         .onAppear {
             searchViewModelInput.loadTrigger.send()

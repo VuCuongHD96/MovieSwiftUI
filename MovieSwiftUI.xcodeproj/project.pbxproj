@@ -67,6 +67,8 @@
 		96BE2BDE2A1A1F7D00D2159B /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE2BDD2A1A1F7D00D2159B /* MovieRepository.swift */; };
 		96BE2BE02A1A202A00D2159B /* MovieRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE2BDF2A1A202A00D2159B /* MovieRequest.swift */; };
 		96C18A9F2A1A62E700527614 /* MovieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C18A9E2A1A62E700527614 /* MovieType.swift */; };
+		96CA27A52A3D620B001153E3 /* GenreHeaderSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA27A42A3D620B001153E3 /* GenreHeaderSearchView.swift */; };
+		96CA27A82A3D6619001153E3 /* BagdeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CA27A72A3D6619001153E3 /* BagdeView.swift */; };
 		96D81BBE29C566520097A24F /* BaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D81BBD29C566520097A24F /* BaseError.swift */; };
 		96D81BC129C566D00097A24F /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D81BC029C566D00097A24F /* HTTPStatusCode.swift */; };
 		96D8867529BA217C00534530 /* HomeNowArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D8867429BA217C00534530 /* HomeNowArrayView.swift */; };
@@ -150,6 +152,8 @@
 		96BE2BDD2A1A1F7D00D2159B /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
 		96BE2BDF2A1A202A00D2159B /* MovieRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRequest.swift; sourceTree = "<group>"; };
 		96C18A9E2A1A62E700527614 /* MovieType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieType.swift; sourceTree = "<group>"; };
+		96CA27A42A3D620B001153E3 /* GenreHeaderSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreHeaderSearchView.swift; sourceTree = "<group>"; };
+		96CA27A72A3D6619001153E3 /* BagdeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagdeView.swift; sourceTree = "<group>"; };
 		96D81BBD29C566520097A24F /* BaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseError.swift; sourceTree = "<group>"; };
 		96D81BC029C566D00097A24F /* HTTPStatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
 		96D8867429BA217C00534530 /* HomeNowArrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNowArrayView.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 				96FA41422A26393B0077D80D /* SearchNavigator.swift */,
 				96A3CCFB2A2217BC00C56816 /* CategoryHeaderView.swift */,
 				9642842E2A2AE91200A22959 /* SearchResultView.swift */,
+				96CA27A42A3D620B001153E3 /* GenreHeaderSearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 		9677618829C768FA00DA942E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				96CA27A62A3D65F7001153E3 /* Common */,
 				9655EB572A1E6DB500695A68 /* MovieDetail */,
 				A43A153528BE75DA000437F4 /* Home */,
 				96BA16412A02C13C009076C2 /* Tabbar */,
@@ -439,6 +445,14 @@
 			name = Util;
 			path = MovieSwiftUI/Util;
 			sourceTree = SOURCE_ROOT;
+		};
+		96CA27A62A3D65F7001153E3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				96CA27A72A3D6619001153E3 /* BagdeView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
 		};
 		96D81BBF29C566B30097A24F /* Error */ = {
 			isa = PBXGroup;
@@ -652,6 +666,7 @@
 				9642842F2A2AE91200A22959 /* SearchResultView.swift in Sources */,
 				96E2057429C20EB800DE9F73 /* Driver.swift in Sources */,
 				96D81BBE29C566520097A24F /* BaseError.swift in Sources */,
+				96CA27A52A3D620B001153E3 /* GenreHeaderSearchView.swift in Sources */,
 				96B94B8B29D004C10014B62F /* Int+ in Sources */,
 				961244852A025ACC006A23A5 /* SearchView.swift in Sources */,
 				96D81BC129C566D00097A24F /* HTTPStatusCode.swift in Sources */,
@@ -673,6 +688,7 @@
 				96BE2BDA2A1A1F1B00D2159B /* Dates.swift in Sources */,
 				96D8867529BA217C00534530 /* HomeNowArrayView.swift in Sources */,
 				96BA164D2A02C19D009076C2 /* Screen.swift in Sources */,
+				96CA27A82A3D6619001153E3 /* BagdeView.swift in Sources */,
 				96BA16492A02C13C009076C2 /* TabBarController.swift in Sources */,
 				A43A153C28BF6A04000437F4 /* HomeTopRateView.swift in Sources */,
 				A43A153728BE75ED000437F4 /* HomeView.swift in Sources */,
