@@ -35,7 +35,7 @@ struct SearchView: View {
             if searchViewModelOutput.filterMovieArray.isEmpty {
                 Text("No  movie")
                     .background(Color.gray)
-            } else {            
+            } else {
                 SearchResultView()
                     .padding()
             }

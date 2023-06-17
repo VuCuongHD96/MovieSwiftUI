@@ -18,6 +18,7 @@ struct AppNavigator: AppNavigatorType {
     
     func toMainView() {
         let navigationController = UINavigationController()
+        navigationController.navigationBar.isHidden = true
         let navigator = WalkThoughtListNavigator(navigationController: navigationController)
         let viewModel = WalkThoughtListViewModel(navigator: navigator)
         let view = WalkThoughtListView(viewModel: viewModel)
