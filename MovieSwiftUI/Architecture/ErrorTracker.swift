@@ -7,10 +7,10 @@
 
 import Combine
 
-public typealias ErrorTracker = PassthroughSubject<Error, Never>
+typealias ErrorTracker = PassthroughSubject<Error, Never>
 
 extension Publisher where Failure: Error {
-    public func trackError(_ errorTracker: ErrorTracker) -> AnyPublisher<Output, Failure> {
+    func trackError(_ errorTracker: ErrorTracker) -> AnyPublisher<Output, Failure> {
         return handleEvents(receiveCompletion: { completion in
             if case let .failure(error) = completion {
                 errorTracker.send(error)

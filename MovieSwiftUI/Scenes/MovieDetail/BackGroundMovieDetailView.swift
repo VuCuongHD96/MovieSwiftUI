@@ -9,11 +9,11 @@ import SwiftUI
 
 struct BackGroundMovieDetailView: View {
     
-    let url = URL(string: "https://image.tmdb.org/t/p/original/nGxUxi3PfXDRm7Vg95VBNgNM8yc.jpg")!
+    @EnvironmentObject private var movieDetailOutput: MovieDetailViewModel.Output
     
     var body: some View {
         ZStack {
-            AsyncImage(url: url) { image in
+            AsyncImage(url: movieDetailOutput.movie.backdropPathURL) { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -31,6 +31,9 @@ struct BackGroundMovieDetailView: View {
 
 struct BackGroundMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BackGroundMovieDetailView()
+        let movieDetailOutput = MovieDetailViewModel.Output()
+        movieDetailOutput.movie = .defaultValue
+        return BackGroundMovieDetailView()
+            .environmentObject(movieDetailOutput)
     }
 }

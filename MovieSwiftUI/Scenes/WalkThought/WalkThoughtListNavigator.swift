@@ -17,11 +17,11 @@ struct WalkThoughtListNavigator: WalkThoughtListNavigatorType {
     unowned let navigationController: UINavigationController
     
     func toTabbar() {
-        navigationController.isNavigationBarHidden = true
         let storyBoard = UIStoryboard(name: "TabBar", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {
             return
         }
+        navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
