@@ -17,6 +17,7 @@ struct HeaderMovieDetailView: View {
             } label: {
                 Image("back")
                     .frame(width: 35, height: 35)
+                    .padding(8)
             }
             Spacer()
             Text("MOVIE DETAIL")
@@ -31,7 +32,7 @@ struct HeaderMovieDetailView: View {
                 Image(clickButton ? "FavoriteSelected" : "FavoriteWhite")
                     .resizable()
                     .frame(width: 35, height: 35)
-                    .padding([.trailing], 5)
+                    .padding(8)
             }
         }
     }

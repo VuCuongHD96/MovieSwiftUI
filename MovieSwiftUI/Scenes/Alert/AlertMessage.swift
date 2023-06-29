@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AlertMessage {
+struct AlertMessage {
     public var title = ""
     public var message = ""
     public var isShowing = false
@@ -21,11 +21,11 @@ public struct AlertMessage {
     }
 }
 
-public extension AlertMessage {
+extension AlertMessage {
     init(error: Error) {
-        self.title = "Error"
-        let message = error.localizedDescription
-        self.message = message
+        let baseError = error as? BaseError
+        self.title = baseError?.title ?? ""
+        self.message = baseError?.errorMessage ?? ""
         self.isShowing = !message.isEmpty
     }
 }

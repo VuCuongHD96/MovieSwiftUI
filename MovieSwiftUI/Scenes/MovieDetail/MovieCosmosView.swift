@@ -17,7 +17,7 @@ struct MovieCosmosView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: CosmosView, context: Context) {
-        uiView.rating = rating
+        uiView.rating = rating / 2
         uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         uiView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         uiView.settings.starSize = starSize

@@ -47,7 +47,7 @@ struct APIService {
             }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapError { error in
-                return BaseError.errorParsing
+                return BaseError.errorParsing(error)
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

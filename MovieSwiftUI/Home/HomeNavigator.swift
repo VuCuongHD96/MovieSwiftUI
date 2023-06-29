@@ -1,5 +1,5 @@
 //
-//  HomeNavigatorType.swift
+//  HomeNavigator.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 21/05/2023.
@@ -27,7 +27,11 @@ struct HomeNavigator: HomeNavigatorType {
     }
     
     func toMovieDetailScreen(movie: Movie) {
-        let viewController = UIHostingController(rootView: MovieDetailView())
+        let navigator = MovieDetailNavigator(navigationController: navigationController)
+        let useCase = MovieDetailUseCase()
+        let viewModel = MovieDetailViewModel(navigator: navigator, useCase: useCase, movie: movie)
+        let movieDetailView = MovieDetailView(viewModel: viewModel)
+        let viewController = UIHostingController(rootView: movieDetailView)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
