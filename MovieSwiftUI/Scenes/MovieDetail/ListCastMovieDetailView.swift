@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ListCastMovieDetailView: View {
     
+    var personArray: [Person] = [.defaultValue]
+    
     let row = [
         GridItem()
     ]
@@ -16,8 +18,8 @@ struct ListCastMovieDetailView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHGrid(rows: row, spacing: 15) {
-                ForEach(1...10, id: \.self) { item in
-                    CastView()
+                ForEach(personArray) { person in
+                    CastView(person: person)
                 }
             }
         }
@@ -26,7 +28,7 @@ struct ListCastMovieDetailView: View {
 
 struct ListCastMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ListCastMovieDetailView()
+        return ListCastMovieDetailView()
             .previewLayout(.sizeThatFits)
     }
 }

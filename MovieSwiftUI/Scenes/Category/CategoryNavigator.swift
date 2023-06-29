@@ -1,5 +1,5 @@
 //
-//  CategoryNavigatorType.swift
+//  CategoryNavigator.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 01/05/2023.
