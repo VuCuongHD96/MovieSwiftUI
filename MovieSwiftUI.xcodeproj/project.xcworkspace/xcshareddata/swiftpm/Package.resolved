@@ -8,15 +8,6 @@
         "revision" : "cce521e734d0090494bd4afab5fd2e2f2465c1af",
         "version" : "23.0.0"
       }
-    },
-    {
-      "identity" : "expandabletext",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/NuPlay/ExpandableText",
-      "state" : {
-        "revision" : "d140b404c6683bb169bb01ef4eeecdb6d9be8fb8",
-        "version" : "1.2.0"
-      }
     }
   ],
   "version" : 2

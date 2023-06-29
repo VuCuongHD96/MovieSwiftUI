@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ExpandableText
 
 struct MovieDetailView: View {
     
@@ -23,12 +22,6 @@ struct MovieDetailView: View {
                             .padding(.top, 205)
                             .padding([.leading, .trailing], 20)
                     }
-                    ExpandableText(text: "After being struck by lightning, Barry Allen wakes up from his coma to discover he's been given the power of super speed, becoming the Flash, fighting crime in Central City.")
-                        .lineLimit(3)
-                        .expandButton(TextSet(text: "more", font: .body, color: .red))
-                        .collapseButton(TextSet(text: "less", font: .body, color: .blue))
-                        .expandAnimation(.easeOut)
-                        .padding(20)
                    Text("Full Cast & Crew")
                         .padding(.vertical)
                         .padding(.leading, 20)

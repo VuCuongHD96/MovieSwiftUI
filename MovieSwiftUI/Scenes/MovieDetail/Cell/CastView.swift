@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CastView: View {
     
-    let url = URL(string: "https://image.tmdb.org/t/p/original/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg")!
+    let person: Person
 
     var body: some View {
         VStack(spacing: 10) {
-            AsyncImage(url: url) { image in
+            AsyncImage(url: person.profilePathURL) { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -22,10 +22,11 @@ struct CastView: View {
                 ProgressView()
             }
             .frame(height: 102)
-            Text("Hello, WorldWorld!")
+            Text(person.name)
                 .font(.footnote)
                 .lineLimit(2)
                 .frame(width: 70)
+            Spacer()
         }
         .fixedSize(horizontal: true, vertical: false)
     }
@@ -33,6 +34,6 @@ struct CastView: View {
 
 struct CastCell_Previews: PreviewProvider {
     static var previews: some View {
-        CastView()
+        CastView(person: .defaultValue)
     }
 }
