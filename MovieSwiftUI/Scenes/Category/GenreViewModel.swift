@@ -13,7 +13,7 @@ struct GenreViewModel: ViewModel {
     struct Input {
         var loadTrigger: Driver<Void>
         var searchButtonTapped = PassthroughSubject<Void, Never>()
-        var genreItemTapped = PassthroughSubject<Void, Never>()
+        var genreItemTapped = PassthroughSubject<Genre, Never>()
     }
     
     class Output: ObservableObject {
@@ -53,8 +53,8 @@ struct GenreViewModel: ViewModel {
             }
             .store(in: cancelBag)
         input.genreItemTapped
-            .sink {
-                navigator.toMovieByGenreScreen()
+            .sink { genre in
+                navigator.toMovieByGenreScreen(genre: genre)
             }
             .store(in: cancelBag)
         return output
