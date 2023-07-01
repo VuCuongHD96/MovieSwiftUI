@@ -10,10 +10,12 @@ import SwiftUI
 struct HeaderMovieDetailView: View {
     
     @State var clickButton = false
+    @EnvironmentObject private var movieDetailInput: MovieDetailViewModel.Input
     
     var body: some View {
         HStack {
             Button {
+                movieDetailInput.backButtonSubject.send()
             } label: {
                 Image("back")
                     .frame(width: 35, height: 35)
@@ -40,7 +42,9 @@ struct HeaderMovieDetailView: View {
 
 struct HeaderMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
+    let movieDetailInput = MovieDetailViewModel.Input()
         HeaderMovieDetailView()
             .previewLayout(.sizeThatFits)
+            .environmentObject(movieDetailInput)
     }
 }

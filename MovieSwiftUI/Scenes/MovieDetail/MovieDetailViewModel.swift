@@ -10,8 +10,11 @@ import Foundation
 
 struct MovieDetailViewModel {
     
-    struct Input {
+    class Input: ObservableObject {
         var loadTrigger = PassthroughSubject<Void, Never>()
+        var backButtonSubject = PassthroughSubject<Void, Never>()
+        var playButtonSubject = PassthroughSubject<Void, Never>()
+        var castDetailSubject = PassthroughSubject<Person, Never>()
     }
     
     class Output: ObservableObject {
@@ -49,6 +52,24 @@ extension MovieDetailViewModel: ViewModel {
                     .asDriver()
             }
             .assign(to: \.personArray, on: output)
+            .store(in: cancelBag)
+        
+        input.backButtonSubject
+            .sink {
+                navigator.backToPrevious()
+            }
+            .store(in: cancelBag)
+        
+        input.playButtonSubject
+            .sink {
+                navigator.showListTrailer()
+            }
+            .store(in: cancelBag)
+        
+        input.castDetailSubject
+            .sink { person in
+                navigator.toCastScreen(person: person)
+            }
             .store(in: cancelBag)
         
         errorTracker

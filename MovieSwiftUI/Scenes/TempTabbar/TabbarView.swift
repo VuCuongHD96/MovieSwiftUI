@@ -15,26 +15,24 @@ struct TabbarView: View {
     }
     
     let navigator: TabbarNavigator
-    @State var tabSelected = TabType.movie
+    @State private var tabSelected = TabType.movie
     
     var body: some View {
-        NavigationView {
-            TabView(selection: $tabSelected) {
-                HomeView(homeViewModel: navigator.createHomeViewModel())
-                    .tabItem {
-                        Image(tabSelected == .movie ? "MovieSelected" : "Movie")
-                        Text(TabType.movie.rawValue)
-                    }
-                    .tag(TabType.movie)
-                GenreView(categoryViewModel: navigator.createGenreViewModel())
-                    .tabItem {
-                        Image(tabSelected == .genre ? "GenreSelected" : "Genre")
-                        Text(TabType.genre.rawValue)
-                    }
-                    .tag(TabType.genre)
-            }
-            .tint(Color.pink)
+        TabView(selection: $tabSelected) {
+            HomeView(homeViewModel: navigator.createHomeViewModel())
+                .tabItem {
+                    Image(tabSelected == .movie ? "MovieSelected" : "Movie")
+                    Text(TabType.movie.rawValue)
+                }
+                .tag(TabType.movie)
+            GenreView(categoryViewModel: navigator.createGenreViewModel())
+                .tabItem {
+                    Image(tabSelected == .genre ? "GenreSelected" : "Genre")
+                    Text(TabType.genre.rawValue)
+                }
+                .tag(TabType.genre)
         }
+        .tint(Color.pink)
     }
 }
 

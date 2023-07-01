@@ -12,6 +12,8 @@ struct HomeView: View {
     @ObservedObject private var input: HomeViewModel.Input
     @ObservedObject private var output: HomeViewModel.Output
     var cancelBag = CancelBag()
+    @State private var isViewLoaded = false
+
     
     init(homeViewModel: HomeViewModel) {
         let input = HomeViewModel.Input()
@@ -63,5 +65,16 @@ struct HomeView_Previews: PreviewProvider {
         NavigationView {
             HomeView(homeViewModel: homeViewModel)
         }
+    }
+}
+
+struct LazyView<Content: View>: View {
+    let content: () -> Content
+    init(_ content: @autoclosure @escaping () -> Content) {
+        self.content = content
+    }
+    
+    var body: Content {
+        content()
     }
 }

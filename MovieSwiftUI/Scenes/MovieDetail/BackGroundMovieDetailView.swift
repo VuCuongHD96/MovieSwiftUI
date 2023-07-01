@@ -10,6 +10,7 @@ import SwiftUI
 struct BackGroundMovieDetailView: View {
     
     @EnvironmentObject private var movieDetailOutput: MovieDetailViewModel.Output
+    @EnvironmentObject private var movieDetailInput: MovieDetailViewModel.Input
     
     var body: some View {
         ZStack {
@@ -23,7 +24,7 @@ struct BackGroundMovieDetailView: View {
             }
             Image("play")
                 .onTapGesture {
-                    print("----- debug ------  Image(play)")
+                    movieDetailInput.playButtonSubject.send()
                 }
         }
     }
@@ -33,7 +34,9 @@ struct BackGroundMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let movieDetailOutput = MovieDetailViewModel.Output()
         movieDetailOutput.movie = .defaultValue
+        let movieDetailInput = MovieDetailViewModel.Input()
         return BackGroundMovieDetailView()
             .environmentObject(movieDetailOutput)
+            .environmentObject(movieDetailInput)
     }
 }

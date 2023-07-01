@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListCastMovieDetailView: View {
     
+    @EnvironmentObject private var movieDetailInput: MovieDetailViewModel.Input
     @EnvironmentObject private var movieDetailOutput: MovieDetailViewModel.Output
     
     let row = [
@@ -18,8 +19,11 @@ struct ListCastMovieDetailView: View {
     var body: some View {
         ScrollView(.horizontal) {
             LazyHGrid(rows: row, spacing: 15) {
-                ForEach(movieDetailOutput.personArray) { person in
+                ForEach(movieDetailOutput.personArray, id: \.creditID) { person in
                     CastView(person: person)
+                        .onTapGesture {
+                            movieDetailInput.castDetailSubject.send(person)
+                        }
                 }
             }
         }

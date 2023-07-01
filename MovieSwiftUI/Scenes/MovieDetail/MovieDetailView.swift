@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieDetailView: View {
     
-    private var movieDetailInput: MovieDetailViewModel.Input
+    @ObservedObject private var movieDetailInput: MovieDetailViewModel.Input
     @ObservedObject private var movieDetailOutput: MovieDetailViewModel.Output
     var cancelBag = CancelBag()
     
@@ -32,7 +32,6 @@ struct MovieDetailView: View {
                             .padding(.top, 205)
                             .padding([.leading, .trailing], 20)
                     }
-                   Text("Full Cast & Crew")
                     MovieExpandText(
                         message: movieDetailOutput.movie.overview,
                         moreText: {
@@ -55,7 +54,7 @@ struct MovieDetailView: View {
                         .padding(.leading, 20)
                         .font(.subheadline)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color.gray.opacity(0.2))
+                        .background(Color.gray.opacity(0.5))
                     ListCastMovieDetailView()
                         .padding(10)
                 }
@@ -67,6 +66,7 @@ struct MovieDetailView: View {
             movieDetailInput.loadTrigger.send()
         }
         .environmentObject(movieDetailOutput)
+        .environmentObject(movieDetailInput)
         .alert(isPresented: $movieDetailOutput.alert.isShowing) {
             Alert(title: Text(movieDetailOutput.alert.title),
                   message: Text(movieDetailOutput.alert.message),

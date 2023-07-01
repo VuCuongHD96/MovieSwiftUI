@@ -17,6 +17,7 @@ struct HomeViewModel: ViewModel {
     class Output: ObservableObject {
         @Published var firstMovieArray = [Movie]()
         @Published var secondMovieArray = [Movie]()
+        @Published var viewDidLoad = false
     }
     
     let navigator: HomeNavigatorType
@@ -26,6 +27,16 @@ struct HomeViewModel: ViewModel {
         let output = Output()
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
+        input.loadTrigger
+            .map {
+                return true
+            }
+            .handleEvents(receiveOutput: { value in
+                print("---- debug ----- viewDidLoad value = ", value)
+            })
+            .assign(to: \.viewDidLoad, on: output)
+            
+            .store(in: cancelBag)
         input.loadTrigger
             .flatMap {
                 self.useCase.getMovieList(page: 1, movieType: .nowPlaying)
