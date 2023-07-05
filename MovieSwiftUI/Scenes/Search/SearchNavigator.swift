@@ -15,7 +15,7 @@ protocol SearchNavigatorType {
 
 struct SearchNavigator: SearchNavigatorType {
     
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     
     func popToPrevious() {
         navigationController.popViewController(animated: true)

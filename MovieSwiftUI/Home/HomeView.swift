@@ -59,9 +59,9 @@ struct HomeView_Previews: PreviewProvider {
         let navigationController = UINavigationController()
         let navigator = HomeNavigator(navigationController: navigationController)
         let useCase = HomeUseCase()
-        let categoryViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
+        let homeViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
         NavigationView {
-            HomeView(homeViewModel: categoryViewModel)
+            HomeView(homeViewModel: homeViewModel)
         }
     }
 }

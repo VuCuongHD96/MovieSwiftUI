@@ -14,14 +14,13 @@ protocol WalkThoughtListNavigatorType {
 
 struct WalkThoughtListNavigator: WalkThoughtListNavigatorType {
     
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     
     func toTabbar() {
-        let storyBoard = UIStoryboard(name: "TabBar", bundle: nil)
-        guard let viewController = storyBoard.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {
-            return
-        }
-        navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.isNavigationBarHidden = true
+        let navigator = TabbarNavigator(navigationController: navigationController)
+        let tabbarView = TabbarView(navigator: navigator)
+        let tabbarController = UIHostingController(rootView: tabbarView)
+        navigationController.pushViewController(tabbarController, animated: true)
     }
 }

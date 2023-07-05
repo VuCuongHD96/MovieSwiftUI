@@ -1,20 +1,19 @@
 //
-//  CategoryNavigator.swift
+//  FavoriteNavigator.swift
 //  MovieSwiftUI
 //
-//  Created by Work on 01/05/2023.
+//  Created by Work on 05/07/2023.
 //
 
 import UIKit
 import SwiftUI
 
-protocol CategoryNavigatorType {
+protocol FavoriteNavigatorType {
     func toSearchScreen()
-    func toMovieByGenreScreen()
 }
 
-struct GenreNavigator: CategoryNavigatorType {
-
+struct FavoriteNavigator: FavoriteNavigatorType {
+    
     let navigationController: UINavigationController
     
     func toSearchScreen() {
@@ -23,11 +22,6 @@ struct GenreNavigator: CategoryNavigatorType {
         let viewModel = SearchViewModel(navigator: navigator, useCase: useCase)
         let searchView = SearchView(viewModel: viewModel)
         let viewController = UIHostingController(rootView: searchView)
-        navigationController.pushViewController(viewController, animated: true)
-    }
-    
-    func toMovieByGenreScreen() {
-        let viewController = UIHostingController(rootView: MovieByGenreScreen())
         navigationController.pushViewController(viewController, animated: true)
     }
 }

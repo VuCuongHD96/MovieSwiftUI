@@ -13,5 +13,5 @@ protocol MovieDetailNavigatorType {
 
 struct MovieDetailNavigator: MovieDetailNavigatorType {
    
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
 }

@@ -15,7 +15,7 @@ protocol HomeNavigatorType {
 
 struct HomeNavigator: HomeNavigatorType {
     
-    unowned let navigationController: UINavigationController
+    let navigationController: UINavigationController
     
     func toSearchScreen() {
         let navigator = SearchNavigator(navigationController: navigationController)
