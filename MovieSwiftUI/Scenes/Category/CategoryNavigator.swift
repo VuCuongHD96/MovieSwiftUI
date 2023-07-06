@@ -10,7 +10,7 @@ import SwiftUI
 
 protocol CategoryNavigatorType {
     func toSearchScreen()
-    func toMovieByGenreScreen()
+    func toMovieByGenreScreen(genre: Genre)
 }
 
 struct GenreNavigator: CategoryNavigatorType {
@@ -26,8 +26,11 @@ struct GenreNavigator: CategoryNavigatorType {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func toMovieByGenreScreen() {
-        let viewController = UIHostingController(rootView: MovieByGenreView())
+    func toMovieByGenreScreen(genre: Genre) {
+        let useCase = MovieByGenreUseCase()
+        let viewModel = MovieByGenreViewModel(movieByGenreUseCase: useCase, genre: genre)
+        let movieByGenreView = MovieByGenreView(viewModel: viewModel)
+        let viewController = UIHostingController(rootView: movieByGenreView)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
