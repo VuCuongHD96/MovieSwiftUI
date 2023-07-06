@@ -27,8 +27,9 @@ struct GenreNavigator: CategoryNavigatorType {
     }
     
     func toMovieByGenreScreen(genre: Genre) {
+        let navigator = MovieByGenreNavigator(navigationController: navigationController)
         let useCase = MovieByGenreUseCase()
-        let viewModel = MovieByGenreViewModel(movieByGenreUseCase: useCase, genre: genre)
+        let viewModel = MovieByGenreViewModel(navigator: navigator, useCase: useCase, genre: genre)
         let movieByGenreView = MovieByGenreView(viewModel: viewModel)
         let viewController = UIHostingController(rootView: movieByGenreView)
         navigationController.pushViewController(viewController, animated: true)

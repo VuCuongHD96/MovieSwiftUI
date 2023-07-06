@@ -26,6 +26,9 @@ struct MovieByGenreView: View {
             ScrollView {
                 ForEach(output.movieArray, id: \.self) { movie in
                     MovieByGenreCell(movie: movie)
+                        .onTapGesture {
+                            input.movieAction.send(movie)
+                        }
                 }
             }
             .padding(.top, 20)
@@ -34,13 +37,16 @@ struct MovieByGenreView: View {
         .onAppear {
             input.loadTrigger.send()
         }
+        .environmentObject(input)
     }
 }
 
 struct MovieByGenreScreen_Previews: PreviewProvider {
     static var previews: some View {
+        let navigationController = UINavigationController()
+        let navigator = MovieByGenreNavigator(navigationController: navigationController)
         let useCase = MovieByGenreUseCase()
-        let viewModel = MovieByGenreViewModel(movieByGenreUseCase: useCase, genre: .action)
+        let viewModel = MovieByGenreViewModel(navigator: navigator, useCase: useCase, genre: .action)
         return MovieByGenreView(viewModel: viewModel)
     }
 }
