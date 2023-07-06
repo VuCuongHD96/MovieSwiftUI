@@ -27,7 +27,7 @@ struct GenreNavigator: CategoryNavigatorType {
     }
     
     func toMovieByGenreScreen() {
-        let viewController = UIHostingController(rootView: MovieByGenreScreen())
+        let viewController = UIHostingController(rootView: MovieByGenreView())
         navigationController.pushViewController(viewController, animated: true)
     }
 }
