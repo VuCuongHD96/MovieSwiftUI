@@ -34,10 +34,10 @@ struct GenreView: View {
             .opacity(output.isLoading ? 0 : 1)
         } bodyContent: {
             ScrollView {
-                ForEach(output.genreArray, id: \.id) { item in
-                    GenreCellView(categoryName: item.name)
+                ForEach(output.genreArray, id: \.id) { genre in
+                    GenreCellView(genre: genre)
                         .onTapGesture {
-                            input.genreItemTapped.send()
+                            input.genreItemTapped.send(genre)
                         }
                 }
             }

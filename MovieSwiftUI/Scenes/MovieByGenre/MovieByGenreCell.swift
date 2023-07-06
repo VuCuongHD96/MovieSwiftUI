@@ -9,14 +9,16 @@ import SwiftUI
 
 struct MovieByGenreCell: View {
     
+    let movie: Movie
+    
     var body: some View {
         VStack {
             HStack(spacing: 0) {
-                PosterScoreView()
+                PosterScoreView(movie: movie)
                 GeometryReader { proxy in
                     VStack {
                         Spacer()
-                        MovieInforView()
+                        MovieInforView(movie: movie)
                             .padding(.leading, 30)
                             .frame(height: proxy.size.height * 0.85)
                     }
@@ -33,7 +35,7 @@ struct MovieByGenreCell: View {
 
 struct MovieByGenreCell_Previews: PreviewProvider {
     static var previews: some View {
-        MovieByGenreCell()
+        MovieByGenreCell(movie: .defaultValue)
             .previewLayout(.sizeThatFits)
     }
 }

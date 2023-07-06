@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct PosterScoreView: View {
+    
+    let movie: Movie
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Image("PosterImage")
-                .resizable()
-                .scaledToFit()
+            AsyncImage(url: movie.posterPathURL) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(5)
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 130)
+            .frame(maxHeight: .infinity)
             ZStack {
                 Circle()
                     .fill(Color.yellow)
@@ -29,7 +39,7 @@ struct PosterScoreView: View {
 
 struct PosterScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        PosterScoreView()
+        PosterScoreView(movie: .defaultValue)
             .previewLayout(.sizeThatFits)
     }
 }

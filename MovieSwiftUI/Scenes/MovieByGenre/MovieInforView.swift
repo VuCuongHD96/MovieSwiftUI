@@ -10,10 +10,11 @@ import SwiftUI
 struct MovieInforView: View {
     
     @State var titleSize = CGSize.zero
+    let movie: Movie
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Sonic the Headgehog")
+            Text(movie.title)
                 .font(.title3)
                 .readSize { size in
                     titleSize = size
@@ -21,7 +22,7 @@ struct MovieInforView: View {
             RoundedRectangle(cornerRadius: 0)
                 .fill(.gray)
                 .frame(width: titleSize.width, height: 1)
-            Text("Based on the global blockbuster videogame franchise from Sega, Sonic the Hedgehog tells the story of the world's speediest hedgehog as he embraces his new home on Earth. In this ١٠٠٠ blockbuster videogame franchise from Sega, Sonic the Hedgehog tells the story of the world's speediest hedgehog as he embraces his new home on Earth. In th")
+            Text(movie.overview)
                 .foregroundColor(Color.gray)
         }
     }
@@ -29,7 +30,7 @@ struct MovieInforView: View {
 
 struct MovieInforView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieInforView()
+        MovieInforView(movie: .defaultValue)
             .previewLayout(.sizeThatFits)
     }
 }

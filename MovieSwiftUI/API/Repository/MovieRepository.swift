@@ -41,4 +41,13 @@ class MovieRepository: ServiceBaseRepository, MovieRepositoryType {
             }
             .eraseToAnyPublisher()
     }
+    
+    func getMovieList(by genre: Genre) -> Observable<[Movie]> {
+        let input = MovieRequest(genreID: genre.id)
+        return api.request(input: input)
+            .map { (data: MovieResponse) -> [Movie] in
+                data.results
+            }
+            .eraseToAnyPublisher()
+    }
 }

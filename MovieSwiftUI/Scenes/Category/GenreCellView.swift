@@ -9,19 +9,18 @@ import SwiftUI
 
 struct GenreCellView: View {
     
-    let categoryName: String
+    let genre: Genre
     
-    init(categoryName: String) {
-        self.categoryName = categoryName
-        print("---- debug ------ categoryName = ", categoryName)
+    init(genre: Genre) {
+        self.genre = genre
     }
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            Image(categoryName)
+            Image(genre.name)
                 .resizable()
                 .frame(height: 200)
-            Text(categoryName)
+            Text(genre.name)
                 .foregroundColor(Color.white)
                 .fontWeight(.bold)
                 .padding(8)
@@ -36,8 +35,8 @@ struct GenreCellView: View {
 struct CategoryCellView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            GenreCellView(categoryName: "Action")
-            GenreCellView(categoryName: "Animation")
+            GenreCellView(genre: .action)
+            GenreCellView(genre: .animation)
         }
         .previewLayout(.sizeThatFits)
     }
