@@ -14,7 +14,7 @@ struct HomeView: View {
     var cancelBag = CancelBag()
     
     init(homeViewModel: HomeViewModel) {
-        let input = HomeViewModel.Input()
+        let input = HomeViewModel.Input(loadTrigger: .just(Void()))
         output = homeViewModel.transform(input, cancelBag: cancelBag)
         self.input = input
     }
@@ -45,9 +45,6 @@ struct HomeView: View {
                 .padding([.top, .leading, .trailing], 16)
             }
         }
-        .onAppear {
-            input.loadTrigger.send()
-        }
         .environmentObject(output)
         .environmentObject(input)
         .background(Color.gray.opacity(0.1))
@@ -60,8 +57,6 @@ struct HomeView_Previews: PreviewProvider {
         let navigator = HomeNavigator(navigationController: navigationController)
         let useCase = HomeUseCase()
         let homeViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
-        NavigationView {
-            HomeView(homeViewModel: homeViewModel)
-        }
+        return HomeView(homeViewModel: homeViewModel)        
     }
 }

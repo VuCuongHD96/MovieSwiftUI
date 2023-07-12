@@ -59,8 +59,9 @@ struct CategoryView_Previews: PreviewProvider {
         let navigator = GenreNavigator(navigationController: navigationController)
         let useCase = GenreUseCase()
         let categoryViewModel = GenreViewModel(navigator: navigator, useCase: useCase)
-        NavigationView {
-            GenreView(categoryViewModel: categoryViewModel)
-        }
+        let output = GenreViewModel.Output()
+        output.genreArray = [.action, .adventure, .animation, .comedy, .crime]
+        return GenreView(categoryViewModel: categoryViewModel)
+            .environmentObject(output)
     }
 }

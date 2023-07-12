@@ -22,7 +22,7 @@ struct GenreViewModel: ViewModel {
         @Published var isLoading = false
     }
     
-    let navigator: CategoryNavigatorType
+    let navigator: GenreNavigatorType
     let useCase: GenreUseCaseType
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
