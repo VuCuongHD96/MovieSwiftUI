@@ -1,5 +1,5 @@
 //
-//  CategoryNavigator.swift
+//  GenreNavigator.swift
 //  MovieSwiftUI
 //
 //  Created by Work on 01/05/2023.
@@ -8,12 +8,12 @@
 import UIKit
 import SwiftUI
 
-protocol CategoryNavigatorType {
+protocol GenreNavigatorType {
     func toSearchScreen()
     func toMovieByGenreScreen(genre: Genre)
 }
 
-struct GenreNavigator: CategoryNavigatorType {
+struct GenreNavigator: GenreNavigatorType {
 
     let navigationController: UINavigationController
     

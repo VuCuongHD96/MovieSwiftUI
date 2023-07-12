@@ -286,12 +286,12 @@
 			path = MovieByGenre;
 			sourceTree = "<group>";
 		};
-		9628E42729EA66900069EC6E /* Application */ = {
+		9628E42729EA66900069EC6E /* App */ = {
 			isa = PBXGroup;
 			children = (
 				9628E42829EA66B20069EC6E /* AppDelegate.swift */,
 			);
-			path = Application;
+			path = App;
 			sourceTree = "<group>";
 		};
 		962BF3A62A46C02E00B4C202 /* CommonView */ = {
@@ -337,7 +337,7 @@
 			path = MovieDetail;
 			sourceTree = "<group>";
 		};
-		9671351D29BCC13F0023CCD2 /* API */ = {
+		9671351D29BCC13F0023CCD2 /* Platform */ = {
 			isa = PBXGroup;
 			children = (
 				96D81BBF29C566B30097A24F /* Error */,
@@ -347,7 +347,7 @@
 				9671352129BCC4F90023CCD2 /* Response */,
 				9671351E29BCC1730023CCD2 /* Service */,
 			);
-			path = API;
+			path = Platform;
 			sourceTree = "<group>";
 		};
 		9671351E29BCC1730023CCD2 /* Service */ = {
@@ -376,7 +376,7 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
-		9677618829C768FA00DA942E /* Scenes */ = {
+		9677618829C768FA00DA942E /* Application */ = {
 			isa = PBXGroup;
 			children = (
 				96CF95502A56FBE000054145 /* TempTabbar */,
@@ -396,11 +396,10 @@
 				9677618B29C768FA00DA942E /* Category */,
 				9677619029C768FA00DA942E /* Alert */,
 				9677619229C768FA00DA942E /* Navigation */,
-				9677619629C768FA00DA942E /* Model */,
 				9677619929C768FA00DA942E /* WalkThought */,
 				967761A029C768FA00DA942E /* LinearGradient */,
 			);
-			path = Scenes;
+			path = Application;
 			sourceTree = "<group>";
 		};
 		9677618929C768FA00DA942E /* Extension */ = {
@@ -479,6 +478,14 @@
 				967761A129C768FA00DA942E /* MovieLinearGradient.swift */,
 			);
 			path = LinearGradient;
+			sourceTree = "<group>";
+		};
+		967D60D62A5E5C8600358ACF /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				9677619629C768FA00DA942E /* Model */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		9687200F29EC4F8000AFCC9D /* App */ = {
@@ -634,10 +641,11 @@
 		A43A152628BE73EA000437F4 /* MovieSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				9628E42729EA66900069EC6E /* Application */,
-				9677618829C768FA00DA942E /* Scenes */,
+				9628E42729EA66900069EC6E /* App */,
 				96E2057229C206AE00DE9F73 /* Architecture */,
-				9671351D29BCC13F0023CCD2 /* API */,
+				967D60D62A5E5C8600358ACF /* Domain */,
+				9671351D29BCC13F0023CCD2 /* Platform */,
+				9677618829C768FA00DA942E /* Application */,
 				96BA164A2A02C19D009076C2 /* Util */,
 				A43A152B28BE73ED000437F4 /* Assets.xcassets */,
 				A43A152D28BE73ED000437F4 /* Preview Content */,
