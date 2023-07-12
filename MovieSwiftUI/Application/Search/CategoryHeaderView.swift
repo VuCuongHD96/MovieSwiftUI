@@ -23,12 +23,12 @@ struct CategoryHeaderView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows) {
-                ForEach(searchViewModelOutput.filterGenreArray, id: \.id) { genre in
+                ForEach(Array(searchViewModelOutput.genreArray.enumerated()), id: \.element.id) { index, genre in
                     GenreHeaderSearchView(genre: genre)
                         .frame(height: Constant.cellHeight)
                         .cornerRadius(10)
                         .onTapGesture {
-                            searchViewModelInput.genreSelectedTrigger.send(genre)
+                            searchViewModelInput.genreIndexSelectedAction.send(index)
                         }
                 }
             }
@@ -41,7 +41,7 @@ struct CategoryHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         let searchViewModelInput = SearchViewModel.Input()
         let searchViewModelOutput = SearchViewModel.Output()
-        searchViewModelOutput.filterGenreArray = Genre.array
+        searchViewModelOutput.genreArray = Genre.array
         return CategoryHeaderView()
             .environmentObject(searchViewModelInput)
             .environmentObject(searchViewModelOutput)
