@@ -57,6 +57,6 @@ struct HomeView_Previews: PreviewProvider {
         let navigator = HomeNavigator(navigationController: navigationController)
         let useCase = HomeUseCase()
         let homeViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
-        return HomeView(homeViewModel: homeViewModel)        
+        return HomeView(homeViewModel: homeViewModel)
     }
 }
