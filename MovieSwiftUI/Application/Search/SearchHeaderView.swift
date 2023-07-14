@@ -15,7 +15,7 @@ struct SearchHeaderView: View {
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                searchViewModelInput.backTrigger.send()
+                searchViewModelInput.backAction.send()
             } label: {
                 Image("back")
             }

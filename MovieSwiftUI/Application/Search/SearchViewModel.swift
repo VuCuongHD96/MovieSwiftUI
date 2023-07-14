@@ -11,26 +11,17 @@ import SwiftUI
 struct SearchViewModel: ViewModel {
     
     class Input: ObservableObject {
-        var backTrigger = PassthroughSubject<Void, Never>()
+        var backAction = PassthroughSubject<Void, Never>()
         var searchTrigger = PassthroughSubject<String, Never>()
         var loadTrigger = PassthroughSubject<Void, Never>()
         var movieAction = PassthroughSubject<Movie, Never>()
-        var genreSelectedTrigger = PassthroughSubject<Genre, Never>()
+        var genreIndexSelectedAction = PassthroughSubject<Int, Never>()
         var cancelTrigger = PassthroughSubject<Void, Never>()
     }
     
     class Output: ObservableObject {
-        @Published var filterMovieArray = [Movie]()
-        @Published var filterGenreArray = [Genre]() {
-            didSet {
-                let selectedGenreArray = filterGenreArray.filter { genre in
-                    genre.selected
-                }.map { genre in
-                    genre.id
-                }
-                genreSelectedIDSet = Set(selectedGenreArray)
-            }
-        }
+        @Published var movieArray = [Movie]()
+        @Published var genreArray = [Genre]()
         var genreSelectedIDSet = Set<Int>()
         @Published var searchData = ""
     }
@@ -43,7 +34,27 @@ struct SearchViewModel: ViewModel {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
         
-        // MARK: - Get data
+        output.$genreArray
+            .removeDuplicates()
+            .map { genreArray in
+                let genreIDArray = genreArray
+                    .filter { $0.selected }
+                    .map { $0.id }
+                return Set(genreIDArray)
+            }
+            .assign(to: \.genreSelectedIDSet, on: output)
+            .store(in: cancelBag)
+        
+        input.genreIndexSelectedAction
+            .map { index -> [Genre] in
+                var genreSelected = output.genreArray[index]
+                genreSelected.selected.toggle()
+                output.genreArray[index] = genreSelected
+                return output.genreArray
+            }
+            .assign(to: \.genreArray, on: output)
+            .store(in: cancelBag)
+        
         let genreArrayPublisher = input.loadTrigger
             .flatMap {
                 self.useCase.getGenreList()
@@ -53,7 +64,7 @@ struct SearchViewModel: ViewModel {
             }
             .share()
         
-        let searchTriggerPublisher = input.searchTrigger
+        let searchResult = input.searchTrigger
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .flatMap {
                 self.useCase.searchMovie(query: $0)
@@ -63,45 +74,30 @@ struct SearchViewModel: ViewModel {
             }
             .share()
         
-        let filterGenreArrayPublisher = input.genreSelectedTrigger
-            .compactMap { genre -> Int? in
-                output.filterGenreArray.firstIndex(of: genre)
-            }.map { genreIndex in
-                var selectedGenre = output.filterGenreArray[genreIndex]
-                selectedGenre.selected.toggle()
-                output.filterGenreArray[genreIndex] = selectedGenre
-                return output.filterGenreArray
-            }
-        
-        // MARK: - Use data
-        genreArrayPublisher
-            .assign(to: \.filterGenreArray, on: output)
-            .store(in: cancelBag)
-        
-        filterGenreArrayPublisher
-            .assign(to: \.filterGenreArray, on: output)
-            .store(in: cancelBag)
-                
-        input.genreSelectedTrigger.combineLatest(searchTriggerPublisher)
+        input.genreIndexSelectedAction
+            .combineLatest(searchResult)
             .map { _, originMovieArray in
                 originMovieArray.filter { movie in
-                    output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                    return output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
                 }
             }
-            .assign(to: \.filterMovieArray, on: output)
+            .assign(to: \.movieArray, on: output)
             .store(in: cancelBag)
         
-        searchTriggerPublisher
+        genreArrayPublisher
+            .assign(to: \.genreArray, on: output)
+            .store(in: cancelBag)
+        
+        searchResult
             .map { movieArray in
-                movieArray.filter { movie in
+                return movieArray.filter { movie in
                     output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
                 }
             }
-            .assign(to: \.filterMovieArray, on: output)
+            .assign(to: \.movieArray, on: output)
             .store(in: cancelBag)
         
-        // MARK: - Setup Action
-        input.backTrigger
+        input.backAction
             .sink {
                 navigator.popToPrevious()
             }
@@ -113,25 +109,19 @@ struct SearchViewModel: ViewModel {
             }
             .store(in: cancelBag)
         
-        input.cancelTrigger.combineLatest(genreArrayPublisher)
+        input.cancelTrigger
+            .combineLatest(genreArrayPublisher)
             .map { _, originGenreArray in
                 return originGenreArray
             }
-            .assign(to: \.filterGenreArray, on: output)
+            .assign(to: \.genreArray, on: output)
             .store(in: cancelBag)
         
         input.cancelTrigger
-            .map {
-                return String()
+            .sink {
+                output.searchData = String()
+                output.movieArray.removeAll()
             }
-            .assign(to: \.searchData, on: output)
-            .store(in: cancelBag)
-        
-        input.cancelTrigger
-            .map { _ in
-                return [Movie]()
-            }
-            .assign(to: \.filterMovieArray, on: output)
             .store(in: cancelBag)
         
         return output

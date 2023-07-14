@@ -11,7 +11,7 @@ struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     let adult: Bool
     var backdropPath: String?
-    let genreIDS: [Int] = []
+    let genreIDS: [Int]
     let originalLanguage: String
     let originalTitle: String
     let overview: String
@@ -74,6 +74,7 @@ struct Movie: Codable, Identifiable, Hashable {
     static let defaultValue = Movie(id: 1,
                                     adult: true,
                                     backdropPath: "/c3hl9E8E7b9opXDFVF5tSyk0ykr.jpg",
+                                    genreIDS: [1, 2, 3],
                                     originalLanguage: "",
                                     originalTitle: "",
                                     overview: "this is overview testthis is overview testthis is overview testthis is overview testthis is overview testthis is overview testhis is overview testthis is overview testthis is overview testthis is overview testt",

@@ -330,6 +330,7 @@
 				964B6F942A434BBD0082ADE8 /* MovieCosmosView.swift */,
 				9675E1A52A4498CE00EC6025 /* MovieDetailViewModel.swift */,
 				9675E1A72A44994100EC6025 /* MovieDetailNavigator.swift */,
+				A43A153528BE75DA000437F4 /* Home */,
 				9675E1A92A449B3B00EC6025 /* MovieDetailUseCase.swift */,
 			);
 			path = MovieDetail;
@@ -383,7 +384,6 @@
 				96B87EAD2A4F27AE0080F40F /* Trailer */,
 				962BF3A62A46C02E00B4C202 /* CommonView */,
 				9655EB572A1E6DB500695A68 /* MovieDetail */,
-				A43A153528BE75DA000437F4 /* Home */,
 				96BA16412A02C13C009076C2 /* Tabbar */,
 				961244892A026066006A23A5 /* MovieByGenre */,
 				961244862A026009006A23A5 /* GenreDetail */,
@@ -670,8 +670,7 @@
 				96BE2BD52A1A1D0E00D2159B /* HomeUseCase.swift */,
 				A43A153828BE75F8000437F4 /* Cell */,
 			);
-			name = Home;
-			path = ../Home;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A43A153828BE75F8000437F4 /* Cell */ = {
