@@ -14,11 +14,11 @@ struct HomeNowView: View {
     
     var body: some View {
         VStack(spacing: 5) {
-            AsyncImage(url: movie.posterPathURL) { image in
+            MovieAsyncImage(url: movie.posterPathURL) { image in
                 image.resizable()
                     .aspectRatio(contentMode: .fill)
                     .cornerRadius(5)
-            } placeholder: {
+            } placeHolderContent: {
                 ProgressView()
             }
             .frame(height: 200)
