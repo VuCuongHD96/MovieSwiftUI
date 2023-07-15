@@ -28,7 +28,7 @@ struct MovieDetailView: View {
                     ZStack(alignment: .top) {
                         BackGroundMovieDetailView(movie: movieDetailOutput.movie,
                                                   playTrigger: $movieDetailInput.playTrigger)
-                            .frame(width: Screen.width, height: 280)
+                        .frame(width: Screen.width, height: 280)
                         PosterMovieDetailView(movie: movieDetailOutput.movie)
                             .padding(.top, 205)
                             .padding([.leading, .trailing], 20)
@@ -58,15 +58,12 @@ struct MovieDetailView: View {
                         .background(Color.gray.opacity(0.5))
                     ListCastMovieDetailView(personArray: movieDetailOutput.personArray,
                                             selectedPerson: $movieDetailInput.selectedPersonTrigger)
-                        .padding(10)
+                    .padding(10)
                 }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
-        .onAppear {
-            movieDetailInput.loadTrigger.send()
-        }
         .alert(isPresented: $movieDetailOutput.alert.isShowing) {
             Alert(title: Text(movieDetailOutput.alert.title),
                   message: Text(movieDetailOutput.alert.message),

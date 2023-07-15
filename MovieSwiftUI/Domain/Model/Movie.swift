@@ -11,7 +11,10 @@ struct Movie: Codable, Identifiable, Hashable {
     let id: Int
     let adult: Bool
     var backdropPath: String?
-    let genreIDS: [Int]
+    private let genreIDS: [Int]?
+    var genreIDSUnwrapped: [Int] {
+        return genreIDS ?? [Int]()
+    }
     let originalLanguage: String
     let originalTitle: String
     let overview: String
@@ -44,7 +47,7 @@ struct Movie: Codable, Identifiable, Hashable {
         let parts = voteAverageString.split(separator: ".")
         let naturalPart = String(parts[0])
         let decimalPart = String(parts[1])
-        return(naturalPart, decimalPart)
+        return (naturalPart, decimalPart)
     }
     var voteAverageRounded: Double {
         return round(voteAverage * 10) / 10
@@ -54,7 +57,7 @@ struct Movie: Codable, Identifiable, Hashable {
             $0.name
         }.joined(separator: ", ") ?? ""
     }
-  
+    
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -70,7 +73,7 @@ struct Movie: Codable, Identifiable, Hashable {
         case voteCount = "vote_count"
         case genres = "genres"
     }
-
+    
     static let defaultValue = Movie(id: 1,
                                     adult: true,
                                     backdropPath: "/c3hl9E8E7b9opXDFVF5tSyk0ykr.jpg",

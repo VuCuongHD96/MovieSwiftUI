@@ -25,6 +25,8 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
     func showListTrailer() {
         let trailerView = TrailerView()
         let trailerViewController = UIHostingController(rootView: trailerView)
+        trailerViewController.view.backgroundColor = .gray.withAlphaComponent(0.7)
+        trailerViewController.modalPresentationStyle = .overFullScreen
         navigationController.present(trailerViewController, animated: true)
     }
     

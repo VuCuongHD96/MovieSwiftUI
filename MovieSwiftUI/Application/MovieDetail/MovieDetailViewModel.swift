@@ -11,7 +11,7 @@ import Foundation
 struct MovieDetailViewModel {
     
     class Input: ObservableObject {
-        var loadTrigger = PassthroughSubject<Void, Never>()
+        var loadTrigger = Driver.just(Void())
         var backButtonSubject = PassthroughSubject<Void, Never>()
         var playButtonSubject = PassthroughSubject<Void, Never>()
         @Published var selectedPersonTrigger: Person?
