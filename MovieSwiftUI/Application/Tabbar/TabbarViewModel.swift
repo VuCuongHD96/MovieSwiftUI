@@ -38,6 +38,7 @@ extension TabbarViewModel {
     func showData() {
         let movieScreen = navigator.createHomeScreen()
         let genreScreen = navigator.createGenreScreen()
-        viewControllers = [movieScreen, genreScreen]
+        let favoriteScreen = navigator.createFavoriteScreen()
+        viewControllers = [movieScreen, genreScreen, favoriteScreen]
     }
 }

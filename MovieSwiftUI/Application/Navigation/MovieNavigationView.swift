@@ -39,8 +39,7 @@ struct MovieNavigationView_Previews: PreviewProvider {
         MovieNavigationView(headerContent: {
             HStack {
                 Text("HOME")
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .foregroundColor(Color.white)
+                    .modifier(TitleModifier())
                     .padding(8)
                 Spacer()
                 Image("SearchWhite")

@@ -23,15 +23,13 @@ struct HeaderMovieDetailView: View {
             }
             Spacer()
             Text("MOVIE DETAIL")
-                .fontWeight(.medium)
-                .font(.custom("Helvetica Neue", size: 25))
-                .foregroundColor(Color.white)
+                .modifier(TitleModifier())
                 .padding(8)
             Spacer()
             Button {
                 clickButton.toggle()
             } label: {
-                Image(clickButton ? "FavoriteSelected" : "FavoriteWhite")
+                Image(clickButton ? "FavoriteOrange" : "FavoriteWhite")
                     .resizable()
                     .frame(width: 35, height: 35)
                     .padding(8)

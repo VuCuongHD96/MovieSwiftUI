@@ -23,8 +23,7 @@ struct HomeView: View {
         MovieNavigationView {
             HStack {
                 Text("HOME")
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .foregroundColor(Color.white)
+                    .modifier(TitleModifier())
                     .padding(8)
                 Spacer()
                 Image("SearchWhite")

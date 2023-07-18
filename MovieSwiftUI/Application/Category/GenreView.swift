@@ -21,8 +21,7 @@ struct GenreView: View {
         MovieNavigationView {
             HStack {
                 Text("CATEGORY")
-                    .font(.custom("Helvetica Neue", size: 20))
-                    .foregroundColor(Color.white)
+                    .modifier(TitleModifier())
                     .padding(8)
                 Spacer()
                 Image("SearchWhite")

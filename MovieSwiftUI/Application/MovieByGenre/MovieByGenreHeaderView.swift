@@ -21,9 +21,7 @@ struct MovieByGenreHeaderView: View {
             }
             Spacer()
             Text("ACTION")
-                .fontWeight(.medium)
-                .font(.custom("Helvetica Neue", size: 20))
-                .foregroundColor(Color.white)
+                .modifier(TitleModifier())
                 .padding(8)
             Spacer()
             Image("SearchWhite")
