@@ -20,7 +20,7 @@ struct AppNavigator: AppNavigatorType {
         let navigationController = UINavigationController()
         let navigator = WalkThoughtListNavigator(navigationController: navigationController)
         let viewModel = WalkThoughtListViewModel(navigator: navigator)
-        let view = WalkThoughtListView(viewModel: viewModel)
+        let view = MovieRateViewTest()
         let viewController = UIHostingController(rootView: view)
         navigationController.viewControllers = [viewController]
         window.rootViewController = navigationController
