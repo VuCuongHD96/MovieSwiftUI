@@ -10,6 +10,7 @@ import SwiftUI
 
 protocol AppNavigatorType {
     func toMainView()
+    func toTabbar()
 }
 
 struct AppNavigator: AppNavigatorType {
@@ -23,6 +24,17 @@ struct AppNavigator: AppNavigatorType {
         let view = WalkThoughtListView(viewModel: viewModel)
         let viewController = UIHostingController(rootView: view)
         navigationController.viewControllers = [viewController]
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+    
+    func toTabbar() {
+        let navigationController = UINavigationController()
+        navigationController.isNavigationBarHidden = true
+        let navigator = TabbarNavigator(navigationController: navigationController)
+        let tabbarView = TabbarView(navigator: navigator)
+        let tabbarController = UIHostingController(rootView: tabbarView)
+        navigationController.viewControllers = [tabbarController]
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
     }

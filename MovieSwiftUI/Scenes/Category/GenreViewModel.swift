@@ -10,8 +10,8 @@ import Foundation
 
 struct GenreViewModel: ViewModel {
     
-    struct Input {
-        var loadTrigger: Driver<Void>
+    class Input: ObservableObject {
+        var loadTrigger = PassthroughSubject<Void, Never>()
         var searchButtonTapped = PassthroughSubject<Void, Never>()
         var genreItemTapped = PassthroughSubject<Void, Never>()
     }

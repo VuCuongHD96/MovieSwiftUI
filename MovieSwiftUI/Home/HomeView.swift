@@ -9,14 +9,11 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject private var input: HomeViewModel.Input
-    @ObservedObject private var output: HomeViewModel.Output
-    var cancelBag = CancelBag()
+    @EnvironmentObject private var input: HomeViewModel.Input
+    @EnvironmentObject private var output: HomeViewModel.Output
     
-    init(homeViewModel: HomeViewModel) {
-        let input = HomeViewModel.Input()
-        output = homeViewModel.transform(input, cancelBag: cancelBag)
-        self.input = input
+    public init() {
+        print("----- debug ------ HomeView init")
     }
     
     var body: some View {
@@ -45,9 +42,6 @@ struct HomeView: View {
                 .padding([.top, .leading, .trailing], 16)
             }
         }
-        .onAppear {
-            input.loadTrigger.send()
-        }
         .environmentObject(output)
         .environmentObject(input)
         .background(Color.gray.opacity(0.1))
@@ -60,8 +54,13 @@ struct HomeView_Previews: PreviewProvider {
         let navigator = HomeNavigator(navigationController: navigationController)
         let useCase = HomeUseCase()
         let homeViewModel = HomeViewModel(navigator: navigator, useCase: useCase)
-        NavigationView {
-            HomeView(homeViewModel: homeViewModel)
-        }
+        let input = HomeViewModel.Input()
+        let output = homeViewModel.transform(input, cancelBag: CancelBag())
+        HomeView()
+            .environmentObject(input)
+            .environmentObject(output)
+            .onAppear {
+                input.loadTrigger.send()
+            }
     }
 }

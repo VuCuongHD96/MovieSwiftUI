@@ -35,7 +35,7 @@ struct HomeTopRateGridView: View {
 
 struct HomeTopRateGridView_Previews: PreviewProvider {
     static var previews: some View {
-        let homeViewModelInput = HomeViewModel.Input()
+        let homeViewModelInput = HomeViewModel.Input()//(loadTrigger: .just(Void()))
         let homeViewModelOutput = HomeViewModel.Output()
         homeViewModelOutput.secondMovieArray = Array(repeating: Movie.defaultValue, count: 1)
         return HomeTopRateGridView()

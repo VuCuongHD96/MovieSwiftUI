@@ -9,12 +9,11 @@ import SwiftUI
 
 struct GenreView: View {
     
-    private var input = GenreViewModel.Input(loadTrigger: Driver.just(Void()))
-    @ObservedObject private var output: GenreViewModel.Output
-    var cancelBag = CancelBag()
+    @EnvironmentObject private var input: GenreViewModel.Input
+    @EnvironmentObject private var output: GenreViewModel.Output
     
-    init(categoryViewModel: GenreViewModel) {
-        output = categoryViewModel.transform(input, cancelBag: cancelBag)
+    init() {
+        print("----- debug ------ GenreView init")
     }
     
     var body: some View {
@@ -55,12 +54,13 @@ struct GenreView: View {
 
 struct CategoryView_Previews: PreviewProvider {
     static var previews: some View {
-        let navigationController = UINavigationController()
-        let navigator = GenreNavigator(navigationController: navigationController)
-        let useCase = GenreUseCase()
-        let categoryViewModel = GenreViewModel(navigator: navigator, useCase: useCase)
-        NavigationView {
-            GenreView(categoryViewModel: categoryViewModel)
-        }
+        let input = GenreViewModel.Input()
+        let output = GenreViewModel.Output()
+        GenreView()
+            .environmentObject(input)
+            .environmentObject(output)
+            .onAppear {
+                input.loadTrigger.send()
+            }
     }
 }

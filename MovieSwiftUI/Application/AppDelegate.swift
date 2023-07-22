@@ -23,6 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator = AppNavigator(window: window)
         let appViewModel = AppViewModel(navigator: navigator)
-        appViewModel.toMainView()
+//        appViewModel.toMainView()
+        appViewModel.toTabbar()
     }
 }

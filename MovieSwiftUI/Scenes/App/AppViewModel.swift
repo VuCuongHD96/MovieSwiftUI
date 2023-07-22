@@ -17,4 +17,8 @@ extension AppViewModel {
     func toMainView() {
         navigator.toMainView()
     }
+    
+    func toTabbar() {
+        navigator.toTabbar()
+    }
 }
