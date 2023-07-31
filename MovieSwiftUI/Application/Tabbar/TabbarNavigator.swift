@@ -10,6 +10,7 @@ import SwiftUI
 protocol TabbarNavigatorType {
     func createHomeScreen() -> UIViewController
     func createGenreScreen() -> UIViewController
+    func createFavoriteScreen() -> UIViewController
 }
 
 struct TabbarNavigator: TabbarNavigatorType {
@@ -55,5 +56,12 @@ struct TabbarNavigator: TabbarNavigatorType {
         let favoriteSelectedImage = UIImage(named: "FavoriteSelected")?.withRenderingMode(.alwaysOriginal)
         let tabbarItem = UITabBarItem(title: "FAVORITE", image: favoriteImage, selectedImage: favoriteSelectedImage)
         return tabbarItem
+    }
+    
+    func createFavoriteScreen() -> UIViewController {
+        let favoriteView = FavoriteView()
+        let favoriteViewController = UIHostingController(rootView: favoriteView)
+        favoriteViewController.tabBarItem = createFavoriteTabbarItem()
+        return favoriteViewController
     }
 }
