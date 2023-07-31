@@ -35,7 +35,7 @@ class MovieRepository: ServiceBaseRepository, MovieRepositoryType {
     }
     
     func getMovieDetail(movie: MovieItem) -> Observable<Movie> {
-        let input = MovieRequest(movieID: movie.movieID)
+        let input = MovieRequest(movieID: Int(movie.movieID))
         return api.request(input: input)
             .map { (data: Movie) -> Movie in
                 return data

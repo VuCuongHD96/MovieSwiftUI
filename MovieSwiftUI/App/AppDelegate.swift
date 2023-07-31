@@ -6,12 +6,12 @@
 //
 
 import UIKit
-import SwiftUI
 
 @UIApplicationMain
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     var window: UIWindow?
+    let coreDataBaseRepository = CoreDataBaseRepository(coreDataManager: .shared)
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -24,5 +24,22 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         let navigator = AppNavigator(window: window)
         let appViewModel = AppViewModel(navigator: navigator)
         appViewModel.toMainView()
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        saveData()
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        saveData()
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        saveData()
+    }
+    
+    private func saveData() {
+        _ = coreDataBaseRepository
+            .save()
     }
 }
