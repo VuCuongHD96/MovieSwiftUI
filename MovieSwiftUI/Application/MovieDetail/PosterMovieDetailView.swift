@@ -10,11 +10,11 @@ import Cosmos
 
 struct PosterMovieDetailView: View {
     
-    @EnvironmentObject private var movieDetailOutput: MovieDetailViewModel.Output
+    let movie: Movie
     
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
-            AsyncImage(url: movieDetailOutput.movie.posterPathURL) { image in
+            AsyncImage(url: movie.posterPathURL) { image in
                 image.resizable()
                     .aspectRatio(contentMode: .fill)
                     .cornerRadius(10)
@@ -25,7 +25,7 @@ struct PosterMovieDetailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 VStack {
                     Spacer()
-                    Text(movieDetailOutput.movie.title)
+                    Text(movie.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .font(.custom("Helvetica Neue", size: 20))
@@ -34,20 +34,20 @@ struct PosterMovieDetailView: View {
                         .frame(height: 60)
                         .padding(.bottom, 15)
                 }
-                Text(movieDetailOutput.movie.releaseDate)
+                Text(movie.releaseDate)
                     .padding(.top, 15)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.custom("Helvetica Neue", size: 18))
-                Text(movieDetailOutput.movie.genreNameArray)
+                Text(movie.genreNameArray)
                     .font(.custom("Helvetica Neue", size: 18))
                     .padding(.top, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
                 HStack {
-                    Text(String(movieDetailOutput.movie.voteAverageRounded))
+                    Text(String(movie.voteAverageRounded))
                         .foregroundColor(Color("MovieDetailScore"))
                         .fontWeight(.medium)
-                    MovieCosmosView(rating: movieDetailOutput.movie.voteAverage)
+                    MovieCosmosView(rating: movie.voteAverage)
                         .starSize(18)
                         .allowsHitTesting(false)
                 }
@@ -61,11 +61,8 @@ struct PosterMovieDetailView: View {
 
 struct PosterMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let movieDetailOutput = MovieDetailViewModel.Output()
-        movieDetailOutput.movie = .defaultValue
-        return PosterMovieDetailView()
+        PosterMovieDetailView(movie: .defaultValue)
             .background(Color.purple)
-            .environmentObject(movieDetailOutput)
             .previewLayout(.sizeThatFits)
     }
 }

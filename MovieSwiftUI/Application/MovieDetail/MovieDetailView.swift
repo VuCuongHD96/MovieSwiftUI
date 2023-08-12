@@ -21,14 +21,15 @@ struct MovieDetailView: View {
     
     var body: some View {
         MovieNavigationView {
-            HeaderMovieDetailView()
+            HeaderMovieDetailView(backTrigger: $movieDetailInput.backTrigger)
         } bodyContent: {
             ScrollView {
                 VStack(spacing: 0) {
                     ZStack(alignment: .top) {
-                        BackGroundMovieDetailView()
+                        BackGroundMovieDetailView(movie: movieDetailOutput.movie,
+                                                  playTrigger: $movieDetailInput.playTrigger)
                             .frame(width: Screen.width, height: 280)
-                        PosterMovieDetailView()
+                        PosterMovieDetailView(movie: movieDetailOutput.movie)
                             .padding(.top, 205)
                             .padding([.leading, .trailing], 20)
                     }
@@ -55,7 +56,8 @@ struct MovieDetailView: View {
                         .font(.subheadline)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color.gray.opacity(0.5))
-                    ListCastMovieDetailView()
+                    ListCastMovieDetailView(personArray: movieDetailOutput.personArray,
+                                            selectedPerson: $movieDetailInput.selectedPersonTrigger)
                         .padding(10)
                 }
                 Spacer()
@@ -65,8 +67,6 @@ struct MovieDetailView: View {
         .onAppear {
             movieDetailInput.loadTrigger.send()
         }
-        .environmentObject(movieDetailOutput)
-        .environmentObject(movieDetailInput)
         .alert(isPresented: $movieDetailOutput.alert.isShowing) {
             Alert(title: Text(movieDetailOutput.alert.title),
                   message: Text(movieDetailOutput.alert.message),

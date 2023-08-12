@@ -9,14 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @ObservedObject private var input: HomeViewModel.Input
-    @ObservedObject private var output: HomeViewModel.Output
+    @ObservedObject private var homeViewModelInput: HomeViewModel.Input
+    @ObservedObject private var homeViewModelOutput: HomeViewModel.Output
     var cancelBag = CancelBag()
     
     init(homeViewModel: HomeViewModel) {
-        let input = HomeViewModel.Input(loadTrigger: .just(Void()))
-        output = homeViewModel.transform(input, cancelBag: cancelBag)
-        self.input = input
+        let homeViewModelInput = HomeViewModel.Input(loadTrigger: .just(Void()))
+        homeViewModelOutput = homeViewModel.transform(homeViewModelInput, cancelBag: cancelBag)
+        self.homeViewModelInput = homeViewModelInput
     }
     
     var body: some View {
@@ -29,23 +29,23 @@ struct HomeView: View {
                 Image("SearchWhite")
                     .padding(.trailing, 8)
                     .onTapGesture {
-                        input.searchAction.send()
+                        homeViewModelInput.searchAction.send()
                     }
             }
         } bodyContent: {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10) {
-                    HomeNowArrayView()
+                    HomeNowArrayView(firstMovieArray: homeViewModelOutput.firstMovieArray,
+                                     movieSelectedTrigger: $homeViewModelInput.movieSelectedTrigger)
                     Text("Top Rated")
                         .foregroundColor(.gray)
                         .font(.title3)
-                    HomeTopRateGridView()
+                    HomeTopRateGridView(secondMovieArray: homeViewModelOutput.secondMovieArray,
+                                        movieSelectedTrigger: $homeViewModelInput.movieSelectedTrigger)
                 }
                 .padding([.top, .leading, .trailing], 16)
             }
         }
-        .environmentObject(output)
-        .environmentObject(input)
         .background(Color.gray.opacity(0.1))
     }
 }

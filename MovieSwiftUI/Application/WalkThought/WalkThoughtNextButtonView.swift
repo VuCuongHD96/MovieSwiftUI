@@ -9,12 +9,12 @@ import SwiftUI
 
 struct WalkThoughtNextButtonView: View {
     
-    @EnvironmentObject private var input: WalkThoughtListViewModel.Input
+    @Binding var selectedIndex: Int
     
     var body: some View {
         Button {
             withAnimation {
-                input.selectedIndex += 1
+                selectedIndex += 1
             }
         } label: {
             HStack {
@@ -34,7 +34,7 @@ struct WalkThoughtNextButtonView: View {
 
 struct WalkThoughtNextButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        WalkThoughtNextButtonView()
+        WalkThoughtNextButtonView(selectedIndex: .constant(0))
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }

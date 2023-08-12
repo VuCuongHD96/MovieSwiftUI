@@ -12,8 +12,8 @@ struct MovieByGenreViewModel: ViewModel {
     class Input: ObservableObject {
         var loadTrigger = PassthroughSubject<Void, Never>()
         var movieAction = PassthroughSubject<Movie, Never>()
-        var backAction = PassthroughSubject<Void, Never>()
-        var searchAction = PassthroughSubject<Void, Never>()
+        @Published var backAction: Void?
+        @Published var searchAction: Void?
     }
     
     class Output: ObservableObject {
@@ -42,12 +42,14 @@ struct MovieByGenreViewModel: ViewModel {
                 navigator.toMovieDetailScreen(movie: movie)
             }
             .store(in: cancelBag)
-        input.backAction
+        input.$backAction
+            .unwrap()
             .sink { _ in
                 navigator.backToPrevious()
             }
             .store(in: cancelBag)
-        input.searchAction
+        input.$searchAction
+            .unwrap()
             .sink { _ in
                 navigator.toSearchScreen()
             }

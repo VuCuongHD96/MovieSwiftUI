@@ -16,7 +16,7 @@ struct WalkThoughtListViewModel: ViewModel {
     }
     
     class Input: ObservableObject {
-        var getStatedButtonDidTap = PassthroughSubject<Void, Never>()
+        @Published var getStatedButtonDidTap: Void?
         @Published var selectedIndex = 0
         var loadTrigger: Driver<Void>
         
@@ -26,13 +26,14 @@ struct WalkThoughtListViewModel: ViewModel {
     }
     
     class Output: ObservableObject {
-        @Published var walkthroughArray = [WalkThough]()
+        @Published var walkThoughArray = [WalkThough]()
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         let output = Output()
         
-        input.getStatedButtonDidTap
+        input.$getStatedButtonDidTap
+            .unwrap()
             .sink {
                 navigator.toTabbar()
             }
@@ -42,7 +43,7 @@ struct WalkThoughtListViewModel: ViewModel {
             .map { _ in
                 return WalkThough.walkThoughArray
             }
-            .assign(to: \.walkthroughArray, on: output)
+            .assign(to: \.walkThoughArray, on: output)
             .store(in: cancelBag)
         
         return output

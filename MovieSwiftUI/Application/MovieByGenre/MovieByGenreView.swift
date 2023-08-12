@@ -9,25 +9,27 @@ import SwiftUI
 
 struct MovieByGenreView: View {
     
-    @ObservedObject var input: MovieByGenreViewModel.Input
-    @ObservedObject var output: MovieByGenreViewModel.Output
-    let cancelBag = CancelBag()
+    @ObservedObject private var movieByGenreViewModelInput: MovieByGenreViewModel.Input
+    @ObservedObject private var movieByGenreViewModelOutput: MovieByGenreViewModel.Output
+    private let cancelBag = CancelBag()
     
     init(viewModel: MovieByGenreViewModel) {
-        let input = MovieByGenreViewModel.Input()
-        output = viewModel.transform(input, cancelBag: cancelBag)
-        self.input = input
+        let movieByGenreViewModelInput = MovieByGenreViewModel.Input()
+        movieByGenreViewModelOutput = viewModel.transform(movieByGenreViewModelInput,
+                                                          cancelBag: cancelBag)
+        self.movieByGenreViewModelInput = movieByGenreViewModelInput
     }
     
     var body: some View {
         MovieNavigationView {
-            MovieByGenreHeaderView()
+            MovieByGenreHeaderView(backAction: $movieByGenreViewModelInput.backAction,
+                                   searchAction: $movieByGenreViewModelInput.searchAction)
         } bodyContent: {
             ScrollView {
-                ForEach(output.movieArray, id: \.self) { movie in
+                ForEach(movieByGenreViewModelOutput.movieArray, id: \.self) { movie in
                     MovieByGenreCell(movie: movie)
                         .onTapGesture {
-                            input.movieAction.send(movie)
+                            movieByGenreViewModelInput.movieAction.send(movie)
                         }
                 }
             }
@@ -35,9 +37,8 @@ struct MovieByGenreView: View {
             .padding(.horizontal, 10)
         }
         .onAppear {
-            input.loadTrigger.send()
+            movieByGenreViewModelInput.loadTrigger.send()
         }
-        .environmentObject(input)
     }
 }
 

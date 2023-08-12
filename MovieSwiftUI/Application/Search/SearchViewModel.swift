@@ -11,19 +11,18 @@ import SwiftUI
 struct SearchViewModel: ViewModel {
     
     class Input: ObservableObject {
-        var backAction = PassthroughSubject<Void, Never>()
-        var searchTrigger = PassthroughSubject<String, Never>()
+        @Published var backAction: Void?
+        @Published var searchData = ""
         var loadTrigger = PassthroughSubject<Void, Never>()
-        var movieAction = PassthroughSubject<Movie, Never>()
-        var genreIndexSelectedAction = PassthroughSubject<Int, Never>()
-        var cancelTrigger = PassthroughSubject<Void, Never>()
+        @Published var genreIndexSelectedAction: Int?
+        @Published var cancelAction: Void?
+        @Published var movieSelected: Movie?
     }
     
     class Output: ObservableObject {
         @Published var movieArray = [Movie]()
         @Published var genreArray = [Genre]()
         var genreSelectedIDSet = Set<Int>()
-        @Published var searchData = ""
     }
     
     let navigator: SearchNavigatorType
@@ -45,7 +44,8 @@ struct SearchViewModel: ViewModel {
             .assign(to: \.genreSelectedIDSet, on: output)
             .store(in: cancelBag)
         
-        input.genreIndexSelectedAction
+        input.$genreIndexSelectedAction
+            .unwrap()
             .map { index -> [Genre] in
                 var genreSelected = output.genreArray[index]
                 genreSelected.selected.toggle()
@@ -64,7 +64,8 @@ struct SearchViewModel: ViewModel {
             }
             .share()
         
-        let searchResult = input.searchTrigger
+        let searchResult = input.$searchData
+            .removeDuplicates()
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .flatMap {
                 self.useCase.searchMovie(query: $0)
@@ -74,7 +75,7 @@ struct SearchViewModel: ViewModel {
             }
             .share()
         
-        input.genreIndexSelectedAction
+        input.$genreIndexSelectedAction
             .combineLatest(searchResult)
             .map { _, originMovieArray in
                 originMovieArray.filter { movie in
@@ -97,19 +98,15 @@ struct SearchViewModel: ViewModel {
             .assign(to: \.movieArray, on: output)
             .store(in: cancelBag)
         
-        input.backAction
+        input.$backAction
+            .unwrap()
             .sink {
                 navigator.popToPrevious()
             }
             .store(in: cancelBag)
         
-        input.movieAction
-            .sink { movie in
-                navigator.toMovieDetailScreen(movie: movie)
-            }
-            .store(in: cancelBag)
-        
-        input.cancelTrigger
+        input.$cancelAction
+            .unwrap()
             .combineLatest(genreArrayPublisher)
             .map { _, originGenreArray in
                 return originGenreArray
@@ -117,10 +114,18 @@ struct SearchViewModel: ViewModel {
             .assign(to: \.genreArray, on: output)
             .store(in: cancelBag)
         
-        input.cancelTrigger
+        input.$cancelAction
+            .unwrap()
             .sink {
-                output.searchData = String()
+                input.searchData = String()
                 output.movieArray.removeAll()
+            }
+            .store(in: cancelBag)
+        
+        input.$movieSelected
+            .unwrap()
+            .sink { movie in
+                navigator.toMovieDetailScreen(movie: movie)
             }
             .store(in: cancelBag)
         

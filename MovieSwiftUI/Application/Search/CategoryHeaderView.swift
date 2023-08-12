@@ -9,9 +9,6 @@ import SwiftUI
 
 struct CategoryHeaderView: View {
     
-    @EnvironmentObject private var searchViewModelInput: SearchViewModel.Input
-    @EnvironmentObject private var searchViewModelOutput: SearchViewModel.Output
-    
     let rows = [
         GridItem(.flexible())
     ]
@@ -20,15 +17,18 @@ struct CategoryHeaderView: View {
         static let cellHeight: CGFloat = 40
     }
     
+    let genreArray: [Genre]
+    @Binding var genreIndexSelectedAction: Int?
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows) {
-                ForEach(Array(searchViewModelOutput.genreArray.enumerated()), id: \.element.id) { index, genre in
+                ForEach(Array(genreArray.enumerated()), id: \.element.id) { index, genre in
                     GenreHeaderSearchView(genre: genre)
                         .frame(height: Constant.cellHeight)
                         .cornerRadius(10)
                         .onTapGesture {
-                            searchViewModelInput.genreIndexSelectedAction.send(index)
+                            genreIndexSelectedAction = index
                         }
                 }
             }
@@ -39,19 +39,16 @@ struct CategoryHeaderView: View {
 
 struct CategoryHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let searchViewModelInput = SearchViewModel.Input()
-        let searchViewModelOutput = SearchViewModel.Output()
-        searchViewModelOutput.genreArray = Genre.array
-        return CategoryHeaderView()
-            .environmentObject(searchViewModelInput)
-            .environmentObject(searchViewModelOutput)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .fill(LinearGradient(
-                        gradient: Gradient(colors: [Color(hex: "F99F00"), Color(hex: "DB3069")]),
-                        startPoint: .leading,
-                        endPoint: .trailing))
-                    .ignoresSafeArea(edges: .top)
-            )
+        let genreArray: [Genre] = [.action, .adventure, .animation, .comedy, .crime]
+        return CategoryHeaderView(genreArray: genreArray,
+                                  genreIndexSelectedAction: .constant(3))
+        .background(
+            RoundedRectangle(cornerRadius: 0)
+                .fill(LinearGradient(
+                    gradient: Gradient(colors: [Color(hex: "F99F00"), Color(hex: "DB3069")]),
+                    startPoint: .leading,
+                    endPoint: .trailing))
+                .ignoresSafeArea(edges: .top)
+        )
     }
 }

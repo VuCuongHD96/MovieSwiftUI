@@ -12,7 +12,7 @@ struct HomeViewModel: ViewModel {
     class Input: ObservableObject {
         var loadTrigger: Driver<Void>
         var searchAction = PassthroughSubject<Void, Never>()
-        var movieAction = PassthroughSubject<Movie, Never>()
+        @Published var movieSelectedTrigger: Movie?
         
         init(loadTrigger: Driver<Void>) {
             self.loadTrigger = loadTrigger
@@ -54,7 +54,8 @@ struct HomeViewModel: ViewModel {
                 navigator.toSearchScreen()
             }
             .store(in: cancelBag)
-        input.movieAction
+        input.$movieSelectedTrigger
+            .unwrap()
             .sink { movie in
                 navigator.toMovieDetailScreen(movie: movie)
             }

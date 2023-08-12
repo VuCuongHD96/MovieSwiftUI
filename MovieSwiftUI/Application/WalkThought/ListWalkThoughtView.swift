@@ -21,17 +21,17 @@ struct WalkThoughtListView: View {
     
     var body: some View {
         TabView(selection: $input.selectedIndex) {
-            ForEach(0..<output.walkthroughArray.count, id: \.self) { index in
-                let item = output.walkthroughArray[index]
+            ForEach(0..<output.walkThoughArray.count, id: \.self) { index in
+                let item = output.walkThoughArray[index]
                 WalkThoughtView(walkThough: item)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .overlay {
-            WalkThoughOverlayView()
+            WalkThoughOverlayView(walkThoughArray: output.walkThoughArray,
+                                  selectedIndex: $input.selectedIndex,
+                                  getStatedButtonDidTap: $input.getStatedButtonDidTap)
         }
-        .environmentObject(input)
-        .environmentObject(output)
         .ignoresSafeArea()
         .background(Color.white)
     }
