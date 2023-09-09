@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct WalkThoughListDotView: View {
-    
-    @EnvironmentObject private var input: WalkThoughtListViewModel.Input
-    @EnvironmentObject private var output: WalkThoughtListViewModel.Output
+
+    let walkthroughArray: [WalkThough]
+    @Binding var selectedIndex: Int
     
     var body: some View {
         HStack(spacing: 10) {
-            ForEach(0..<output.walkthroughArray.count, id: \.self) { index in
-                if input.selectedIndex == index {
+            ForEach(0..<walkthroughArray.count, id: \.self) { index in
+                if selectedIndex == index {
                     Image("Mask_fill")
                 } else {
                     Image("Mask")
@@ -27,6 +27,6 @@ struct WalkThoughListDotView: View {
 
 struct ListDotWalkThoughView_Previews: PreviewProvider {
     static var previews: some View {
-        WalkThoughListDotView()
+        WalkThoughListDotView(walkthroughArray: WalkThough.walkThoughArray, selectedIndex: .constant(0))
     }
 }

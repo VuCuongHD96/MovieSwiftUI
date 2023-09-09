@@ -9,12 +9,12 @@ import SwiftUI
 
 struct BackGroundMovieDetailView: View {
     
-    @EnvironmentObject private var movieDetailOutput: MovieDetailViewModel.Output
-    @EnvironmentObject private var movieDetailInput: MovieDetailViewModel.Input
+    let movie: Movie
+    @Binding var playTrigger: Void?
     
     var body: some View {
         ZStack {
-            AsyncImage(url: movieDetailOutput.movie.backdropPathURL) { image in
+            AsyncImage(url: movie.backdropPathURL) { image in
                 image
                     .resizable()
                     .scaledToFill()
@@ -24,7 +24,7 @@ struct BackGroundMovieDetailView: View {
             }
             Image("play")
                 .onTapGesture {
-                    movieDetailInput.playButtonSubject.send()
+                    playTrigger = Void()
                 }
         }
     }
@@ -32,11 +32,6 @@ struct BackGroundMovieDetailView: View {
 
 struct BackGroundMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let movieDetailOutput = MovieDetailViewModel.Output()
-        movieDetailOutput.movie = .defaultValue
-        let movieDetailInput = MovieDetailViewModel.Input()
-        return BackGroundMovieDetailView()
-            .environmentObject(movieDetailOutput)
-            .environmentObject(movieDetailInput)
+        BackGroundMovieDetailView(movie: .defaultValue, playTrigger: .constant(Void()))
     }
 }

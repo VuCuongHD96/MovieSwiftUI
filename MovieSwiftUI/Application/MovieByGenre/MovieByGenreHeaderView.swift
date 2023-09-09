@@ -9,12 +9,13 @@ import SwiftUI
 
 struct MovieByGenreHeaderView: View {
     
-    @EnvironmentObject var input: MovieByGenreViewModel.Input
+    @Binding var backAction: Void?
+    @Binding var searchAction: Void?
     
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                input.backAction.send()
+                backAction = Void()
             } label: {
                 Image("back")
                     .padding(.leading, 8)
@@ -27,7 +28,7 @@ struct MovieByGenreHeaderView: View {
             Image("SearchWhite")
                 .padding(.trailing, 8)
                 .onTapGesture {
-                    input.searchAction.send()
+                    searchAction = Void()
                 }
         }
     }
@@ -35,9 +36,8 @@ struct MovieByGenreHeaderView: View {
 
 struct MovieByGenreHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let input = MovieByGenreViewModel.Input()
-        return MovieByGenreHeaderView()
-            .background(Color.blue)
-            .environmentObject(input)
+        return MovieByGenreHeaderView(backAction: .constant(Void()),
+                                      searchAction: .constant(Void()))
+        .background(Color.blue)
     }
 }

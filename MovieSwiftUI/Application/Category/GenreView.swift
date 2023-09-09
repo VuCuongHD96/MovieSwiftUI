@@ -61,6 +61,5 @@ struct CategoryView_Previews: PreviewProvider {
         let output = GenreViewModel.Output()
         output.genreArray = [.action, .adventure, .animation, .comedy, .crime]
         return GenreView(categoryViewModel: categoryViewModel)
-            .environmentObject(output)
     }
 }

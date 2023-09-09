@@ -9,13 +9,17 @@ import SwiftUI
 
 struct HomeNowArrayView: View {
     
-    @EnvironmentObject private var output: HomeViewModel.Output
+    let firstMovieArray: [Movie]
+    @Binding var movieSelectedTrigger: Movie?
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(output.firstMovieArray, id: \.self) { movie in
+                ForEach(firstMovieArray, id: \.self) { movie in
                     HomeNowView(movie: movie)
+                        .onTapGesture {
+                            movieSelectedTrigger = movie
+                        }
                 }
             }
         }
@@ -26,9 +30,8 @@ struct HomeNowArrayView_Previews: PreviewProvider {
     static var previews: some View {
         let output = HomeViewModel.Output()
         output.firstMovieArray = Array(repeating: Movie.defaultValue, count: 5)
-        return HomeNowArrayView()
-            .previewLayout(.sizeThatFits)
-            .environmentObject(output)
+        return HomeNowArrayView(firstMovieArray: [.defaultValue],
+                                movieSelectedTrigger: .constant(.defaultValue))
             .previewLayout(.sizeThatFits)
     }
 }

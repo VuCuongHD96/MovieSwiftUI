@@ -8,33 +8,35 @@
 import SwiftUI
 
 struct WalkThoughOverlayView: View {
-    
-    @EnvironmentObject private var input: WalkThoughtListViewModel.Input
-    @EnvironmentObject private var output: WalkThoughtListViewModel.Output
+
+    let walkThoughArray: [WalkThough]
+    @Binding var selectedIndex: Int
+    @Binding var getStatedButtonDidTap: Void?
     
     var body: some View {
         VStack {
             Spacer()
-            WalkThoughListDotView()
+            WalkThoughListDotView(walkthroughArray: walkThoughArray,
+                                  selectedIndex: $selectedIndex)
                 .padding(.bottom, 56)
-            if $output.walkthroughArray.count - 1 == input.selectedIndex {
+            if walkThoughArray.count - 1 == selectedIndex {
                 WalkThoughtGetStartedView()
                     .padding(.bottom, 100)
                     .onTapGesture {
-                        input.getStatedButtonDidTap.send()
+                        getStatedButtonDidTap = Void()
                     }
             } else {
-                WalkThoughtNextButtonView()
+                WalkThoughtNextButtonView(selectedIndex: $selectedIndex)
                     .padding(.bottom, 100)
             }
         }
-        .environmentObject(input)
-        .environmentObject(output)
     }
 }
 
 struct WalkThoughOverlayView_Previews: PreviewProvider {
     static var previews: some View {
-        WalkThoughOverlayView()
+        WalkThoughOverlayView(walkThoughArray: WalkThough.walkThoughArray,
+                              selectedIndex: .constant(0),
+                              getStatedButtonDidTap: .constant(Void()))
     }
 }

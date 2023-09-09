@@ -14,7 +14,9 @@ struct MovieDetailViewModel {
         var loadTrigger = PassthroughSubject<Void, Never>()
         var backButtonSubject = PassthroughSubject<Void, Never>()
         var playButtonSubject = PassthroughSubject<Void, Never>()
-        var castDetailSubject = PassthroughSubject<Person, Never>()
+        @Published var selectedPersonTrigger: Person?
+        @Published var backTrigger: Void?
+        @Published var playTrigger: Void?
     }
     
     class Output: ObservableObject {
@@ -54,19 +56,22 @@ extension MovieDetailViewModel: ViewModel {
             .assign(to: \.personArray, on: output)
             .store(in: cancelBag)
         
-        input.backButtonSubject
-            .sink {
+        input.$backTrigger
+            .unwrap()
+            .sink { _ in
                 navigator.backToPrevious()
             }
             .store(in: cancelBag)
         
-        input.playButtonSubject
-            .sink {
+        input.$playTrigger
+            .unwrap()
+            .sink { _ in
                 navigator.showListTrailer()
             }
             .store(in: cancelBag)
         
-        input.castDetailSubject
+        input.$selectedPersonTrigger
+            .unwrap()
             .sink { person in
                 navigator.toCastScreen(person: person)
             }

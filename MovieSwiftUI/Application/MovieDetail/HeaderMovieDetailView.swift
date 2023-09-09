@@ -9,13 +9,13 @@ import SwiftUI
 
 struct HeaderMovieDetailView: View {
     
-    @State var clickButton = false
-    @EnvironmentObject private var movieDetailInput: MovieDetailViewModel.Input
+    @State private var favorite = false
+    @Binding var backTrigger: Void?
     
     var body: some View {
         HStack {
             Button {
-                movieDetailInput.backButtonSubject.send()
+                backTrigger = Void()
             } label: {
                 Image("back")
                     .frame(width: 35, height: 35)
@@ -27,9 +27,9 @@ struct HeaderMovieDetailView: View {
                 .padding(8)
             Spacer()
             Button {
-                clickButton.toggle()
+                favorite.toggle()
             } label: {
-                Image(clickButton ? "FavoriteOrange" : "FavoriteWhite")
+                Image(favorite ? "FavoriteOrange" : "FavoriteWhite")
                     .resizable()
                     .frame(width: 35, height: 35)
                     .padding(8)
@@ -40,9 +40,7 @@ struct HeaderMovieDetailView: View {
 
 struct HeaderMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-    let movieDetailInput = MovieDetailViewModel.Input()
-        HeaderMovieDetailView()
+        HeaderMovieDetailView(backTrigger: .constant(Void()))
             .previewLayout(.sizeThatFits)
-            .environmentObject(movieDetailInput)
     }
 }
