@@ -16,7 +16,7 @@ struct MovieDetailViewModel {
         var playButtonSubject = PassthroughSubject<Void, Never>()
         @Published var selectedPersonTrigger: Person?
         @Published var backTrigger: Void?
-        @Published var playTrigger: Void?
+        @Published var playTrigger: Movie?
     }
     
     class Output: ObservableObject {
@@ -65,8 +65,8 @@ extension MovieDetailViewModel: ViewModel {
         
         input.$playTrigger
             .unwrap()
-            .sink { _ in
-                navigator.showListTrailer()
+            .sink { movie in
+                navigator.showListTrailer(movie: movie)
             }
             .store(in: cancelBag)
         

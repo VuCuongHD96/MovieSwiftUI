@@ -11,6 +11,16 @@ struct TrailerView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
+    var input: TrailerViewModel.Input
+    @ObservedObject var output: TrailerViewModel.Output
+    let cancelBag = CancelBag()
+    
+    init(viewModel: TrailerViewModel) {
+        let input = TrailerViewModel.Input()
+        output = viewModel.transform(input, cancelBag: cancelBag)
+        self.input = input
+    }
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             listItemView
@@ -21,13 +31,16 @@ struct TrailerView: View {
                height: Screen.height * 0.7)
         .background(Color.black)
         .cornerRadius(5)
+        .onAppear {
+            input.loadTrigger.send()
+        }
     }
     
     private var listItemView: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                ForEach(1..<30) { item in
-                    TrailerCell()
+                ForEach(output.trailerList, id: \.id) { trailer in
+                    TrailerCell(trailer: trailer)
                         .cornerRadius(5)
                 }
             }
@@ -55,6 +68,8 @@ struct TrailerView: View {
 
 struct TrailerView_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerView()
+        let trailerUseCase = TrailerUseCase()
+        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, movie: .defaultValue)
+        TrailerView(viewModel: viewModel)
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct TrailerCell: View {
     
     @State private var isImageAppear = false
-    private let imageurl = "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+    let trailer: Trailer
     
     var body: some View {
         HStack(spacing: 19) {
@@ -28,7 +28,7 @@ struct TrailerCell: View {
     }
     
     private var trailerImage: some View {
-        AsyncImage(url: URL(string: imageurl)) { image in
+        AsyncImage(url: trailer.imageURL) { image in
             image
                 .resizable()
                 .scaledToFit()
@@ -43,24 +43,26 @@ struct TrailerCell: View {
     
     private var inforView: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("House of Gucci")
+            Text(trailer.name)
                 .foregroundColor(.white)
                 .fontWeight(.bold)
-                .font(.system(size: 16))
-            Text("Official Teaser Trailer")
+                .font(.system(size: 15))
+                .lineLimit(2)
+            Text(trailer.type.rawValue)
                 .foregroundColor(.white)
                 .font(.system(size: 14))
-            Text("September 5, 2022")
+            Text(trailer.publishedAt)
                 .foregroundColor(.gray)
                 .fontWeight(.medium)
                 .font(.system(size: 12))
+                .lineLimit(1)
         }
     }
 }
 
 struct TrailerCell_Previews: PreviewProvider {
     static var previews: some View {
-        TrailerCell()
+        TrailerCell(trailer: .defaultValue)
             .background(Color.black)
     }
 }
