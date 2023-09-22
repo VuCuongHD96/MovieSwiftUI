@@ -22,7 +22,7 @@ struct FavoriteCell: View {
                     .resizable()
                     .frame(width: Constant.closeEdge, height: Constant.closeEdge)
                     .padding(.top, 10)
-                    .offset(x: click ? 10: -Constant.closeEdge)
+                    .offset(x: click ? 5: -Constant.closeEdge, y: 5)
                     .animation(.easeInOut, value: click)
             }
             .onTapGesture {

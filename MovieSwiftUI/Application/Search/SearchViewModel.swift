@@ -79,7 +79,7 @@ struct SearchViewModel: ViewModel {
             .combineLatest(searchResult)
             .map { _, originMovieArray in
                 originMovieArray.filter { movie in
-                    return output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                    return output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
                 }
             }
             .assign(to: \.movieArray, on: output)
@@ -92,7 +92,7 @@ struct SearchViewModel: ViewModel {
         searchResult
             .map { movieArray in
                 return movieArray.filter { movie in
-                    output.genreSelectedIDSet.isSubset(of: movie.genreIDS)
+                    output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
                 }
             }
             .assign(to: \.movieArray, on: output)

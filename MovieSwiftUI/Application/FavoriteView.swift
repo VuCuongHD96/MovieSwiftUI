@@ -24,7 +24,7 @@ struct FavoriteView: View {
                 LazyVGrid(columns: gridRows, spacing: 15) {
                     ForEach(0..<2, id: \.self) { movie in
                         FavoriteCell(click: $click)
-                            .frame(height: 238)
+                            .frame(height: 238, alignment: .top)
                     }
                 }
             }
