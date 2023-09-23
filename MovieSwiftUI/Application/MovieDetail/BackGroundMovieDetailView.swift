@@ -10,7 +10,7 @@ import SwiftUI
 struct BackGroundMovieDetailView: View {
     
     let movie: Movie
-    @Binding var playTrigger: Void?
+    @Binding var playTrigger: Movie?
     
     var body: some View {
         ZStack {
@@ -24,7 +24,7 @@ struct BackGroundMovieDetailView: View {
             }
             Image("play")
                 .onTapGesture {
-                    playTrigger = Void()
+                    playTrigger = movie
                 }
         }
     }
@@ -32,6 +32,6 @@ struct BackGroundMovieDetailView: View {
 
 struct BackGroundMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BackGroundMovieDetailView(movie: .defaultValue, playTrigger: .constant(Void()))
+        BackGroundMovieDetailView(movie: .defaultValue, playTrigger: .constant(.defaultValue))
     }
 }

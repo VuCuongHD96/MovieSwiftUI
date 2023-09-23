@@ -74,7 +74,7 @@ struct Movie: Codable, Identifiable, Hashable {
         case genres = "genres"
     }
     
-    static let defaultValue = Movie(id: 1,
+    static let defaultValue = Movie(id: 335787,
                                     adult: true,
                                     backdropPath: "/c3hl9E8E7b9opXDFVF5tSyk0ykr.jpg",
                                     genreIDS: [1, 2, 3],

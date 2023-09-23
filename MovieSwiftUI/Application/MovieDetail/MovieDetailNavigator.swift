@@ -10,7 +10,7 @@ import UIKit
 
 protocol MovieDetailNavigatorType {
     func backToPrevious()
-    func showListTrailer()
+    func showListTrailer(movie: Movie)
     func toCastScreen(person: Person)
 }
 
@@ -22,8 +22,10 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
         navigationController.popViewController(animated: true)
     }
     
-    func showListTrailer() {
-        let trailerView = TrailerView()
+    func showListTrailer(movie: Movie) {
+        let trailerUseCase = TrailerUseCase()
+        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, movie: movie)
+        let trailerView = TrailerView(viewModel: viewModel)
         let trailerViewController = UIHostingController(rootView: trailerView)
         trailerViewController.view.backgroundColor = .gray.withAlphaComponent(0.7)
         trailerViewController.modalPresentationStyle = .overFullScreen
