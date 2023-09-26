@@ -17,6 +17,7 @@ struct MovieDetailViewModel {
         @Published var selectedPersonTrigger: Person?
         @Published var backTrigger: Void?
         @Published var playTrigger: Movie?
+        @Published var isFavorite: Bool?
     }
     
     class Output: ObservableObject {
@@ -74,6 +75,25 @@ extension MovieDetailViewModel: ViewModel {
             .unwrap()
             .sink { person in
                 navigator.toCastScreen(person: person)
+            }
+            .store(in: cancelBag)
+        
+        input.loadTrigger
+            .flatMap { _ in
+                useCase.getMovieFavorite()
+            }
+            .sink { a in
+                print("---- a = ", a)
+            } receiveValue: { array in
+                print("---- array = ", array)
+            }
+            .store(in: cancelBag)
+        
+        input.$isFavorite
+            .sink { value in
+                print("--- debug ---- value = ", value)
+                
+                useCase.saveMovie()
             }
             .store(in: cancelBag)
         

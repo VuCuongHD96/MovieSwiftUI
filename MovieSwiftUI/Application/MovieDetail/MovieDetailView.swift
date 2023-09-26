@@ -21,7 +21,7 @@ struct MovieDetailView: View {
     
     var body: some View {
         MovieNavigationView {
-            HeaderMovieDetailView(backTrigger: $movieDetailInput.backTrigger)
+            HeaderMovieDetailView(isFavorite: $movieDetailInput.isFavorite, backTrigger: $movieDetailInput.backTrigger)
         } bodyContent: {
             ScrollView {
                 VStack(spacing: 0) {
