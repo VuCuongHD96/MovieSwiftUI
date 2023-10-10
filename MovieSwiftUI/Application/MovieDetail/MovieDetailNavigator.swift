@@ -11,7 +11,7 @@ import UIKit
 protocol MovieDetailNavigatorType {
     func backToPrevious()
     func showListTrailer(movie: Movie)
-    func toCastScreen(person: Person)
+    func toProfileScreen(person: Person)
 }
 
 struct MovieDetailNavigator: MovieDetailNavigatorType {
@@ -32,8 +32,8 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
         navigationController.present(trailerViewController, animated: true)
     }
     
-    func toCastScreen(person: Person) {
-        let castDetailView = CastDetailView()
+    func toProfileScreen(person: Person) {
+        let castDetailView = ProfileView()
         let castViewController = UIHostingController(rootView: castDetailView)
         navigationController.pushViewController(castViewController, animated: true)
     }
