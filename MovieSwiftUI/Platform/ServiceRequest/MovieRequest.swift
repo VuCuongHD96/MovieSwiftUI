@@ -32,4 +32,12 @@ class MovieRequest: ServiceBaseRequest {
         let url = URLs.movieByGenre + "\(genreID)" + "/movies"
         super.init(urlString: url, requestType: .get, body: body)
     }
+    
+    required init(profileID: Int) {
+        let body: [String: Any] = [
+            "language": "en-US"
+        ]
+        let url = URLs.profile + "\(profileID)" + "/movie_credits"
+        super.init(urlString: url, requestType: .get, body: body)
+    }
 }

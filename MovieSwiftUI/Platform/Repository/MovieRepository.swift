@@ -11,6 +11,7 @@ protocol MovieRepositoryType {
     func getMovieList(page: Int, movieType: MovieType) -> Observable<[Movie]>
     func searchMovie(query: String) -> Observable<[Movie]>
     func getMovieDetail(movie: Movie) -> Observable<Movie>
+    func getMovieList(by profileID: Int) -> Observable<[Movie]>
 }
 
 class MovieRepository: ServiceBaseRepository, MovieRepositoryType {
@@ -47,6 +48,15 @@ class MovieRepository: ServiceBaseRepository, MovieRepositoryType {
         return api.request(input: input)
             .map { (data: MovieResponse) -> [Movie] in
                 data.results
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    func getMovieList(by profileID: Int) -> Observable<[Movie]> {
+        let input = MovieRequest(profileID: profileID)
+        return api.request(input: input)
+            .map { (data: ProfileResponse) -> [Movie] in
+                data.cast + data.crew
             }
             .eraseToAnyPublisher()
     }

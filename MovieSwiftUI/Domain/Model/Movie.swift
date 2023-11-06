@@ -27,11 +27,11 @@ struct Movie: Codable, Identifiable, Hashable {
     let voteCount: Int
     let genres: [Genre]?
     var backdropPathURL: URL? {
-        let backdropURL = URLs.APIImagesOriginalPath + (backdropPath ?? "")
+        let backdropURL = URLs.imagesOriginalPath + (backdropPath ?? "")
         return URL(string: backdropURL)
     }
     var posterPathURL: URL? {
-        let posterPathURL = URLs.APIImagesOriginalPath + (posterPath ?? "")
+        let posterPathURL = URLs.imagesOriginalPath + (posterPath ?? "")
         return URL(string: posterPathURL)
     }
     var releaseYear: Int {
