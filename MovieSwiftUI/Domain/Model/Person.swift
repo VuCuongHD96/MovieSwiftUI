@@ -17,7 +17,7 @@ class Person: Codable, Identifiable {
     let creditID: String
     var profilePathURL: URL? {
         guard let profilePath = profilePath else { return nil }
-        let profilePathURL = URLs.APIImagesOriginalPath + profilePath
+        let profilePathURL = URLs.imagesOriginalPath + profilePath
         return URL(string: profilePathURL)
     }
     

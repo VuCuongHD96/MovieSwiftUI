@@ -33,8 +33,10 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
     }
     
     func toProfileScreen(person: Person) {
-        let castDetailView = ProfileView()
-        let castViewController = UIHostingController(rootView: castDetailView)
+        let profileUseCase = ProfileUseCase()
+        let viewModel = ProfileViewModel(profileUseCase: profileUseCase, profileID: person.id)
+        let profileView = ProfileView(viewModel: viewModel)
+        let castViewController = UIHostingController(rootView: profileView)
         navigationController.pushViewController(castViewController, animated: true)
     }
 }

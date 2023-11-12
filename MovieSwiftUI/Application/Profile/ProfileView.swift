@@ -9,20 +9,51 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    private let columns = Array(repeating: GridItem(), count: 4)
+    private let columns = Array(repeating: GridItem(), count: 3)
+    let viewModel: ProfileViewModel
+    var input: ProfileViewModel.Input
+    @ObservedObject var output: ProfileViewModel.Output
+    let cancelBag = CancelBag()
+    
+    init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
+        let input = ProfileViewModel.Input()
+        self.output = viewModel.transform(input, cancelBag: cancelBag)
+        self.input = input
+    }
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView
                     .background(Color.red)
-                Text("After being struck by lightning, Barry Allen wakes up from his coma to discover he's been given the power of super speed, becoming the Flash, fighting crime in Central City.")
+                MovieExpandText(
+                    message: output.profile.biography,
+                    moreText: {
+                        Text("More")
+                            .fontWeight(.medium)
+                            .background(Color.white)
+                            .foregroundColor(.red)
+                            .allowsHitTesting(false)
+                    }, lessText: {
+                        Text("Less")
+                            .fontWeight(.medium)
+                            .background(Color.white)
+                            .foregroundColor(.gray)
+                            .allowsHitTesting(false)
+                    })
+                .lineLimit(2)
+                .padding()
+                .background(Color.blue)
+                movieGridView
                     .padding()
-                movieArrayView
-                    .padding()
+                    .background(Color.red)
             }
         }
         .ignoresSafeArea()
+        .onAppear {
+            input.loadTrigger.send()
+        }
     }
     
     private var statusBarView: some View {
@@ -50,13 +81,17 @@ struct ProfileView: View {
                 statusBarView
                     .padding(.horizontal, 8)
                 Spacer()
-                Image("PosterImage")
-                    .frame(width: 110, height: 150)
-                    .clipped()
-                    .cornerRadius(20)
-                
+                AsyncImage(url: output.profile.profilePathURL) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    ProgressView()
+                        .tint(Color.white)
+                }
+                .frame(width: 110, height: 150)
+                .cornerRadius(20)
                 Spacer()
-                Text("Adeline Henderson")
+                Text(output.profile.name)
                     .foregroundColor(.black)
                     .fontWeight(.bold)
                     .font(.title2)
@@ -65,13 +100,11 @@ struct ProfileView: View {
         }
     }
     
-    private var movieArrayView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyVGrid(columns: columns) {
-                ForEach(Array(repeating: Movie.defaultValue, count: 10), id: \.id) { movie in
-                    HomeTopRateView(movie: movie)
-                        .frame(width: 100, height: 140)
-                }
+    private var movieGridView: some View {
+        LazyVGrid(columns: columns, spacing: 20) {
+            ForEach(output.movieList, id: \.id) { movie in
+                HomeTopRateView(movie: movie)
+                    .frame(width: 100, height: 140)
             }
         }
     }
@@ -79,6 +112,8 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        let profileUseCase = ProfileUseCase()
+        let viewModel = ProfileViewModel(profileUseCase: profileUseCase, profileID: 1136406)
+        ProfileView(viewModel: viewModel)
     }
 }
