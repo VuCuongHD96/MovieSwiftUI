@@ -17,6 +17,7 @@ struct MovieDetailViewModel {
         @Published var selectedPersonTrigger: Person?
         @Published var backTrigger: Void?
         @Published var playTrigger: Movie?
+        var movieProfileDidSelected = PassthroughSubject<Movie, Never>()
     }
     
     class Output: ObservableObject {
@@ -73,8 +74,28 @@ extension MovieDetailViewModel: ViewModel {
         input.$selectedPersonTrigger
             .unwrap()
             .sink { person in
-                navigator.toProfileScreen(person: person)
+                navigator.toProfileScreen(person: person, movieDidSelected: input.movieProfileDidSelected)
             }
+            .store(in: cancelBag)
+        
+        input.movieProfileDidSelected
+            .flatMap { movieSelected in
+                self.useCase.getMovieDetail(movie: movieSelected)
+                    .trackActivity(activityTracker)
+                    .trackError(errorTracker)
+                    .asDriver()
+            }
+            .assign(to: \.movie, on: output)
+            .store(in: cancelBag)
+        
+        input.movieProfileDidSelected
+            .flatMap { movieSelected in
+                self.useCase.getCredit(movie: movieSelected)
+                    .trackActivity(activityTracker)
+                    .trackError(errorTracker)
+                    .asDriver()
+            }
+            .assign(to: \.personArray, on: output)
             .store(in: cancelBag)
         
         errorTracker

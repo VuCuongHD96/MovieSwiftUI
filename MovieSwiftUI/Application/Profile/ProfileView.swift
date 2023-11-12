@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ProfileView: View {
     
     private let columns = Array(repeating: GridItem(), count: 3)
-    let viewModel: ProfileViewModel
     var input: ProfileViewModel.Input
     @ObservedObject var output: ProfileViewModel.Output
     let cancelBag = CancelBag()
     
     init(viewModel: ProfileViewModel) {
-        self.viewModel = viewModel
         let input = ProfileViewModel.Input()
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.input = input
@@ -26,7 +25,6 @@ struct ProfileView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 headerView
-                    .background(Color.red)
                 MovieExpandText(
                     message: output.profile.biography,
                     moreText: {
@@ -42,12 +40,10 @@ struct ProfileView: View {
                             .foregroundColor(.gray)
                             .allowsHitTesting(false)
                     })
-                .lineLimit(2)
+                .lineLimit(3)
                 .padding()
-                .background(Color.blue)
                 movieGridView
                     .padding()
-                    .background(Color.red)
             }
         }
         .ignoresSafeArea()
@@ -59,6 +55,7 @@ struct ProfileView: View {
     private var statusBarView: some View {
         HStack(alignment: .center) {
             Button {
+                input.backTrigger.send()
             } label: {
                 Image("back")
             }
@@ -67,8 +64,12 @@ struct ProfileView: View {
                 .modifier(TitleModifier())
                 .padding(8)
             Spacer()
-            Image("SearchWhite")
-                .padding(8)
+            Button {
+                input.searchAction.send()
+            } label: {
+                Image("SearchWhite")
+            }
+            .padding(8)
         }
     }
     
@@ -105,6 +106,9 @@ struct ProfileView: View {
             ForEach(output.movieList, id: \.id) { movie in
                 HomeTopRateView(movie: movie)
                     .frame(width: 100, height: 140)
+                    .onTapGesture {
+                        input.movieAction.send(movie)
+                    }
             }
         }
     }
@@ -112,8 +116,13 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
+        let navigationController = UINavigationController()
         let profileUseCase = ProfileUseCase()
-        let viewModel = ProfileViewModel(profileUseCase: profileUseCase, profileID: 1136406)
+        let profileNavigator = ProfileNavigator(navigationController: navigationController)
+        let viewModel = ProfileViewModel(navigator: profileNavigator, 
+                                         useCase: profileUseCase,
+                                         profileID: 1136406,
+                                         movieDidSelected: PassthroughSubject<Movie, Never>())
         ProfileView(viewModel: viewModel)
     }
 }

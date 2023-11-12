@@ -7,11 +7,12 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 protocol MovieDetailNavigatorType {
     func backToPrevious()
     func showListTrailer(movie: Movie)
-    func toProfileScreen(person: Person)
+    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<Movie, Never>)
 }
 
 struct MovieDetailNavigator: MovieDetailNavigatorType {
@@ -32,11 +33,12 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
         navigationController.present(trailerViewController, animated: true)
     }
     
-    func toProfileScreen(person: Person) {
+    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<Movie, Never>) {
         let profileUseCase = ProfileUseCase()
-        let viewModel = ProfileViewModel(profileUseCase: profileUseCase, profileID: person.id)
+        let profileNavigator = ProfileNavigator(navigationController: navigationController)
+        let viewModel = ProfileViewModel(navigator: profileNavigator, useCase: profileUseCase, profileID: person.id, movieDidSelected: movieDidSelected)
         let profileView = ProfileView(viewModel: viewModel)
-        let castViewController = UIHostingController(rootView: profileView)
-        navigationController.pushViewController(castViewController, animated: true)
+        let profileViewController = UIHostingController(rootView: profileView)
+        navigationController.pushViewController(profileViewController, animated: true)
     }
 }
