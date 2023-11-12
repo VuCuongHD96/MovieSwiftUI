@@ -11,6 +11,9 @@ struct ProfileViewModel {
     
     struct Input {
         var loadTrigger = PassthroughSubject<Void, Never>()
+        var backTrigger = PassthroughSubject<Void, Never>()
+        var searchAction = PassthroughSubject<Void, Never>()
+        var movieAction = PassthroughSubject<Movie, Never>()
     }
     
     class Output: ObservableObject {
@@ -18,8 +21,10 @@ struct ProfileViewModel {
         @Published var movieList = [Movie]()
     }
     
-    let profileUseCase: ProfileUseCaseType
+    let navigator: ProfileNavigatorType
+    let useCase: ProfileUseCaseType
     let profileID: Int
+    let movieDidSelected: PassthroughSubject<Movie, Never>
 }
 
 extension ProfileViewModel: ViewModel {
@@ -31,7 +36,7 @@ extension ProfileViewModel: ViewModel {
         
         input.loadTrigger
             .flatMap { _ in
-                profileUseCase.getProfile(by: profileID)
+                useCase.getProfile(by: profileID)
                     .trackActivity(activity)
                     .trackError(error)
                     .asDriver()
@@ -41,12 +46,31 @@ extension ProfileViewModel: ViewModel {
         
         input.loadTrigger
             .flatMap { _ in
-                profileUseCase.getMovieList(by: profileID)
+                useCase.getMovieList(by: profileID)
                     .trackActivity(activity)
                     .trackError(error)
                     .asDriver()
             }
             .assign(to: \.movieList, on: output)
+            .store(in: cancelBag)
+        
+        input.backTrigger
+            .sink { _ in
+                navigator.backToPrevious()
+            }
+            .store(in: cancelBag)
+        
+        input.searchAction
+            .sink {
+                navigator.toSearchScreen()
+            }
+            .store(in: cancelBag)
+        
+        input.movieAction
+            .sink { movieProfileSelected in
+                movieDidSelected.send(movieProfileSelected)
+                navigator.backToPrevious()
+            }
             .store(in: cancelBag)
         
         return output
