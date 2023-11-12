@@ -14,7 +14,7 @@ struct TitleModifier: ViewModifier {
             .font(.title2)
             .font(
                 .custom("Helvetica-Neue", size: 20)
-                .weight(.medium)
+                .weight(.bold)
             )
             .foregroundColor(Color.white)
     }

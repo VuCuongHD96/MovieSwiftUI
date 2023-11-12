@@ -89,6 +89,4 @@ struct Movie: Codable, Identifiable, Hashable {
                                     voteAverage: 1.0,
                                     voteCount: 10,
                                     genres: [.action, .adventure, .animation])
-    
-    
 }

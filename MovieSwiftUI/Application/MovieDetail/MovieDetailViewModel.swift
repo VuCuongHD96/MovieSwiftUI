@@ -73,7 +73,7 @@ extension MovieDetailViewModel: ViewModel {
         input.$selectedPersonTrigger
             .unwrap()
             .sink { person in
-                navigator.toCastScreen(person: person)
+                navigator.toProfileScreen(person: person)
             }
             .store(in: cancelBag)
         
