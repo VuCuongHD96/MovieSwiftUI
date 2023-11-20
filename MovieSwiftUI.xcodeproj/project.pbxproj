@@ -37,6 +37,7 @@
 		964681F32A1BBD3700C0ADA0 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964681F22A1BBD3700C0ADA0 /* DateFormatter.swift */; };
 		964B6F932A4349C30082ADE8 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 964B6F922A4349C30082ADE8 /* Cosmos */; };
 		964B6F952A434BBD0082ADE8 /* MovieCosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B6F942A434BBD0082ADE8 /* MovieCosmosView.swift */; };
+		964D40FE2B0B99DA00BFFCE6 /* EVPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 964D40FD2B0B99DA00BFFCE6 /* EVPlayer */; };
 		964E13872AACC938009B170C /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E13862AACC938009B170C /* Publisher+.swift */; };
 		964E909F2AC33C4D00167E56 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E909E2AC33C4D00167E56 /* CoreDataManager.swift */; };
 		964E90A22AC33C9F00167E56 /* CoreDataBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E90A12AC33C9F00167E56 /* CoreDataBaseRequest.swift */; };
@@ -291,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964D40FE2B0B99DA00BFFCE6 /* EVPlayer in Frameworks */,
 				964B6F932A4349C30082ADE8 /* Cosmos in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -819,6 +821,7 @@
 			name = MovieSwiftUI;
 			packageProductDependencies = (
 				964B6F922A4349C30082ADE8 /* Cosmos */,
+				964D40FD2B0B99DA00BFFCE6 /* EVPlayer */,
 			);
 			productName = MovieSwiftUI;
 			productReference = A43A152428BE73EA000437F4 /* MovieSwiftUI.app */;
@@ -850,6 +853,7 @@
 			mainGroup = A43A151B28BE73EA000437F4;
 			packageReferences = (
 				964B6F912A4349C30082ADE8 /* XCRemoteSwiftPackageReference "Cosmos" */,
+				964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */,
 			);
 			productRefGroup = A43A152528BE73EA000437F4 /* Products */;
 			projectDirPath = "";
@@ -1233,6 +1237,14 @@
 				minimumVersion = 23.0.0;
 			};
 		};
+		964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/VuCuongHD96/EVPlayer";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1240,6 +1252,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 964B6F912A4349C30082ADE8 /* XCRemoteSwiftPackageReference "Cosmos" */;
 			productName = Cosmos;
+		};
+		964D40FD2B0B99DA00BFFCE6 /* EVPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */;
+			productName = EVPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */
 
