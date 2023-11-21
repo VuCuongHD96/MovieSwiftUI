@@ -10,7 +10,7 @@ import Cosmos
 
 struct PosterMovieDetailView: View {
     
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         HStack(alignment: .top, spacing: 15) {
@@ -44,10 +44,10 @@ struct PosterMovieDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
                 HStack {
-                    Text(String(movie.voteAverageRounded))
+                    Text(String(movie.score.voteAverageRounded))
                         .foregroundColor(Color("MovieDetailScore"))
                         .fontWeight(.medium)
-                    MovieCosmosView(rating: movie.voteAverage)
+                    MovieCosmosView(rating: movie.score.voteAverageRounded)
                         .starSize(18)
                         .allowsHitTesting(false)
                 }

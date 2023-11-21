@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieInforView: View {
     
     @State var titleSize = CGSize.zero
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {

@@ -36,7 +36,7 @@ struct SearchView: View {
             }
         } bodyContent: {
             if searchViewModelOutput.movieArray.isEmpty {
-                Text("No  movie")
+                Text("No movie")
                     .background(Color.gray)
             } else {
                 SearchResultView(movieArray: searchViewModelOutput.movieArray,

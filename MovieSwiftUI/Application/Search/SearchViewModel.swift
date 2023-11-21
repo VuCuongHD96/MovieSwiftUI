@@ -16,11 +16,11 @@ struct SearchViewModel: ViewModel {
         var loadTrigger = PassthroughSubject<Void, Never>()
         @Published var genreIndexSelectedAction: Int?
         @Published var cancelAction: Void?
-        @Published var movieSelected: Movie?
+        @Published var movieSelected: MovieItem?
     }
     
     class Output: ObservableObject {
-        @Published var movieArray = [Movie]()
+        @Published var movieArray = [MovieItem]()
         @Published var genreArray = [Genre]()
         var genreSelectedIDSet = Set<Int>()
     }
@@ -74,14 +74,19 @@ struct SearchViewModel: ViewModel {
                     .asDriver()
             }
             .share()
-        
+
         input.$genreIndexSelectedAction
             .combineLatest(searchResult)
-            .map { _, originMovieArray in
-                originMovieArray.filter { movie in
-                    return output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
-                }
+            .flatMap { _, originMovieArray in
+                return originMovieArray.publisher
             }
+            .filter { movie in
+                return output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
+            }
+            .map { movie in
+                return MovieItemTranslator.from(movie: movie)
+            }
+            .collect(.byTime(DispatchQueue.main, 0.5))
             .assign(to: \.movieArray, on: output)
             .store(in: cancelBag)
         
@@ -90,11 +95,16 @@ struct SearchViewModel: ViewModel {
             .store(in: cancelBag)
         
         searchResult
-            .map { movieArray in
-                return movieArray.filter { movie in
-                    output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
-                }
+            .flatMap { movieArray in
+                return movieArray.publisher
             }
+            .filter { movie in
+                return output.genreSelectedIDSet.isSubset(of: movie.genreIDSUnwrapped)
+            }
+            .map { movie in
+                return MovieItemTranslator.from(movie: movie)
+            }
+            .collect(.byTime(DispatchQueue.main, 0.1))
             .assign(to: \.movieArray, on: output)
             .store(in: cancelBag)
         

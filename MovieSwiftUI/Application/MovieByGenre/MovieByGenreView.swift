@@ -26,7 +26,7 @@ struct MovieByGenreView: View {
                                    searchAction: $movieByGenreViewModelInput.searchAction)
         } bodyContent: {
             ScrollView {
-                ForEach(movieByGenreViewModelOutput.movieArray, id: \.self) { movie in
+                ForEach(movieByGenreViewModelOutput.movieArray, id: \.movieID) { movie in
                     MovieByGenreCell(movie: movie)
                         .onTapGesture {
                             movieByGenreViewModelInput.movieAction.send(movie)
@@ -36,8 +36,11 @@ struct MovieByGenreView: View {
             .padding(.top, 20)
             .padding(.horizontal, 10)
         }
-        .onAppear {
-            movieByGenreViewModelInput.loadTrigger.send()
+        .alert(isPresented: $movieByGenreViewModelOutput.alertMessage.isShowing) {
+            Alert(
+                title: Text(movieByGenreViewModelOutput.alertMessage.title),
+                message: Text(movieByGenreViewModelOutput.alertMessage.message)
+            )
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 protocol MovieRepositoryType {
     func getMovieList(page: Int, movieType: MovieType) -> Observable<[Movie]>
     func searchMovie(query: String) -> Observable<[Movie]>
-    func getMovieDetail(movie: Movie) -> Observable<Movie>
+    func getMovieDetail(movie: MovieItem) -> Observable<Movie>
     func getMovieList(by profileID: Int) -> Observable<[Movie]>
 }
 
@@ -34,8 +34,8 @@ class MovieRepository: ServiceBaseRepository, MovieRepositoryType {
             .eraseToAnyPublisher()
     }
     
-    func getMovieDetail(movie: Movie) -> Observable<Movie> {
-        let input = MovieRequest(movieID: movie.id)
+    func getMovieDetail(movie: MovieItem) -> Observable<Movie> {
+        let input = MovieRequest(movieID: movie.movieID)
         return api.request(input: input)
             .map { (data: Movie) -> Movie in
                 return data

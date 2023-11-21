@@ -16,7 +16,7 @@ struct FavoriteCell: View {
     @Binding var click: Bool
 
     var body: some View {
-        HomeTopRateView(movie: Movie.defaultValue)
+        HomeTopRateView(movie: MovieItem.defaultValue)
             .overlay(alignment: .topLeading) {
                 Image("IconDelete")
                     .resizable()

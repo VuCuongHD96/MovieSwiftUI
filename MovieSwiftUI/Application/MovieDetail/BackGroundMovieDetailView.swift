@@ -9,8 +9,8 @@ import SwiftUI
 
 struct BackGroundMovieDetailView: View {
     
-    let movie: Movie
-    @Binding var playTrigger: Movie?
+    let movie: MovieItem
+    @Binding var playTrigger: MovieItem?
     
     var body: some View {
         ZStack {

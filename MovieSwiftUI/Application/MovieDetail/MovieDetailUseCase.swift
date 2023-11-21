@@ -8,19 +8,19 @@
 import Foundation
 
 protocol MovieDetailUseCaseType {
-    func getMovieDetail(movie: Movie) -> Observable<Movie>
-    func getCredit(movie: Movie) -> Observable<[Person]>
+    func getMovieDetail(movie: MovieItem) -> Observable<Movie>
+    func getCredit(movie: MovieItem) -> Observable<[Person]>
 }
 
 struct MovieDetailUseCase: MovieDetailUseCaseType {
     let movieRepository = MovieRepository(api: .share)
     let creditRepository = CreditRepository(api: .share)
     
-    func getMovieDetail(movie: Movie) -> Observable<Movie> {
+    func getMovieDetail(movie: MovieItem) -> Observable<Movie> {
         return movieRepository.getMovieDetail(movie: movie)
     }
     
-    func getCredit(movie: Movie) -> Observable<[Person]> {
+    func getCredit(movie: MovieItem) -> Observable<[Person]> {
         return creditRepository.getCredit(movie: movie)
     }
 }

@@ -73,20 +73,4 @@ struct Movie: Codable, Identifiable, Hashable {
         case voteCount = "vote_count"
         case genres = "genres"
     }
-    
-    static let defaultValue = Movie(id: 335787,
-                                    adult: true,
-                                    backdropPath: "/c3hl9E8E7b9opXDFVF5tSyk0ykr.jpg",
-                                    genreIDS: [1, 2, 3],
-                                    originalLanguage: "",
-                                    originalTitle: "",
-                                    overview: "this is overview testthis is overview testthis is overview testthis is overview testthis is overview testthis is overview testhis is overview testthis is overview testthis is overview testthis is overview testt",
-                                    popularity: 0,
-                                    posterPath: "/5UoZPWvGDKzUvJfRFavwOYM8Enz.jpg",
-                                    releaseDate: "2023-04-05",
-                                    title: "This is titleThis is titleThis is titleThis is title",
-                                    video: true,
-                                    voteAverage: 1.0,
-                                    voteCount: 10,
-                                    genres: [.action, .adventure, .animation])
 }

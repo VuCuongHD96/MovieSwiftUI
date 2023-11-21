@@ -10,7 +10,7 @@ import SwiftUI
 
 protocol HomeNavigatorType {
     func toSearchScreen()
-    func toMovieDetailScreen(movie: Movie)
+    func toMovieDetailScreen(movie: MovieItem)
 }
 
 struct HomeNavigator: HomeNavigatorType {
@@ -26,7 +26,7 @@ struct HomeNavigator: HomeNavigatorType {
         navigationController.pushViewController(viewController, animated: true)
     }
     
-    func toMovieDetailScreen(movie: Movie) {
+    func toMovieDetailScreen(movie: MovieItem) {
         let navigator = MovieDetailNavigator(navigationController: navigationController)
         let useCase = MovieDetailUseCase()
         let viewModel = MovieDetailViewModel(navigator: navigator, useCase: useCase, movie: movie)

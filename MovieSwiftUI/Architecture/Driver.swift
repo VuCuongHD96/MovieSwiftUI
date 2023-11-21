@@ -20,8 +20,4 @@ extension Publisher {
     public static func just(_ output: Output) -> Driver<Output> {
         return Just(output).eraseToAnyPublisher()
     }
-    
-    public static func empty() -> Driver<Output> {
-        return Empty().eraseToAnyPublisher()
-    }
 }
