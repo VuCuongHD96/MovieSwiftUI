@@ -9,11 +9,10 @@ import SwiftUI
 
 struct TrailerView: View {
     
-    @Environment(\.presentationMode) var presentationMode
-    
     var input: TrailerViewModel.Input
     @ObservedObject var output: TrailerViewModel.Output
     let cancelBag = CancelBag()
+    @State private var isOpenVideo = false
     
     init(viewModel: TrailerViewModel) {
         let input = TrailerViewModel.Input()
@@ -23,7 +22,7 @@ struct TrailerView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            listItemView
+            trailerListView
                 .padding(.vertical, 10)
             closeButton
         }
@@ -34,14 +33,21 @@ struct TrailerView: View {
         .onAppear {
             input.loadTrigger.send()
         }
+        .alert(isPresented: $output.alertMessage.isShowing) {
+            Alert(title: Text(output.alertMessage.title),
+                  message: Text(output.alertMessage.message))
+        }
     }
     
-    private var listItemView: some View {
+    private var trailerListView: some View {
         ScrollView(showsIndicators: false) {
-            VStack {
+            VStack(spacing: 0) {
                 ForEach(output.trailerList, id: \.id) { trailer in
                     TrailerCell(trailer: trailer)
                         .cornerRadius(5)
+                        .onTapGesture {
+                            input.openTrailerAction.send(trailer)
+                        }
                 }
             }
         }
@@ -49,7 +55,7 @@ struct TrailerView: View {
     
     private var closeButton: some View {
         Button {
-            presentationMode.wrappedValue.dismiss()
+            input.dismissAction.send()
         } label: {
             Text("Close")
                 .foregroundColor(.white)
@@ -68,8 +74,10 @@ struct TrailerView: View {
 
 struct TrailerView_Previews: PreviewProvider {
     static var previews: some View {
+        let navigationController = UINavigationController()
         let trailerUseCase = TrailerUseCase()
-        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, movie: .defaultValue)
+        let trailerNavigator = TrailerNavigator(navigationController: navigationController)
+        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, trailerNavigator: trailerNavigator, movie: .defaultValue)
         TrailerView(viewModel: viewModel)
     }
 }

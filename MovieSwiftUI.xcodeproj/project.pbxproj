@@ -37,7 +37,8 @@
 		964681F32A1BBD3700C0ADA0 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964681F22A1BBD3700C0ADA0 /* DateFormatter.swift */; };
 		964B6F932A4349C30082ADE8 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 964B6F922A4349C30082ADE8 /* Cosmos */; };
 		964B6F952A434BBD0082ADE8 /* MovieCosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B6F942A434BBD0082ADE8 /* MovieCosmosView.swift */; };
-		964D40FE2B0B99DA00BFFCE6 /* EVPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 964D40FD2B0B99DA00BFFCE6 /* EVPlayer */; };
+		964D40FE2B0B99DA00BFFCE6 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		964D41012B0BBB8F00BFFCE6 /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 964D41002B0BBB8F00BFFCE6 /* YouTubeKit */; };
 		964E13872AACC938009B170C /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E13862AACC938009B170C /* Publisher+.swift */; };
 		964E909F2AC33C4D00167E56 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E909E2AC33C4D00167E56 /* CoreDataManager.swift */; };
 		964E90A22AC33C9F00167E56 /* CoreDataBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964E90A12AC33C9F00167E56 /* CoreDataBaseRequest.swift */; };
@@ -75,6 +76,7 @@
 		9687201229EC4F8000AFCC9D /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687201029EC4F8000AFCC9D /* AppNavigator.swift */; };
 		9687201329EC4F8000AFCC9D /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9687201129EC4F8000AFCC9D /* AppViewModel.swift */; };
 		9690CE782A4DCFD300C26A09 /* HomeNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690CE772A4DCFD300C26A09 /* HomeNavigator.swift */; };
+		9691C0902B08D0D700F4D1FF /* EVPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9691C08F2B08D0D700F4D1FF /* EVPlayer */; };
 		9691D81A2A03FC1000650B1B /* HomeTopRateGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9691D8192A03FC1000650B1B /* HomeTopRateGridView.swift */; };
 		9693552729BD74BD006D4DE5 /* ServiceBaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693552629BD74BD006D4DE5 /* ServiceBaseRequest.swift */; };
 		9693552929BD75C8006D4DE5 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9693552829BD75C8006D4DE5 /* HTTPMethod.swift */; };
@@ -292,8 +294,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				964D40FE2B0B99DA00BFFCE6 /* EVPlayer in Frameworks */,
+				964D40FE2B0B99DA00BFFCE6 /* (null) in Frameworks */,
 				964B6F932A4349C30082ADE8 /* Cosmos in Frameworks */,
+				9691C0902B08D0D700F4D1FF /* EVPlayer in Frameworks */,
+				964D41012B0BBB8F00BFFCE6 /* YouTubeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,7 +825,8 @@
 			name = MovieSwiftUI;
 			packageProductDependencies = (
 				964B6F922A4349C30082ADE8 /* Cosmos */,
-				964D40FD2B0B99DA00BFFCE6 /* EVPlayer */,
+				9691C08F2B08D0D700F4D1FF /* EVPlayer */,
+				964D41002B0BBB8F00BFFCE6 /* YouTubeKit */,
 			);
 			productName = MovieSwiftUI;
 			productReference = A43A152428BE73EA000437F4 /* MovieSwiftUI.app */;
@@ -853,7 +858,8 @@
 			mainGroup = A43A151B28BE73EA000437F4;
 			packageReferences = (
 				964B6F912A4349C30082ADE8 /* XCRemoteSwiftPackageReference "Cosmos" */,
-				964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */,
+				9691C08E2B08D0D700F4D1FF /* XCRemoteSwiftPackageReference "EVPlayer" */,
+				964D40FF2B0BBB8E00BFFCE6 /* XCRemoteSwiftPackageReference "YouTubeKit" */,
 			);
 			productRefGroup = A43A152528BE73EA000437F4 /* Products */;
 			projectDirPath = "";
@@ -1237,7 +1243,15 @@
 				minimumVersion = 23.0.0;
 			};
 		};
-		964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */ = {
+		964D40FF2B0BBB8E00BFFCE6 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/VuCuongHD96/YouTubeKit";
+			requirement = {
+				branch = support_combine;
+				kind = branch;
+			};
+		};
+		9691C08E2B08D0D700F4D1FF /* XCRemoteSwiftPackageReference "EVPlayer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/VuCuongHD96/EVPlayer";
 			requirement = {
@@ -1253,9 +1267,14 @@
 			package = 964B6F912A4349C30082ADE8 /* XCRemoteSwiftPackageReference "Cosmos" */;
 			productName = Cosmos;
 		};
-		964D40FD2B0B99DA00BFFCE6 /* EVPlayer */ = {
+		964D41002B0BBB8F00BFFCE6 /* YouTubeKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 964D40FC2B0B99DA00BFFCE6 /* XCRemoteSwiftPackageReference "EVPlayer" */;
+			package = 964D40FF2B0BBB8E00BFFCE6 /* XCRemoteSwiftPackageReference "YouTubeKit" */;
+			productName = YouTubeKit;
+		};
+		9691C08F2B08D0D700F4D1FF /* EVPlayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9691C08E2B08D0D700F4D1FF /* XCRemoteSwiftPackageReference "EVPlayer" */;
 			productName = EVPlayer;
 		};
 /* End XCSwiftPackageProductDependency section */

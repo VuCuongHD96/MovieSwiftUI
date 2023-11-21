@@ -22,10 +22,17 @@ struct AlertMessage {
 }
 
 extension AlertMessage {
+    init(error: BaseError) {
+        let title = error.title 
+        let message = error.errorMessage ?? ""
+        let isShowing = !message.isEmpty
+        self.init(title: title, message: message, isShowing: isShowing)
+    }
+    
     init(error: Error) {
-        let baseError = error as? BaseError
-        self.title = baseError?.title ?? ""
-        self.message = baseError?.errorMessage ?? ""
-        self.isShowing = !message.isEmpty
+        let title = "Error!"
+        let message = error.localizedDescription
+        let isShowing = !message.isEmpty
+        self.init(title: title, message: message, isShowing: isShowing)
     }
 }

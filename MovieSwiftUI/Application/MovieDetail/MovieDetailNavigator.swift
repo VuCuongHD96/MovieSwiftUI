@@ -25,7 +25,8 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
     
     func showListTrailer(movie: Movie) {
         let trailerUseCase = TrailerUseCase()
-        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, movie: movie)
+        let trailerNavigator = TrailerNavigator(navigationController: navigationController)
+        let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, trailerNavigator: trailerNavigator, movie: movie)
         let trailerView = TrailerView(viewModel: viewModel)
         let trailerViewController = UIHostingController(rootView: trailerView)
         trailerViewController.view.backgroundColor = .gray.withAlphaComponent(0.7)
