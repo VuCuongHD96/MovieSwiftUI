@@ -24,7 +24,7 @@ struct TrailerViewModel {
     
     let trailerUseCase: TrailerUseCaseType
     let trailerNavigator: TrailerNavigator
-    let movie: Movie
+    let movie: MovieItem
 }
 
 extension TrailerViewModel: ViewModel {

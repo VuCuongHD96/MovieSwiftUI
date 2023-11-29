@@ -6,22 +6,19 @@
 //
 
 import Combine
+import Foundation
 
 struct HomeViewModel: ViewModel {
     
     class Input: ObservableObject {
-        var loadTrigger: Driver<Void>
+        var loadTrigger = Driver.just(Void())
         var searchAction = PassthroughSubject<Void, Never>()
-        @Published var movieSelectedTrigger: Movie?
-        
-        init(loadTrigger: Driver<Void>) {
-            self.loadTrigger = loadTrigger
-        }
+        @Published var movieSelectedTrigger: MovieItem?
     }
     
     class Output: ObservableObject {
-        @Published var firstMovieArray = [Movie]()
-        @Published var secondMovieArray = [Movie]()
+        @Published var firstMovieArray = [MovieItem]()
+        @Published var secondMovieArray = [MovieItem]()
     }
     
     let navigator: HomeNavigatorType
@@ -38,6 +35,13 @@ struct HomeViewModel: ViewModel {
                     .trackError(errorTracker)
                     .asDriver()
             }
+            .flatMap { movieList in
+                Publishers.Sequence(sequence: movieList)
+            }
+            .map { movie in
+                MovieItemTranslator.from(movie: movie)
+            }
+            .collect()
             .assign(to: \.firstMovieArray, on: output)
             .store(in: cancelBag)
         input.loadTrigger
@@ -47,6 +51,13 @@ struct HomeViewModel: ViewModel {
                     .trackError(errorTracker)
                     .asDriver()
             }
+            .flatMap { movieList in
+                Publishers.Sequence(sequence: movieList)
+            }
+            .map { movie in
+                MovieItemTranslator.from(movie: movie)
+            }
+            .collect()
             .assign(to: \.secondMovieArray, on: output)
             .store(in: cancelBag)
         input.searchAction

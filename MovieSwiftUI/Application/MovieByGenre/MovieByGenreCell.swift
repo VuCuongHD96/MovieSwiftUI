@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieByGenreCell: View {
     
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         VStack {

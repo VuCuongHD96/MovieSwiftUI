@@ -9,14 +9,14 @@ import Combine
 
 protocol TrailerUseCaseType {
     
-    func getTrailerList(movie: Movie) -> Observable<[Trailer]>
+    func getTrailerList(movie: MovieItem) -> Observable<[Trailer]>
 }
 
 struct TrailerUseCase: TrailerUseCaseType {
     
     private let trailerRepository = TrailerRepository(api: .share)
     
-    func getTrailerList(movie: Movie) -> Observable<[Trailer]> {
+    func getTrailerList(movie: MovieItem) -> Observable<[Trailer]> {
         return trailerRepository.getTrailerList(movie: movie)
     }
 }

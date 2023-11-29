@@ -14,7 +14,7 @@ struct ScoreView: View {
         static let cornerRadius = edge / 2
     }
     
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         ZStack {
@@ -24,9 +24,9 @@ struct ScoreView: View {
                 .frame(width: Constant.edge, height: Constant.edge)
                 .cornerRadius(Constant.cornerRadius)
             HStack(alignment: .top, spacing: 0) {
-                Text(movie.voteAverageSplit.naturalPart)
+                Text(movie.score.naturalPart)
                     .font(.title2)
-                Text(".\(movie.voteAverageSplit.decimalPart)")
+                Text(".\(movie.score.decimalPart)")
             }
             .foregroundColor(.white)
         }

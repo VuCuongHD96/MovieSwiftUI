@@ -14,7 +14,7 @@ struct HomeView: View {
     var cancelBag = CancelBag()
     
     init(homeViewModel: HomeViewModel) {
-        let homeViewModelInput = HomeViewModel.Input(loadTrigger: .just(Void()))
+        let homeViewModelInput = HomeViewModel.Input()
         homeViewModelOutput = homeViewModel.transform(homeViewModelInput, cancelBag: cancelBag)
         self.homeViewModelInput = homeViewModelInput
     }

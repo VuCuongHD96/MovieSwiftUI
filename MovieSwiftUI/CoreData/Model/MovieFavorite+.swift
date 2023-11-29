@@ -9,8 +9,10 @@ import Foundation
 
 extension MovieFavorite {
         
-    convenience init(movieID: Int16) {
+    convenience init(movieID: Int, title: String, backdropPath: String?) {
         self.init(context: CoreDataManager.shared.container.viewContext)
-        self.movieID = movieID
+        self.movieID = Int16(movieID)
+        self.title = title
+        self.backdropPath = backdropPath
     }
 }

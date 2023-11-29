@@ -9,11 +9,11 @@ import Foundation
 
 class TrailerRequest: ServiceBaseRequest {
     
-    required init(movie: Movie) {
+    required init(movie: MovieItem) {
         let body: [String: Any] = [
             "language": "en-US"
         ]
-        let url = URLs.trailer + "\(movie.id)/videos"
+        let url = URLs.trailer + "\(movie.movieID)/videos"
         super.init(urlString: url, requestType: .get, body: body)
     }
 }

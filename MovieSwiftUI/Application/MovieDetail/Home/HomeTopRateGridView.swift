@@ -13,14 +13,14 @@ struct HomeTopRateGridView: View {
         GridItem(.fixed(238), spacing: 20),
         GridItem(.fixed(238), spacing: 0),
     ]
-    let secondMovieArray: [Movie]
-    @Binding var movieSelectedTrigger: Movie?
+    let secondMovieArray: [MovieItem]
+    @Binding var movieSelectedTrigger: MovieItem?
     
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: gridRows, spacing: 15) {
-                    ForEach(secondMovieArray) { movie in
+                    ForEach(secondMovieArray, id: \.movieID) { movie in
                         HomeTopRateView(movie: movie)
                             .onTapGesture {
                                 movieSelectedTrigger = movie

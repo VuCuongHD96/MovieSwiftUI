@@ -8,7 +8,7 @@
 import SwiftUI
 
 protocol MovieByGenreNavigatorType {
-    func toMovieDetailScreen(movie: Movie)
+    func toMovieDetailScreen(movie: MovieItem)
     func backToPrevious()
     func toSearchScreen()
 }
@@ -17,7 +17,7 @@ struct MovieByGenreNavigator: MovieByGenreNavigatorType {
     
     let navigationController: UINavigationController
     
-    func toMovieDetailScreen(movie: Movie) {
+    func toMovieDetailScreen(movie: MovieItem) {
         let navigator = MovieDetailNavigator(navigationController: navigationController)
         let useCase = MovieDetailUseCase()
         let viewModel = MovieDetailViewModel(navigator: navigator, useCase: useCase, movie: movie)

@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 struct ProfileViewModel {
     
@@ -13,18 +14,19 @@ struct ProfileViewModel {
         var loadTrigger = PassthroughSubject<Void, Never>()
         var backTrigger = PassthroughSubject<Void, Never>()
         var searchAction = PassthroughSubject<Void, Never>()
-        var movieAction = PassthroughSubject<Movie, Never>()
+        var movieAction = PassthroughSubject<MovieItem, Never>()
     }
     
     class Output: ObservableObject {
         @Published var profile = Profile()
-        @Published var movieList = [Movie]()
+        @Published var movieItemList = [MovieItem]()
+        @Published var alertMessage = AlertMessage()
     }
     
     let navigator: ProfileNavigatorType
     let useCase: ProfileUseCaseType
     let profileID: Int
-    let movieDidSelected: PassthroughSubject<Movie, Never>
+    let movieDidSelected: PassthroughSubject<MovieItem, Never>
 }
 
 extension ProfileViewModel: ViewModel {
@@ -33,7 +35,7 @@ extension ProfileViewModel: ViewModel {
         let output = Output()
         let activity = ActivityTracker(true)
         let error = ErrorTracker()
-        
+
         input.loadTrigger
             .flatMap { _ in
                 useCase.getProfile(by: profileID)
@@ -51,7 +53,14 @@ extension ProfileViewModel: ViewModel {
                     .trackError(error)
                     .asDriver()
             }
-            .assign(to: \.movieList, on: output)
+            .flatMap { movieList in
+                Publishers.Sequence(sequence: movieList)
+            }
+            .map { movie in
+                MovieItemTranslator.from(movie: movie)
+            }
+            .collect()
+            .assign(to: \.movieItemList, on: output)
             .store(in: cancelBag)
         
         input.backTrigger
@@ -72,6 +81,12 @@ extension ProfileViewModel: ViewModel {
                 navigator.backToPrevious()
             }
             .store(in: cancelBag)
+        
+        error.map { error in
+            AlertMessage(error: error)
+        }
+        .assign(to: \.alertMessage, on: output)
+        .store(in: cancelBag)
         
         return output
     }

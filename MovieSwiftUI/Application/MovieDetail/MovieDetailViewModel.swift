@@ -16,19 +16,19 @@ struct MovieDetailViewModel {
         var playButtonSubject = PassthroughSubject<Void, Never>()
         @Published var selectedPersonTrigger: Person?
         @Published var backTrigger: Void?
-        @Published var playTrigger: Movie?
-        var movieProfileDidSelected = PassthroughSubject<Movie, Never>()
+        @Published var playTrigger: MovieItem?
+        var movieProfileDidSelected = PassthroughSubject<MovieItem, Never>()
     }
     
     class Output: ObservableObject {
-        @Published var movie: Movie = .defaultValue
+        @Published var movie: MovieItem = .defaultValue
         @Published var alert = AlertMessage()
         @Published var personArray = [Person]()
     }
     
     let navigator: MovieDetailNavigatorType
     let useCase: MovieDetailUseCaseType
-    let movie: Movie
+    let movie: MovieItem
 }
 
 extension MovieDetailViewModel: ViewModel {
@@ -37,12 +37,16 @@ extension MovieDetailViewModel: ViewModel {
         let output = Output()
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
+        
         input.loadTrigger
             .flatMap { _ in
                 self.useCase.getMovieDetail(movie: movie)
                     .trackActivity(activityTracker)
                     .trackError(errorTracker)
                     .asDriver()
+            }
+            .map { movie in
+                MovieItemTranslator.from(movie: movie)
             }
             .assign(to: \.movie, on: output)
             .store(in: cancelBag)
@@ -84,6 +88,9 @@ extension MovieDetailViewModel: ViewModel {
                     .trackActivity(activityTracker)
                     .trackError(errorTracker)
                     .asDriver()
+            }
+            .map {
+                MovieItemTranslator.from(movie: $0)
             }
             .assign(to: \.movie, on: output)
             .store(in: cancelBag)

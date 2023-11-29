@@ -50,6 +50,10 @@ struct ProfileView: View {
         .onAppear {
             input.loadTrigger.send()
         }
+        .alert(isPresented: $output.alertMessage.isShowing) {
+            Alert(title: Text(output.alertMessage.title),
+                  message: Text(output.alertMessage.message))
+        }
     }
     
     private var statusBarView: some View {
@@ -103,7 +107,7 @@ struct ProfileView: View {
     
     private var movieGridView: some View {
         LazyVGrid(columns: columns, spacing: 20) {
-            ForEach(output.movieList, id: \.id) { movie in
+            ForEach(output.movieItemList, id: \.movieID) { movie in
                 HomeTopRateView(movie: movie)
                     .frame(width: 100, height: 140)
                     .onTapGesture {
@@ -122,7 +126,7 @@ struct ProfileView_Previews: PreviewProvider {
         let viewModel = ProfileViewModel(navigator: profileNavigator, 
                                          useCase: profileUseCase,
                                          profileID: 1136406,
-                                         movieDidSelected: PassthroughSubject<Movie, Never>())
+                                         movieDidSelected: PassthroughSubject<MovieItem, Never>())
         ProfileView(viewModel: viewModel)
     }
 }

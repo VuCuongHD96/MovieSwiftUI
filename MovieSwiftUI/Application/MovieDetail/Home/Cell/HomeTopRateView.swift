@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeTopRateView: View {
     
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         ZStack {
@@ -25,7 +25,7 @@ struct HomeTopRateView: View {
                     .padding(8)
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text(movie.releaseYear.toString())
+                    Text(movie.releaseYear)
                         .foregroundColor(Color.white)
                     Text(movie.title)
                         .foregroundColor(Color.white)

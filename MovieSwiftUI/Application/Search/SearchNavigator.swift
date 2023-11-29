@@ -10,7 +10,7 @@ import SwiftUI
 
 protocol SearchNavigatorType {
     func popToPrevious()
-    func toMovieDetailScreen(movie: Movie)
+    func toMovieDetailScreen(movie: MovieItem)
 }
 
 struct SearchNavigator: SearchNavigatorType {
@@ -21,7 +21,7 @@ struct SearchNavigator: SearchNavigatorType {
         navigationController.popViewController(animated: true)
     }
     
-    func toMovieDetailScreen(movie: Movie) {
+    func toMovieDetailScreen(movie: MovieItem) {
         let navigator = MovieDetailNavigator(navigationController: navigationController)
         let useCase = MovieDetailUseCase()
         let viewModel = MovieDetailViewModel(navigator: navigator, useCase: useCase, movie: movie)

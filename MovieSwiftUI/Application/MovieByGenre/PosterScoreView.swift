@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PosterScoreView: View {
     
-    let movie: Movie
+    let movie: MovieItem
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {

@@ -11,8 +11,8 @@ import Combine
 
 protocol MovieDetailNavigatorType {
     func backToPrevious()
-    func showListTrailer(movie: Movie)
-    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<Movie, Never>)
+    func showListTrailer(movie: MovieItem)
+    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<MovieItem, Never>)
 }
 
 struct MovieDetailNavigator: MovieDetailNavigatorType {
@@ -23,7 +23,7 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
         navigationController.popViewController(animated: true)
     }
     
-    func showListTrailer(movie: Movie) {
+    func showListTrailer(movie: MovieItem) {
         let trailerUseCase = TrailerUseCase()
         let trailerNavigator = TrailerNavigator(navigationController: navigationController)
         let viewModel = TrailerViewModel(trailerUseCase: trailerUseCase, trailerNavigator: trailerNavigator, movie: movie)
@@ -34,7 +34,7 @@ struct MovieDetailNavigator: MovieDetailNavigatorType {
         navigationController.present(trailerViewController, animated: true)
     }
     
-    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<Movie, Never>) {
+    func toProfileScreen(person: Person, movieDidSelected: PassthroughSubject<MovieItem, Never>) {
         let profileUseCase = ProfileUseCase()
         let profileNavigator = ProfileNavigator(navigationController: navigationController)
         let viewModel = ProfileViewModel(navigator: profileNavigator, useCase: profileUseCase, profileID: person.id, movieDidSelected: movieDidSelected)
