@@ -13,20 +13,22 @@ struct FavoriteCell: View {
         static let closeEdge: CGFloat = 30
     }
     
-    @Binding var click: Bool
+    @EnvironmentObject private var input: FavoriteViewModel.Input
+    let movie: MovieItem
 
     var body: some View {
-        HomeTopRateView(movie: MovieItem.defaultValue)
+        HomeTopRateView(movie: movie)
             .overlay(alignment: .topLeading) {
                 Image("IconDelete")
                     .resizable()
                     .frame(width: Constant.closeEdge, height: Constant.closeEdge)
                     .padding(.top, 10)
-                    .offset(x: click ? 5: -Constant.closeEdge, y: 5)
-                    .animation(.easeInOut, value: click)
-            }
-            .onTapGesture {
-                click.toggle()
+                    .offset(x: input.editing ? 10: -Constant.closeEdge)
+                    .animation(.easeInOut, value: input.editing)
+                    .onTapGesture {
+                        input.removeClickAction.send(movie)
+                    }
+                    .allowsHitTesting(input.editing)
             }
             .clipped()
     }
@@ -34,7 +36,8 @@ struct FavoriteCell: View {
 
 struct FavoriteCell_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteCell(click: .constant(false))
+        let input = FavoriteViewModel.Input()
+        FavoriteCell(movie: .defaultValue)
             .frame(width: 234, height: 180)
     }
 }

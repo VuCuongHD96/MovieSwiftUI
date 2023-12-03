@@ -7,12 +7,21 @@
 
 import CoreData
 
-struct MovieFavoriteRequest: CoreDataBaseRequestType {
+protocol MovieFavoriteRequestType {
     
+    func findMovie(with movieID: Int32)
+}
+
+struct MovieFavoriteRequest: CoreDataBaseRequestType, MovieFavoriteRequestType {
     typealias T = MovieFavorite
     var request: NSFetchRequest<T>
     
     init() {
         request = T.fetchRequest()
+    }
+    
+    func findMovie(with movieID: Int32) {
+        let predicate = NSPredicate(format: "movieID == %@", "\(movieID)")
+        request.predicate = predicate
     }
 }

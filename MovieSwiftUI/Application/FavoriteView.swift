@@ -14,27 +14,47 @@ struct FavoriteView: View {
         GridItem(.flexible())
     ]
     
-    @State private var click = false
+    @ObservedObject private var input: FavoriteViewModel.Input
+    @ObservedObject private var output: FavoriteViewModel.Output
+    private var cancelBag = CancelBag()
+    
+    init(viewModel: FavoriteViewModel) {
+        let input = FavoriteViewModel.Input()
+        output = viewModel.transform(input, cancelBag: cancelBag)
+        self.input = input
+    }
     
     var body: some View {
         MovieNavigationView {
-            FavoriteHeaderView(click: $click)
+            FavoriteHeaderView()
         } bodyContent: {
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: gridRows, spacing: 15) {
-                    ForEach(0..<2, id: \.self) { movie in
-                        FavoriteCell(click: $click)
-                            .frame(height: 238, alignment: .top)
+                LazyVGrid(columns: gridRows, spacing: 20) {
+                    ForEach(output.movieFavoriteList, id: \.movieID) { movie in
+                        FavoriteCell(movie: movie)
+                            .frame(height: 250)
                     }
                 }
             }
             .padding()
+        }
+        .confirmationDialog("Do you want remove this movie", 
+                            isPresented: $output.showDialogConfirm,
+                            titleVisibility: .visible) {
+            Button("DELETE", role: .destructive) {
+                input.confirmRemoveMovieAction.send()
+            }
+        }
+        .environmentObject(input)
+        .onAppear {
+            input.loadTrigger.send()
         }
     }
 }
 
 struct FavoriteView_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteView()
+        let viewModel = FavoriteViewModel()
+        FavoriteView(viewModel: viewModel)
     }
 }

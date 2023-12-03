@@ -2,7 +2,13 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="23B81" minimumToolsVersion="Xcode 13.0" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="MovieFavorite" representedClassName="MovieFavorite" syncable="YES" codeGenerationType="class">
         <attribute name="backdropPath" optional="YES" attributeType="String"/>
-        <attribute name="movieID" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="genreNameArray" attributeType="String" defaultValueString=""/>
+        <attribute name="movieID" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="overview" attributeType="String" defaultValueString=""/>
+        <attribute name="posterPath" optional="YES" attributeType="String"/>
+        <attribute name="releaseDate" attributeType="String" defaultValueString=""/>
+        <attribute name="releaseYear" attributeType="String" defaultValueString=""/>
+        <attribute name="title" attributeType="String" defaultValueString=""/>
+        <attribute name="voteAverage" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
 </model>

@@ -16,14 +16,26 @@ struct MovieItemTranslator: BaseTranslator {
     typealias ReturnType = MovieItem
     
     static func from(movie: Movie) -> ReturnType {
-        return ReturnType(movieID: movie.id,
+        return ReturnType(movieID: Int32(movie.id),
                           title: movie.title,
-                          posterPathURL: movie.posterPathURL,
+                          posterPath: movie.posterPath,
                           releaseYear: movie.releaseYear.toString(),
                           overview: movie.overview, 
                           score: ReturnType.Score(voteAverage: movie.voteAverage), 
                           releaseDate: movie.releaseDate,
-                          backdropPathURL: movie.backdropPathURL,
+                          backdropPath: movie.backdropPath,
                           genreNameArray: movie.genreNameArray)
+    }
+    
+    static func from(movie: MovieFavorite) -> ReturnType {
+        return ReturnType(movieID: Int32(movie.movieID),
+                          title: movie.title ?? "",
+                          posterPath: movie.posterPath ?? "",
+                          releaseYear: movie.releaseYear ?? "",
+                          overview: movie.overview ?? "",
+                          score: MovieItem.Score(voteAverage: movie.voteAverage),
+                          releaseDate: movie.releaseDate ?? "",
+                          backdropPath: movie.backdropPath,
+                          genreNameArray: movie.genreNameArray ?? "")
     }
 }

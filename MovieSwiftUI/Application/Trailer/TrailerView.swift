@@ -12,7 +12,6 @@ struct TrailerView: View {
     var input: TrailerViewModel.Input
     @ObservedObject var output: TrailerViewModel.Output
     let cancelBag = CancelBag()
-    @State private var isOpenVideo = false
     
     init(viewModel: TrailerViewModel) {
         let input = TrailerViewModel.Input()

@@ -24,7 +24,7 @@ struct CoreDataManager {
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    func request<R: CoreDataBaseRequestType>(input: R) -> AnyPublisher<[R.T], Error> {
+    func request<R: CoreDataBaseRequestType>(input: R) -> Observable<[R.T]> {
         return Future { promise in
             do {
                 let results = try container.viewContext.fetch(input.request)
@@ -36,7 +36,7 @@ struct CoreDataManager {
         .eraseToAnyPublisher()
     }
     
-    func save() -> AnyPublisher<Bool, Error> {
+    func save() -> Observable<Bool> {
         return Future { promise in
             do {
                 try container.viewContext.save()
@@ -46,5 +46,9 @@ struct CoreDataManager {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func delete(object: NSManagedObject) {
+        container.viewContext.delete(object)
     }
 }

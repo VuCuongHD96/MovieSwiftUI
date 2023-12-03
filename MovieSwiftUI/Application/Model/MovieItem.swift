@@ -9,26 +9,34 @@ import Foundation
 
 struct MovieItem {
     
-    let movieID: Int
+    let movieID: Int32
     let title: String
-    let posterPathURL: URL?
+    let posterPath: String?
     let releaseYear: String
     let overview: String
     let score: Score
     let releaseDate: String
-    let backdropPathURL: URL?
+    let backdropPath: String?
+    var backdropPathURL: URL? {
+        let backdropURL = URLs.imagesOriginalPath + (backdropPath ?? "")
+        return URL(string: backdropURL)
+    }
+    var posterPathURL: URL? {
+        let posterPathURL = URLs.imagesOriginalPath + (posterPath ?? "")
+        return URL(string: posterPathURL)
+    }
     let genreNameArray: String
     
     static var defaultValue: Self {
         return Self(
             movieID: 637,
             title: "Life Is Beautiful",
-            posterPathURL: URL(string: "/74hLDKjD5aGYOotO6esUVaeISa2.jpg"),
+            posterPath: "/74hLDKjD5aGYOotO6esUVaeISa2.jpg",
             releaseYear: "1997",
             overview: "A touching story of an Italian book seller of Jewish ancestry who lives in his own little fairy tale. His creative and happy life would come to an abrupt halt when his entire family is deported to a concentration camp during World War II. While locked up he tries to convince his son that the whole thing is just a game.",
             score: Score(voteAverage: 5.6),
             releaseDate: "1997-12-20",
-            backdropPathURL: URL(string: "/gavyCu1UaTaTNPsVaGXT6pe5u24.jpg"),
+            backdropPath: "/gavyCu1UaTaTNPsVaGXT6pe5u24.jpg",
             genreNameArray: "Drama, Action"
         )
     }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HeaderMovieDetailView: View {
     
-    @State private var favorite = false
+    @Binding var favoriteAction: Bool
+    var isFavorite = false
     @Binding var backTrigger: Void?
     
     var body: some View {
@@ -27,9 +28,9 @@ struct HeaderMovieDetailView: View {
                 .padding(8)
             Spacer()
             Button {
-                favorite.toggle()
+                favoriteAction = !isFavorite
             } label: {
-                Image(favorite ? "FavoriteOrange" : "FavoriteWhite")
+                Image(isFavorite ? "FavoriteOrange" : "FavoriteWhite")
                     .resizable()
                     .frame(width: 35, height: 35)
                     .padding(8)
@@ -40,7 +41,7 @@ struct HeaderMovieDetailView: View {
 
 struct HeaderMovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderMovieDetailView(backTrigger: .constant(Void()))
+        HeaderMovieDetailView(favoriteAction: .constant(true), isFavorite: true, backTrigger: .constant(Void()))
             .previewLayout(.sizeThatFits)
     }
 }

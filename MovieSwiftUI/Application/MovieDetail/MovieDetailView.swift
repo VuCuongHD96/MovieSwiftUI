@@ -21,9 +21,11 @@ struct MovieDetailView: View {
     
     var body: some View {
         MovieNavigationView {
-            HeaderMovieDetailView(backTrigger: $movieDetailInput.backTrigger)
+            HeaderMovieDetailView(favoriteAction: $movieDetailInput.favoriteAction,
+                                  isFavorite: movieDetailOutput.isFavorite,
+                                  backTrigger: $movieDetailInput.backTrigger)
         } bodyContent: {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     ZStack(alignment: .top) {
                         BackGroundMovieDetailView(movie: movieDetailOutput.movie,

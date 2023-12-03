@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 
 class CoreDataBaseRepository {
     
@@ -15,7 +16,11 @@ class CoreDataBaseRepository {
         self.coreDataManager = coreDataManager
     }
     
-    func save() -> AnyPublisher<Bool, Error> {
+    func save() -> Observable<Bool> {
         return coreDataManager.save()
+    }
+    
+    func delete(object: NSManagedObject) {
+        coreDataManager.delete(object: object)
     }
 }

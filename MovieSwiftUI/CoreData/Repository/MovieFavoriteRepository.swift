@@ -7,10 +7,31 @@
 
 import Combine
 
-class MovieFavoriteRepository: CoreDataBaseRepository {
+protocol MovieFavoriteRepositoryType: CoreDataBaseRepository {
     
-    func getItemList() -> AnyPublisher<[MovieFavorite], Error> {
+    func getItemList() -> Observable<[MovieFavorite]>
+    func isMovieSaved(with movieID: Int32) -> Observable<Bool>
+    func findMovie(with movieID: Int32) -> Observable<[MovieFavorite]>
+}
+
+class MovieFavoriteRepository: CoreDataBaseRepository, MovieFavoriteRepositoryType {
+    
+    func getItemList() -> Observable<[MovieFavorite]> {
         let input = MovieFavoriteRequest()
         return coreDataManager.request(input: input)
+    }
+    
+    func findMovie(with movieID: Int32) -> Observable<[MovieFavorite]> {
+        let input = MovieFavoriteRequest()
+        input.findMovie(with: movieID)
+        return coreDataManager.request(input: input)
+    }
+    
+    func isMovieSaved(with movieID: Int32) -> Observable<Bool> {
+        return findMovie(with: movieID)
+            .map {
+                !$0.isEmpty
+            }
+            .eraseToAnyPublisher()
     }
 }
