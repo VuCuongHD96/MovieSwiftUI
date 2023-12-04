@@ -18,6 +18,7 @@ class MovieFavoriteRepository: CoreDataBaseRepository, MovieFavoriteRepositoryTy
     
     func getItemList() -> Observable<[MovieFavorite]> {
         let input = MovieFavoriteRequest()
+        input.sortingMovie(key: "title", ascending: true)
         return coreDataManager.request(input: input)
     }
     

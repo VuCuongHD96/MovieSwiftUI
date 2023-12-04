@@ -13,7 +13,9 @@ struct FavoriteCell: View {
         static let closeEdge: CGFloat = 30
     }
     
-    @EnvironmentObject private var input: FavoriteViewModel.Input
+    @Binding var editing: Bool
+    @Binding var removeAction: MovieItem?
+    
     let movie: MovieItem
 
     var body: some View {
@@ -23,12 +25,12 @@ struct FavoriteCell: View {
                     .resizable()
                     .frame(width: Constant.closeEdge, height: Constant.closeEdge)
                     .padding(.top, 10)
-                    .offset(x: input.editing ? 10: -Constant.closeEdge)
-                    .animation(.easeInOut, value: input.editing)
+                    .offset(x: editing ? 10: -Constant.closeEdge)
+                    .animation(.easeInOut, value: editing)
                     .onTapGesture {
-                        input.removeClickAction.send(movie)
+                        removeAction = movie
                     }
-                    .allowsHitTesting(input.editing)
+                    .allowsHitTesting(editing)
             }
             .clipped()
     }
@@ -36,8 +38,7 @@ struct FavoriteCell: View {
 
 struct FavoriteCell_Previews: PreviewProvider {
     static var previews: some View {
-        let input = FavoriteViewModel.Input()
-        FavoriteCell(movie: .defaultValue)
+        FavoriteCell(editing: .constant(true), removeAction: .constant(.defaultValue), movie: .defaultValue)
             .frame(width: 234, height: 180)
     }
 }
