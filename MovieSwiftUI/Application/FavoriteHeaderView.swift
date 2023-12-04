@@ -9,16 +9,17 @@ import SwiftUI
 
 struct FavoriteHeaderView: View {
     
-    @EnvironmentObject private var input: FavoriteViewModel.Input
-
+    @Binding var isEditing: Bool
+    @Binding var searchAction: Bool
+    
     var body: some View {
         HStack {
             Text("FAVORITE")
                 .modifier(TitleModifier())
                 .padding(8)
             Spacer()
-            HStack(spacing: 10) {
-                Text(input.editing ? "Done" : "Edit")
+            HStack(spacing: 20) {
+                Text(isEditing ? "Done" : "Edit")
                     .underline()
                     .foregroundColor(.white)
                     .fontWeight(.bold)
@@ -30,23 +31,25 @@ struct FavoriteHeaderView: View {
                     )
                     .cornerRadius(10)
                     .onTapGesture {
-                        input.editing.toggle()
+                        isEditing.toggle()
                     }
                 Image("SearchWhite")
                     .padding(.trailing, 8)
+                    .onTapGesture {
+                        searchAction.toggle()
+                    }
             }
-            .offset(x: input.editing ? 35 : 0)
-            .animation(.easeInOut, value: input.editing)
+            .offset(x: isEditing ? 35 : 0)
+            .animation(.easeInOut, value: isEditing)
         }
     }
 }
 
 struct FavoriteHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        let input = FavoriteViewModel.Input()
         MovieNavigationHeaderView {
-            FavoriteHeaderView()
+            FavoriteHeaderView(isEditing: .constant(false),
+                               searchAction: .constant(true))
         }
-        .environmentObject(input)
     }
 }

@@ -10,8 +10,8 @@ import SwiftUI
 struct FavoriteView: View {
     
     private let gridRows = [
-        GridItem(.flexible(), spacing: 20),
-        GridItem(.flexible())
+        GridItem(spacing: 20),
+        GridItem()
     ]
     
     @ObservedObject private var input: FavoriteViewModel.Input
@@ -26,35 +26,39 @@ struct FavoriteView: View {
     
     var body: some View {
         MovieNavigationView {
-            FavoriteHeaderView()
+            FavoriteHeaderView(isEditing: $input.isEditing,
+                               searchAction: $input.searchAction)
         } bodyContent: {
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: gridRows, spacing: 20) {
+                LazyVGrid(columns: gridRows, spacing: 30) {
                     ForEach(output.movieFavoriteList, id: \.movieID) { movie in
-                        FavoriteCell(movie: movie)
-                            .frame(height: 250)
+                        FavoriteCell(editing: $input.isEditing,
+                                     removeAction: $input.removeAction,
+                                     movie: movie)
+                        .frame(height: 250)
                     }
                 }
             }
             .padding()
         }
-        .confirmationDialog("Do you want remove this movie", 
+        .onAppear {
+            input.loadTrigger.send()
+        }
+        .confirmationDialog("Do you want remove this movie",
                             isPresented: $output.showDialogConfirm,
                             titleVisibility: .visible) {
             Button("DELETE", role: .destructive) {
                 input.confirmRemoveMovieAction.send()
             }
         }
-        .environmentObject(input)
-        .onAppear {
-            input.loadTrigger.send()
-        }
     }
 }
 
 struct FavoriteView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = FavoriteViewModel()
+        let navigationController = UINavigationController()
+        let navigator = FavoriteNavigator(navigationController: navigationController)
+        let viewModel = FavoriteViewModel(navigator: navigator)
         FavoriteView(viewModel: viewModel)
     }
 }

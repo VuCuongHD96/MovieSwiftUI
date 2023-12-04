@@ -24,4 +24,9 @@ struct MovieFavoriteRequest: CoreDataBaseRequestType, MovieFavoriteRequestType {
         let predicate = NSPredicate(format: "movieID == %@", "\(movieID)")
         request.predicate = predicate
     }
+    
+    func sortingMovie(key: String, ascending: Bool) {
+        let sortDescriptor = NSSortDescriptor(key: key, ascending: ascending)
+        request.sortDescriptors = [sortDescriptor]
+    }
 }

@@ -59,7 +59,8 @@ struct TabbarNavigator: TabbarNavigatorType {
     }
     
     func createFavoriteScreen() -> UIViewController {
-        let viewModel = FavoriteViewModel()
+        let navigator = FavoriteNavigator(navigationController: navigationController)
+        let viewModel = FavoriteViewModel(navigator: navigator)
         let favoriteView = FavoriteView(viewModel: viewModel)
         let favoriteViewController = UIHostingController(rootView: favoriteView)
         favoriteViewController.tabBarItem = createFavoriteTabbarItem()
