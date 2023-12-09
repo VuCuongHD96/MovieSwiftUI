@@ -16,6 +16,7 @@ struct FavoriteViewModel: ViewModel {
         @Published var isEditing = false
         var loadTrigger = PassthroughSubject<Void, Never>()
         @Published var searchAction = false
+        @Published var movieSelectedTrigger: MovieItem?
     }
     
     class Output: ObservableObject {
@@ -83,6 +84,13 @@ extension FavoriteViewModel {
             }
             .collect(.byTime(RunLoop.main, 0.1))
             .assign(to: \.movieFavoriteList, on: output)
+            .store(in: cancelBag)
+        
+        input.$movieSelectedTrigger
+            .unwrap()
+            .sink { movie in
+                navigator.toMovieDetailScreen(movie: movie)
+            }
             .store(in: cancelBag)
         
         return output
