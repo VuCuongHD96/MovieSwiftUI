@@ -33,12 +33,15 @@ struct FavoriteCell: View {
                     .allowsHitTesting(editing)
             }
             .clipped()
+            .frame(height: 260)
     }
 }
 
 struct FavoriteCell_Previews: PreviewProvider {
     static var previews: some View {
-        FavoriteCell(editing: .constant(true), removeAction: .constant(.defaultValue), movie: .defaultValue)
+        FavoriteCell(editing: .constant(true), 
+                     removeAction: .constant(.defaultValue),
+                     movie: .defaultValue)
             .frame(width: 234, height: 180)
     }
 }

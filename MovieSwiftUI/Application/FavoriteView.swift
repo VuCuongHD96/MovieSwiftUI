@@ -30,12 +30,14 @@ struct FavoriteView: View {
                                searchAction: $input.searchAction)
         } bodyContent: {
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVGrid(columns: gridRows, spacing: 30) {
+                LazyVGrid(columns: gridRows, spacing: 20) {
                     ForEach(output.movieFavoriteList, id: \.movieID) { movie in
                         FavoriteCell(editing: $input.isEditing,
                                      removeAction: $input.removeAction,
                                      movie: movie)
-                        .frame(height: 250)
+                        .onTapGesture {
+                            input.movieSelectedTrigger = movie
+                        }
                     }
                 }
             }
