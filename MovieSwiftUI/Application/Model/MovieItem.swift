@@ -44,19 +44,16 @@ struct MovieItem {
 
 extension MovieItem {
     
-    struct Score: Equatable {
-        
+    struct Score {
         var naturalPart = ""
         var decimalPart = ""
         var voteAverageRounded: Double = 0
-
         init(voteAverage: Double) {
-            var voteAverageRounded = round(voteAverage * 10) / 10
-            let voteAverageString = String(voteAverageRounded)
+            let voteAverageString = String(format: "%.1f", voteAverage)
             let parts = voteAverageString.split(separator: ".")
             naturalPart = String(parts[0])
             decimalPart = String(parts[1])
-            voteAverageRounded = round(voteAverage * 10) / 10
+            voteAverageRounded = Double(voteAverageString) ?? 0
         }
     }
 }
