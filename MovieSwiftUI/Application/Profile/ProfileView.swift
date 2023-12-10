@@ -22,28 +22,46 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                headerView
-                MovieExpandText(
-                    message: output.profile.biography,
-                    moreText: {
-                        Text("More")
-                            .fontWeight(.medium)
-                            .background(Color.white)
-                            .foregroundColor(.red)
-                            .allowsHitTesting(false)
-                    }, lessText: {
-                        Text("Less")
-                            .fontWeight(.medium)
-                            .background(Color.white)
-                            .foregroundColor(.gray)
-                            .allowsHitTesting(false)
-                    })
-                .lineLimit(3)
-                .padding()
-                movieGridView
+        MovieNavigationView {
+            HStack {
+                Text("FAVORITE")
+                    .modifier(TitleModifier())
+                    .padding(8)
+                Spacer()
+                HStack(spacing: 20) {
+                    Image("SearchWhite")
+                        .padding(.trailing, 8)
+                        .onTapGesture {
+//                            searchAction.toggle()
+                        }
+                }
+//                .offset(x: isEditing ? 35 : 0)
+//                .animation(.easeInOut, value: isEditing)
+            }
+        } bodyContent: {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    headerView
+                    MovieExpandText(
+                        message: output.profile.biography,
+                        moreText: {
+                            Text("More")
+                                .fontWeight(.medium)
+                                .background(Color.white)
+                                .foregroundColor(.red)
+                                .allowsHitTesting(false)
+                        }, lessText: {
+                            Text("Less")
+                                .fontWeight(.medium)
+                                .background(Color.white)
+                                .foregroundColor(.gray)
+                                .allowsHitTesting(false)
+                        })
+                    .lineLimit(3)
                     .padding()
+                    movieGridView
+                        .padding()
+                }
             }
         }
         .ignoresSafeArea()
@@ -83,8 +101,8 @@ struct ProfileView: View {
                 .resizable()
                 .scaledToFit()
             VStack {
-                statusBarView
-                    .padding(.horizontal, 8)
+//                statusBarView
+//                    .padding(.horizontal, 8)
                 Spacer()
                 AsyncImage(url: output.profile.profilePathURL) { image in
                     image

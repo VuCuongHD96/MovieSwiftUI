@@ -27,7 +27,7 @@ struct PosterScoreView: View {
                 Circle()
                     .fill(Color.yellow)
                     .frame(width: 40, height: 40)
-                Text("7.2")
+                Text(String(movie.score.voteAverageRounded))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
             }
