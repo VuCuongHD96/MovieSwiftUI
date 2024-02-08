@@ -67,9 +67,13 @@ struct MovieDetailView: View {
         }
         .frame(maxWidth: .infinity)
         .alert(isPresented: $movieDetailOutput.alert.isShowing) {
-            Alert(title: Text(movieDetailOutput.alert.title),
-                  message: Text(movieDetailOutput.alert.message),
-                  dismissButton: .default(Text("OK"))
+            let goBackButton = Alert.Button.default(Text("Go back!")) {
+                movieDetailInput.backTrigger = Void()
+            }
+            return Alert(
+                title: Text(movieDetailOutput.alert.title),
+                message: Text(movieDetailOutput.alert.message),
+                dismissButton: goBackButton
             )
         }
     }

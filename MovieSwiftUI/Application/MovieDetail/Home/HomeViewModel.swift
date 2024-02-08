@@ -19,6 +19,7 @@ struct HomeViewModel: ViewModel {
     class Output: ObservableObject {
         @Published var firstMovieArray = [MovieItem]()
         @Published var secondMovieArray = [MovieItem]()
+        @Published var alerMessage = AlertMessage()
     }
     
     let navigator: HomeNavigatorType
@@ -71,6 +72,11 @@ struct HomeViewModel: ViewModel {
                 navigator.toMovieDetailScreen(movie: movie)
             }
             .store(in: cancelBag)
+        errorTracker.map {
+            AlertMessage(error: $0)
+        }
+        .assign(to: \.alerMessage, on: output)
+        .store(in: cancelBag)
         return output
     }
 }

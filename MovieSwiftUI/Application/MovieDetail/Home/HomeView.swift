@@ -47,6 +47,12 @@ struct HomeView: View {
             }
         }
         .background(Color.gray.opacity(0.1))
+        .alert(isPresented: $homeViewModelOutput.alerMessage.isShowing) {
+            Alert(
+                title: Text(homeViewModelOutput.alerMessage.title),
+                message: Text(homeViewModelOutput.alerMessage.message)
+            )
+        }
     }
 }
 
