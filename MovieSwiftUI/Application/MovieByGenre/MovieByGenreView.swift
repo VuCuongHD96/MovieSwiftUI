@@ -37,9 +37,13 @@ struct MovieByGenreView: View {
             .padding(.horizontal, 10)
         }
         .alert(isPresented: $movieByGenreViewModelOutput.alertMessage.isShowing) {
-            Alert(
+            let goBackButton = Alert.Button.default(Text("Go back!")) {
+                movieByGenreViewModelInput.backAction = Void()
+            }
+            return Alert(
                 title: Text(movieByGenreViewModelOutput.alertMessage.title),
-                message: Text(movieByGenreViewModelOutput.alertMessage.message)
+                message: Text(movieByGenreViewModelOutput.alertMessage.message),
+                dismissButton: goBackButton
             )
         }
     }
